@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import GetUserByName from "../graphql/getUserByName";
 import MakeRequest from "../graphql/makeRequest";
 import { styled } from '@mui/material/styles';
 import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
+import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
 
 const RootStyle = styled('div')((props) => ({
     width: '450px',
@@ -58,7 +59,8 @@ const Name = styled('h5')((props) => ({
 
 function Profile(props) {
     const [data, setData] = useState(null);
-    let list;
+    const { masterList, AddProfileToLists } = useContext(AnimeTriviaGameContext);
+    const [render, setRender] = useState(false);
 
     useEffect(() => {
         const CallApi = async function (e) {
@@ -72,38 +74,37 @@ function Profile(props) {
                         setData(data);
                         const listParams = GetMediaListCollectionByUserId(data.User.id);
                         await MakeRequest(listParams)
-                        .then((res) => {
-                            list = res.data.MediaListCollection.lists;
-                            console.log(list);
-                        })
+                            .then((res) => {
+                                const mediaListCollection = res.data.MediaListCollection;
+                                setRender(AddProfileToLists(data, mediaListCollection));
+                            })
                     }
 
                 });
         }
         CallApi();
-    }, [])
+    }, []);
+
 
     let user = <div></div>
-    if (data != undefined && data.User != null) {
+    if (render) {
         user = <>
             <CardHalf background={data.User.bannerImage}>
-                {/* <BannerImage src={data.User.bannerImage}></BannerImage> */}
-                <Name>{data.User.name}</Name>
+                <Name><a href={data.User.siteUrl}>{data.User.name}</a></Name>
             </CardHalf>
             <CardHalf>
                 <SquareContainer>
-                    <Avatar src={data.User.avatar.large}></Avatar>
+                    <a href={data.User.siteUrl}><Avatar src={data.User.avatar.large}></Avatar></a>
                 </SquareContainer>
             </CardHalf>
         </>
+
+        return (<RootStyle>
+            {user}
+        </RootStyle>)
     }
 
-    if (data === null || data.User === null) return (null);
-    else return (
-        <RootStyle>
-            {user}
-        </RootStyle>
-    )
+    else return null;
 }
 
 export default Profile
