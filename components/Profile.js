@@ -4,17 +4,18 @@ import MakeRequest from "../graphql/makeRequest";
 import { styled } from '@mui/material/styles';
 import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
 import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
+import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 
 const RootStyle = styled('div')((props) => ({
     width: '450px',
     height: '300px',
     margin: 'auto',
     padding: 'none',
-    border: '1px solid red',
     borderRadius: '15px',
     overflow: 'hidden',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    background: 'rgba(30, 30, 30, 1)'
 }));
 
 const Avatar = styled('img')((props) => ({
@@ -27,40 +28,54 @@ const BannerImage = styled('img')((props) => ({
     // backgroundPositionY: '100px'
 }));
 
-const CardHalf = styled('div')((props) => ({
-    background: props.background ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
-    url(${props.background})` : null,
+const CardTop = styled('div')((props) => ({
+    background: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
+    url(${props.background})`,
     backgroundSize: '150%',
     backgroundPosition: '50% 50%',
     // width: '100%',
-    height: props.background ? '55%' : '45%',
-    overflow: props.background ? 'hidden' : 'visible',
-    // border: '1px solid yellow'
+    height: '60%',
+    minHeight: '60%',
+    overflow: 'hidden'
+}));
+
+const CardBottom = styled('div')((props) => ({
+    height: '40%'
 }));
 
 const SquareContainer = styled('div')((props) => ({
     position: 'relative',
-    top: '-70%',
+    top: '-90%',
     left: '5%',
     width: '125px',
     height: '125px',
     overflow: 'hidden',
     borderRadius: '15px',
-    border: '1px border red'
 }));
 
 const Name = styled('h5')((props) => ({
     position: 'relative',
-    top: '48%',
+    top: '55%',
     left: '35%',
     fontSize: '24px',
     letterSpacing: '1.5px'
 }));
 
+const ListContainer = styled('div')((props) => ({
+    // border: '1px solid red',
+    position: 'relative',
+    top: '-90%',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    height: '80%',
+    padding: '5px 12px'
+}));
+
 function Profile(props) {
-    const [data, setData] = useState(null);
-    const { masterList, AddProfileToLists } = useContext(AnimeTriviaGameContext);
+    const [profile, setProfile] = useState({ User: { id: null } });
     const [render, setRender] = useState(false);
+    const { masterList, AddProfileToLists, ReturnLists } = useContext(AnimeTriviaGameContext);
 
     useEffect(() => {
         const CallApi = async function (e) {
@@ -71,40 +86,75 @@ function Profile(props) {
                 })
                 .then(async (data) => {
                     if (data.User != null) {
-                        setData(data);
-                        const listParams = GetMediaListCollectionByUserId(data.User.id);
-                        await MakeRequest(listParams)
+                        setProfile(data.User);
+                        await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
                             .then((res) => {
-                                const mediaListCollection = res.data.MediaListCollection;
-                                setRender(AddProfileToLists(data, mediaListCollection));
-                            })
+                                setRender(AddProfileToLists(data, res.data.MediaListCollection));
+                            });
                     }
-
                 });
         }
         CallApi();
     }, []);
 
+    if (render === false) return null;
 
-    let user = <div></div>
-    if (render) {
-        user = <>
-            <CardHalf background={data.User.bannerImage}>
-                <Name><a href={data.User.siteUrl}>{data.User.name}</a></Name>
-            </CardHalf>
-            <CardHalf>
-                <SquareContainer>
-                    <a href={data.User.siteUrl}><Avatar src={data.User.avatar.large}></Avatar></a>
-                </SquareContainer>
-            </CardHalf>
-        </>
-
+    else {
         return (<RootStyle>
-            {user}
+            {GenerateProfileCard(profile, ReturnLists)}
         </RootStyle>)
     }
-
-    else return null;
 }
 
-export default Profile
+export default Profile;
+
+const GenerateProfileCard = function (profile, ReturnLists) {
+    const CreateCheckBoxes = function (profile) {
+        const list = ReturnLists(profile.id);
+        let listItems = [];
+        for (let i = 0; i < list.length; i++) {
+            listItems.push(
+                <div key={`${i}-${list[i].name}-${profile.id}`}>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    defaultChecked={false}
+                                    sx={{
+                                        color: 'white',
+                                        padding: '5px',
+                                        '&.Mui-checked': {
+                                            color: 'white'
+                                        }
+                                    }}
+                                />}
+                            label={`${list[i].name} (${list[i].entries})`}
+                        />
+                    </FormGroup>
+                </div>
+            )
+        }
+        listItems.sort((a, b) => {
+            return a.props.children.props.children.props.label.localeCompare(b.props.children.props.children.props.label);
+        });
+        return listItems;
+    }
+    const profileCard = <>
+        <CardTop background={profile.bannerImage}>
+            <Name>
+                <a href={profile.siteUrl}>{profile.name}</a>
+            </Name>
+        </CardTop>
+        <CardBottom>
+            <SquareContainer>
+                <a href={profile.siteUrl}><Avatar src={profile.avatar.large}></Avatar></a>
+            </SquareContainer>
+            <ListContainer>
+                {CreateCheckBoxes(profile)}
+            </ListContainer>
+        </CardBottom>
+    </>
+
+
+    return profileCard;
+}

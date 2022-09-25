@@ -18,12 +18,28 @@ export function AnimeTriviaGameProvider(props) {
         return false;
     }
 
+    const ReturnLists = function(id) {
+        const profile = masterList.find((e) => (e.id === id));
+        if (profile !== undefined) {
+            const listItems = [];
+            profile.lists.forEach((list) => {
+                listItems.push({
+                    name: list.name,
+                    entries: list.entries.length
+                })
+            });
+            console.log(listItems);
+            return listItems;
+        }
+    }
+
 
     return (
         <AnimeTriviaGameContext.Provider
             value={{
                 masterList,
-                AddProfileToLists
+                AddProfileToLists,
+                ReturnLists
             }}
         >
             {props.children}
