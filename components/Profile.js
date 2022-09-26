@@ -86,12 +86,17 @@ function Profile(props) {
         console.log(foundList);
         if (e.target.checked) {
             masterList.listPool.push({
-                list: {
-                    ...foundList,
-                    ownerId: profile.id,
-                    ownderName: profile.name
-                }
+                ...foundList,
+                ownerId: profile.id,
+                ownderName: profile.name
             })
+        }
+        if (!e.target.checked) {
+            masterList.listPool.forEach((element, index) => {
+                if (element.name === e.target.name && element.ownerId === profile.id) {
+                    masterList.listPool.splice(index, 1);
+                }
+            });
         }
         console.log(masterList);
     }
