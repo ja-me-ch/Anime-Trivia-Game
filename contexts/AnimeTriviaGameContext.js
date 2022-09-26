@@ -11,8 +11,10 @@ export function AnimeTriviaGameProvider(props) {
             masterList.push({
                 id: profile.User.id,
                 name: profile.User.name,
-                lists: mediaListCollection.lists
+                // lists: mediaListCollection.lists
             });
+            // console.log('Master List');
+            // console.log(masterList);
             return true;
         }
         return false;
@@ -28,7 +30,7 @@ export function AnimeTriviaGameProvider(props) {
                     entries: list.entries.length
                 })
             });
-            console.log(listItems);
+            // console.log(listItems);
             return listItems;
         }
     }

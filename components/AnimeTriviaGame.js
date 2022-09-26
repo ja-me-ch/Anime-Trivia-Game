@@ -6,10 +6,10 @@ function AnimeTriviaGame() {
     return (
         <AnimeTriviaGameProvider>
             <Profile name={'melody'} />
-            <Profile name={'melody'} />
-            <Profile name={'sterben'} />
-            <Profile name={'burgerdynasty'} />
-            <Profile name={'rediscover'} />
+            {/* <Profile name={'melody'} /> */}
+            {/* <Profile name={'sterben'} /> */}
+            {/* <Profile name={'burgerdynasty'} /> */}
+            {/* <Profile name={'rediscover'} /> */}
         </AnimeTriviaGameProvider>
     )
 }

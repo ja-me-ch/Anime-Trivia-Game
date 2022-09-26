@@ -86,9 +86,9 @@ function Profile(props) {
                 })
                 .then(async (data) => {
                     if (data.User != null) {
-                        setProfile(data.User);
                         await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
                             .then((res) => {
+                                setProfile({ ...data.User, lists: res.data.MediaListCollection.lists });
                                 setRender(AddProfileToLists(data, res.data.MediaListCollection));
                             });
                     }
@@ -100,6 +100,7 @@ function Profile(props) {
     if (render === false) return null;
 
     else {
+        console.log(profile);
         return (<RootStyle>
             {GenerateProfileCard(profile, ReturnLists)}
         </RootStyle>)
@@ -108,37 +109,11 @@ function Profile(props) {
 
 export default Profile;
 
+const OnCheckBox = function (profile) {
+
+}
+
 const GenerateProfileCard = function (profile, ReturnLists) {
-    const CreateCheckBoxes = function (profile) {
-        const list = ReturnLists(profile.id);
-        let listItems = [];
-        for (let i = 0; i < list.length; i++) {
-            listItems.push(
-                <div key={`${i}-${list[i].name}-${profile.id}`}>
-                    <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    defaultChecked={false}
-                                    sx={{
-                                        color: 'white',
-                                        padding: '5px',
-                                        '&.Mui-checked': {
-                                            color: 'white'
-                                        }
-                                    }}
-                                />}
-                            label={`${list[i].name} (${list[i].entries})`}
-                        />
-                    </FormGroup>
-                </div>
-            )
-        }
-        listItems.sort((a, b) => {
-            return a.props.children.props.children.props.label.localeCompare(b.props.children.props.children.props.label);
-        });
-        return listItems;
-    }
     const profileCard = <>
         <CardTop background={profile.bannerImage}>
             <Name>
@@ -157,4 +132,34 @@ const GenerateProfileCard = function (profile, ReturnLists) {
 
 
     return profileCard;
+}
+const CreateCheckBoxes = function (profile) {
+    // const list = ReturnLists(profile.id);
+    const listItems = profile.lists.map((e, index) => {
+        console.log(e);
+        console.log(e.name);
+        return <div key={`${profile.name}-${e.name}-${e.status}`}>
+            <FormGroup>
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            defaultChecked={false}
+                            sx={{
+                                color: 'white',
+                                padding: '5px',
+                                '&.Mui-checked': {
+                                    color: 'white'
+                                }
+                            }}
+                        />}
+                    label={`${e.name} (${e.entries.length})`}
+                />
+            </FormGroup>
+        </div>
+    })
+
+    listItems.sort((a, b) => {
+        return a.props.children.props.children.props.label.localeCompare(b.props.children.props.children.props.label);
+    });
+    return listItems;
 }
