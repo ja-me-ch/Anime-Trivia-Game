@@ -77,6 +77,77 @@ function Profile(props) {
     const [render, setRender] = useState(false);
     const { masterList, AddProfileToLists, ReturnLists } = useContext(AnimeTriviaGameContext);
 
+    const OnCheckBox = function (e) {
+        console.log(profile.lists);
+        const foundList = profile.lists.find((list) => {
+            return list.name === e.target.name
+        });
+
+        console.log(foundList);
+        if (e.target.checked) {
+            masterList.listPool.push({
+                list: {
+                    ...foundList,
+                    ownerId: profile.id,
+                    ownderName: profile.name
+                }
+            })
+        }
+        console.log(masterList);
+    }
+
+    const GenerateProfileCard = function (profile) {
+        const profileCard = <>
+            <CardTop background={profile.bannerImage}>
+                <Name>
+                    <a href={profile.siteUrl}>{profile.name}</a>
+                </Name>
+            </CardTop>
+            <CardBottom>
+                <SquareContainer>
+                    <a href={profile.siteUrl}><Avatar src={profile.avatar.large}></Avatar></a>
+                </SquareContainer>
+                <ListContainer>
+                    {CreateCheckBoxes(profile)}
+                </ListContainer>
+            </CardBottom>
+        </>
+
+
+        return profileCard;
+    }
+    const CreateCheckBoxes = function (profile) {
+        // const list = ReturnLists(profile.id);
+        const listItems = profile.lists.map((e, index) => {
+            return <div key={`${profile.name}-${e.name}-${e.status}-${index}`}>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                onChange={OnCheckBox}
+                                name={e.name}
+                                defaultChecked={false}
+                                sx={{
+                                    color: 'white',
+                                    padding: '5px',
+                                    '&.Mui-checked': {
+                                        color: 'white'
+                                    }
+                                }}
+                            // onClick={OnCheckBox}
+                            />}
+                        label={`${e.name} (${e.entries.length})`}
+                    />
+                </FormGroup>
+            </div>
+        })
+
+        listItems.sort((a, b) => {
+            return a.props.children.props.children.props.label.localeCompare(b.props.children.props.children.props.label);
+        });
+        return listItems;
+    }
+
     useEffect(() => {
         const CallApi = async function (e) {
             const userParams = GetUserByName(props.name);
@@ -89,7 +160,7 @@ function Profile(props) {
                         await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
                             .then((res) => {
                                 setProfile({ ...data.User, lists: res.data.MediaListCollection.lists });
-                                setRender(AddProfileToLists(data, res.data.MediaListCollection));
+                                setRender(AddProfileToLists(data));
                             });
                     }
                 });
@@ -109,57 +180,4 @@ function Profile(props) {
 
 export default Profile;
 
-const OnCheckBox = function (profile) {
 
-}
-
-const GenerateProfileCard = function (profile, ReturnLists) {
-    const profileCard = <>
-        <CardTop background={profile.bannerImage}>
-            <Name>
-                <a href={profile.siteUrl}>{profile.name}</a>
-            </Name>
-        </CardTop>
-        <CardBottom>
-            <SquareContainer>
-                <a href={profile.siteUrl}><Avatar src={profile.avatar.large}></Avatar></a>
-            </SquareContainer>
-            <ListContainer>
-                {CreateCheckBoxes(profile)}
-            </ListContainer>
-        </CardBottom>
-    </>
-
-
-    return profileCard;
-}
-const CreateCheckBoxes = function (profile) {
-    // const list = ReturnLists(profile.id);
-    const listItems = profile.lists.map((e, index) => {
-        console.log(e);
-        console.log(e.name);
-        return <div key={`${profile.name}-${e.name}-${e.status}`}>
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            defaultChecked={false}
-                            sx={{
-                                color: 'white',
-                                padding: '5px',
-                                '&.Mui-checked': {
-                                    color: 'white'
-                                }
-                            }}
-                        />}
-                    label={`${e.name} (${e.entries.length})`}
-                />
-            </FormGroup>
-        </div>
-    })
-
-    listItems.sort((a, b) => {
-        return a.props.children.props.children.props.label.localeCompare(b.props.children.props.children.props.label);
-    });
-    return listItems;
-}

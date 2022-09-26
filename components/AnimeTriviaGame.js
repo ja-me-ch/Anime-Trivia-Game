@@ -7,7 +7,7 @@ function AnimeTriviaGame() {
         <AnimeTriviaGameProvider>
             <Profile name={'melody'} />
             {/* <Profile name={'melody'} /> */}
-            {/* <Profile name={'sterben'} /> */}
+            <Profile name={'sterben'} />
             {/* <Profile name={'burgerdynasty'} /> */}
             {/* <Profile name={'rediscover'} /> */}
         </AnimeTriviaGameProvider>

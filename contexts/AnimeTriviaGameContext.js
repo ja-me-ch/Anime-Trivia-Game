@@ -3,12 +3,12 @@ import React, { createContext } from 'react';
 export const AnimeTriviaGameContext = createContext();
 
 export function AnimeTriviaGameProvider(props) {
-    const masterList = [];
-    
-    const AddProfileToLists = function(profile, mediaListCollection) {
-        const doesProfileExist = masterList.some((e) => (e.id) === profile.User.id);
+    const masterList = { profiles: [], listPool: [] };
+
+    const AddProfileToLists = function (profile) {
+        const doesProfileExist = masterList.profiles.some((e) => (e.id) === profile.User.id);
         if (doesProfileExist === false) {
-            masterList.push({
+            masterList.profiles.push({
                 id: profile.User.id,
                 name: profile.User.name,
                 // lists: mediaListCollection.lists
@@ -20,7 +20,7 @@ export function AnimeTriviaGameProvider(props) {
         return false;
     }
 
-    const ReturnLists = function(id) {
+    const ReturnLists = function (id) {
         const profile = masterList.find((e) => (e.id === id));
         if (profile !== undefined) {
             const listItems = [];
