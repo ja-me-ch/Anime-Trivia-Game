@@ -17,31 +17,32 @@ export function AnimeTriviaGameProvider(props) {
             // console.log(masterList);
             return true;
         }
-        return false;
+        return true; //Change to true when testing styles, otherwise false
     }
 
-    const ReturnLists = function (id) {
-        const profile = masterList.find((e) => (e.id === id));
-        if (profile !== undefined) {
-            const listItems = [];
-            profile.lists.forEach((list) => {
-                listItems.push({
-                    name: list.name,
-                    entries: list.entries.length
-                })
+    const UpdateListPool = function({checked, list, profile, listName}) {
+        if (checked) {
+            masterList.listPool.push({
+                ...list,
+                ownerId: profile.id,
+                ownerName: profile.name
+            })
+        }
+        if (!checked) {
+            masterList.listPool.forEach((element, index) => {
+                if (element.name === listName && element.ownerId === profile.id) {
+                    masterList.listPool.splice(index, 1);
+                }
             });
-            // console.log(listItems);
-            return listItems;
         }
     }
-
 
     return (
         <AnimeTriviaGameContext.Provider
             value={{
                 masterList,
                 AddProfileToLists,
-                ReturnLists
+                UpdateListPool
             }}
         >
             {props.children}

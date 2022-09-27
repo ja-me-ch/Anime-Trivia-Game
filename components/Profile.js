@@ -36,17 +36,20 @@ const CardTop = styled('div')((props) => ({
     // width: '100%',
     height: '60%',
     minHeight: '60%',
-    overflow: 'hidden'
+    // overflow: 'hidden'
 }));
 
 const CardBottom = styled('div')((props) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: '40%'
 }));
 
 const SquareContainer = styled('div')((props) => ({
     position: 'relative',
-    top: '-90%',
-    left: '5%',
+    top: '45%',
+    left: '3%',
     width: '125px',
     height: '125px',
     overflow: 'hidden',
@@ -55,27 +58,27 @@ const SquareContainer = styled('div')((props) => ({
 
 const Name = styled('h5')((props) => ({
     position: 'relative',
-    top: '55%',
-    left: '35%',
-    fontSize: '24px',
+    top: '-25%',
+    left: '33%',
+    fontSize: '32px',
     letterSpacing: '1.5px'
 }));
 
 const ListContainer = styled('div')((props) => ({
     // border: '1px solid red',
     position: 'relative',
-    top: '-90%',
+    left: '2%',
     display: 'flex',
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: '80%',
-    padding: '5px 12px'
+    height: '90%',
+    // margin: '5px 15px'
 }));
 
 function Profile(props) {
     const [profile, setProfile] = useState({ User: { id: null } });
     const [render, setRender] = useState(false);
-    const { masterList, AddProfileToLists, ReturnLists } = useContext(AnimeTriviaGameContext);
+    const { masterList, AddProfileToLists, UpdateListPool } = useContext(AnimeTriviaGameContext);
 
     const OnCheckBox = function (e) {
         console.log(profile.lists);
@@ -84,34 +87,30 @@ function Profile(props) {
         });
 
         console.log(foundList);
-        if (e.target.checked) {
-            masterList.listPool.push({
-                ...foundList,
-                ownerId: profile.id,
-                ownderName: profile.name
-            })
-        }
-        if (!e.target.checked) {
-            masterList.listPool.forEach((element, index) => {
-                if (element.name === e.target.name && element.ownerId === profile.id) {
-                    masterList.listPool.splice(index, 1);
-                }
-            });
-        }
+        UpdateListPool({
+            checked: e.target.checked,
+            list: foundList,
+            profile: {
+                id: profile.id,
+                name: profile.name
+            },
+            listName: e.target.name
+        })
+
         console.log(masterList);
     }
 
     const GenerateProfileCard = function (profile) {
         const profileCard = <>
             <CardTop background={profile.bannerImage}>
+                <SquareContainer>
+                    <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'><Avatar src={profile.avatar.large}></Avatar></a>
+                </SquareContainer>
                 <Name>
-                    <a href={profile.siteUrl}>{profile.name}</a>
+                    <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'>{profile.name}</a>
                 </Name>
             </CardTop>
             <CardBottom>
-                <SquareContainer>
-                    <a href={profile.siteUrl}><Avatar src={profile.avatar.large}></Avatar></a>
-                </SquareContainer>
                 <ListContainer>
                     {CreateCheckBoxes(profile)}
                 </ListContainer>
@@ -122,7 +121,6 @@ function Profile(props) {
         return profileCard;
     }
     const CreateCheckBoxes = function (profile) {
-        // const list = ReturnLists(profile.id);
         const listItems = profile.lists.map((e, index) => {
             return <div key={`${profile.name}-${e.name}-${e.status}-${index}`}>
                 <FormGroup>
@@ -139,7 +137,6 @@ function Profile(props) {
                                         color: 'white'
                                     }
                                 }}
-                            // onClick={OnCheckBox}
                             />}
                         label={`${e.name} (${e.entries.length})`}
                     />
@@ -178,7 +175,7 @@ function Profile(props) {
     else {
         console.log(profile);
         return (<RootStyle>
-            {GenerateProfileCard(profile, ReturnLists)}
+            {GenerateProfileCard(profile)}
         </RootStyle>)
     }
 }
