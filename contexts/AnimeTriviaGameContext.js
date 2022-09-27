@@ -37,12 +37,20 @@ export function AnimeTriviaGameProvider(props) {
         }
     }
 
+    const RemoveProfile = function(profileId) {
+        console.log(profileId)
+        masterList.listPool = masterList.listPool.filter(e => e.ownerId !== profileId);
+        masterList.profiles = masterList.profiles.filter(e => e.id !== profileId);
+        console.log(masterList);
+    }
+
     return (
         <AnimeTriviaGameContext.Provider
             value={{
                 masterList,
                 AddProfileToLists,
-                UpdateListPool
+                UpdateListPool,
+                RemoveProfile
             }}
         >
             {props.children}

@@ -22,14 +22,14 @@ const BannerImage = styled('img')((props) => ({
 const CardTop = styled('div')((props) => ({
     background: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
     url(${props.background})`,
-    backgroundSize: '150%',
+    backgroundSize: '155%',
     position: 'relative',
     backgroundPosition: '50% 50%',
     height: '60%',
     minHeight: '60%',
-    transition: 'all 1.5s ease',
+    transition: 'all 3s ease',
     '&:hover': {
-        backgroundSize: '160%'
+        backgroundSize: '170%'
     }
 }));
 
@@ -48,14 +48,18 @@ const SquareContainer = styled('div')((props) => ({
     height: '125px',
     overflow: 'hidden',
     borderRadius: '15px',
+    boxShadow: '4px 4px 12px rgba(0,0,0,0.5)'
 }));
 
 const Name = styled('h5')((props) => ({
     position: 'relative',
-    top: '-25%',
+    top: '-20%',
     left: '33%',
-    fontSize: '32px',
-    letterSpacing: '1.5px'
+    fontSize: '30px',
+    letterSpacing: '2.5px',
+    textShadow: '4px 4px 12px rgba(0,0,0,0.5)',
+    fontFamily: 'Roboto, sans-serif'
+
 }));
 
 const ListContainer = styled('div')((props) => ({
@@ -109,7 +113,7 @@ const RootStyle = styled('div')((props) => ({
 function Profile(props) {
     const [profile, setProfile] = useState({ User: { id: null } });
     const [render, setRender] = useState(false);
-    const { masterList, AddProfileToLists, UpdateListPool } = useContext(AnimeTriviaGameContext);
+    const { masterList, AddProfileToLists, UpdateListPool, RemoveProfile } = useContext(AnimeTriviaGameContext);
 
     const OnCheckBox = function (e) {
         console.log(profile.lists);
@@ -131,6 +135,11 @@ function Profile(props) {
         console.log(masterList);
     }
 
+    const OnClearIconClick = function (e) {
+        RemoveProfile(profile.id);
+        setRender(false);
+    }
+
     const GenerateProfileCard = function (profile) {
         const profileCard = <>
             <CardTop background={profile.bannerImage}>
@@ -140,7 +149,7 @@ function Profile(props) {
                 <Name>
                     <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'>{profile.name}</a>
                 </Name>
-                <ClearIconCircle className='clearIconCircle'>
+                <ClearIconCircle className='clearIconCircle' onClick={OnClearIconClick}>
                     <ClearIcon />
                 </ClearIconCircle>
             </CardTop>
@@ -150,8 +159,6 @@ function Profile(props) {
                 </ListContainer>
             </CardBottom>
         </>
-
-
         return profileCard;
     }
     const CreateCheckBoxes = function (profile) {
