@@ -1,22 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import GetUserByName from "../graphql/getUserByName";
 import MakeRequest from "../graphql/makeRequest";
-import { styled } from '@mui/material/styles';
+import styled from "@emotion/styled";
+// import styled from "@emotion/styled/macro";
+
 import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
 import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
-
-const RootStyle = styled('div')((props) => ({
-    width: '450px',
-    height: '300px',
-    margin: 'auto',
-    padding: 'none',
-    borderRadius: '15px',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    background: 'rgba(30, 30, 30, 1)'
-}));
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Avatar = styled('img')((props) => ({
     width: '100%'
@@ -32,11 +23,14 @@ const CardTop = styled('div')((props) => ({
     background: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
     url(${props.background})`,
     backgroundSize: '150%',
+    position: 'relative',
     backgroundPosition: '50% 50%',
-    // width: '100%',
     height: '60%',
     minHeight: '60%',
-    // overflow: 'hidden'
+    transition: 'all 1.5s ease',
+    '&:hover': {
+        backgroundSize: '160%'
+    }
 }));
 
 const CardBottom = styled('div')((props) => ({
@@ -75,6 +69,43 @@ const ListContainer = styled('div')((props) => ({
     // margin: '5px 15px'
 }));
 
+const ClearIconCircle = styled('div')((props) => ({
+    className: 'clearIconCircle',
+    position: 'absolute',
+    top: '10px',
+    right: '10px',
+    height: '33px',
+    width: '33px',
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'rgba(30, 30, 30, 1)',
+    opacity: '0',
+    transition: 'all 0.1s ease',
+    '&:active': {
+        color: 'rgba(30, 30, 30, 1)',
+        background: 'white'
+    }
+}));
+
+const RootStyle = styled('div')((props) => ({
+    width: '450px',
+    height: '300px',
+    margin: 'auto',
+    padding: 'none',
+    borderRadius: '15px',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    background: 'rgba(30, 30, 30, 1)',
+    '&:hover': {
+        '.clearIconCircle': {
+            opacity: '1',
+        }
+    }
+}));
+
 function Profile(props) {
     const [profile, setProfile] = useState({ User: { id: null } });
     const [render, setRender] = useState(false);
@@ -109,6 +140,9 @@ function Profile(props) {
                 <Name>
                     <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'>{profile.name}</a>
                 </Name>
+                <ClearIconCircle className='clearIconCircle'>
+                    <ClearIcon />
+                </ClearIconCircle>
             </CardTop>
             <CardBottom>
                 <ListContainer>
