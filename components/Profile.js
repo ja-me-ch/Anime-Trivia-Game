@@ -116,8 +116,6 @@ function Profile(props) {
         const foundList = lists.find((list) => {
             return list.name === e.target.name
         });
-
-        console.log(foundList);
         UpdateListPool({
             checked: e.target.checked,
             list: foundList,
@@ -125,8 +123,6 @@ function Profile(props) {
             name: name,
             listName: e.target.name
         })
-
-        console.log(profiles)
     }
 
     const OnClearIconClick = function (e) {

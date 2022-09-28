@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import Profile from './Profile';
 import MakeRequest from '../graphql/makeRequest';
 import GetUserByName from '../graphql/getUserByName';
 import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
@@ -9,7 +8,7 @@ import { TextField } from '@mui/material';
 
 function AddProfile(props) {
     const [nameField, setNameField] = useState('melody');
-    const { masterList, profiles, AddProfileState } = useContext(AnimeTriviaGameContext);
+    const { AddProfile } = useContext(AnimeTriviaGameContext);
 
     const CallApi = async function (name) {
         const userParams = GetUserByName(name);
@@ -22,7 +21,7 @@ function AddProfile(props) {
                     setNameField('');
                     await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
                         .then((res) => {
-                            AddProfileState({
+                            AddProfile({
                                 profile: data.User,
                                 lists: res.data.MediaListCollection.lists
                             });
