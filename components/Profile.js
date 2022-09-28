@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import GetUserByName from "../graphql/getUserByName";
-import MakeRequest from "../graphql/makeRequest";
 import styled from "@emotion/styled";
 // import styled from "@emotion/styled/macro";
 
@@ -20,11 +18,11 @@ const BannerImage = styled('img')((props) => ({
 }));
 
 const CardTop = styled('div')((props) => ({
-    background: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
-    url(${props.background})`,
-    backgroundSize: '155%',
+    background: props.background ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
+    url(${props.background})` : null,
+    backgroundSize: props.background ? '155%' : null,
     position: 'relative',
-    backgroundPosition: '50% 50%',
+    backgroundPosition: props.background ?'50% 50%' : null,
     height: '60%',
     minHeight: '60%',
     transition: 'all 3s ease',
@@ -96,8 +94,8 @@ const ClearIconCircle = styled('div')((props) => ({
 const RootStyle = styled('div')((props) => ({
     width: '450px',
     height: '300px',
-    margin: 'auto',
-    padding: 'none',
+    // margin: 'auto',
+    // padding: 'none',
     borderRadius: '15px',
     overflow: 'hidden',
     display: 'flex',
@@ -111,13 +109,11 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 function Profile(props) {
-    const [profile, setProfile] = useState({ User: { id: null } });
-    const [render, setRender] = useState(false);
-    const { masterList, AddProfileToLists, UpdateListPool, RemoveProfile } = useContext(AnimeTriviaGameContext);
+    const { id, name, avatar, bannerImage, siteUrl, lists } = props.props;
+    const { profiles, listPool, UpdateListPool, RemoveProfile } = useContext(AnimeTriviaGameContext);
 
     const OnCheckBox = function (e) {
-        console.log(profile.lists);
-        const foundList = profile.lists.find((list) => {
+        const foundList = lists.find((list) => {
             return list.name === e.target.name
         });
 
@@ -125,29 +121,26 @@ function Profile(props) {
         UpdateListPool({
             checked: e.target.checked,
             list: foundList,
-            profile: {
-                id: profile.id,
-                name: profile.name
-            },
+            id: id,
+            name: name,
             listName: e.target.name
         })
 
-        console.log(masterList);
+        console.log(profiles)
     }
 
     const OnClearIconClick = function (e) {
-        RemoveProfile(profile.id);
-        setRender(false);
+        RemoveProfile(id);
     }
 
-    const GenerateProfileCard = function (profile) {
+    const GenerateProfileCard = function () {
         const profileCard = <>
-            <CardTop background={profile.bannerImage}>
+            <CardTop background={bannerImage}>
                 <SquareContainer>
-                    <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'><Avatar src={profile.avatar.large}></Avatar></a>
+                    <a href={siteUrl} target='_blank' rel='noopener noreferrer'><Avatar src={avatar.large}></Avatar></a>
                 </SquareContainer>
                 <Name>
-                    <a href={profile.siteUrl} target='_blank' rel='noopener noreferrer'>{profile.name}</a>
+                    <a href={siteUrl} target='_blank' rel='noopener noreferrer'>{name}</a>
                 </Name>
                 <ClearIconCircle className='clearIconCircle' onClick={OnClearIconClick}>
                     <ClearIcon />
@@ -155,22 +148,22 @@ function Profile(props) {
             </CardTop>
             <CardBottom>
                 <ListContainer>
-                    {CreateCheckBoxes(profile)}
+                    {CreateCheckBoxes()}
                 </ListContainer>
             </CardBottom>
         </>
         return profileCard;
     }
-    const CreateCheckBoxes = function (profile) {
-        const listItems = profile.lists.map((e, index) => {
-            return <div key={`${profile.name}-${e.name}-${e.status}-${index}`}>
+    const CreateCheckBoxes = function () {
+        const listItems = lists.map((e, index) => {
+            return <div key={`${name}-${e.name}-${e.status}-${index}`}>
                 <FormGroup>
                     <FormControlLabel
                         control={
                             <Checkbox
                                 onChange={OnCheckBox}
                                 name={e.name}
-                                defaultChecked={false}
+                                checked={e.checked}
                                 sx={{
                                     color: 'white',
                                     padding: '5px',
@@ -191,34 +184,9 @@ function Profile(props) {
         return listItems;
     }
 
-    useEffect(() => {
-        const CallApi = async function (e) {
-            const userParams = GetUserByName(props.name);
-            await MakeRequest(userParams)
-                .then((res) => {
-                    return res.data;
-                })
-                .then(async (data) => {
-                    if (data.User != null) {
-                        await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
-                            .then((res) => {
-                                setProfile({ ...data.User, lists: res.data.MediaListCollection.lists });
-                                setRender(AddProfileToLists(data));
-                            });
-                    }
-                });
-        }
-        CallApi();
-    }, []);
-
-    if (render === false) return null;
-
-    else {
-        console.log(profile);
-        return (<RootStyle>
-            {GenerateProfileCard(profile)}
-        </RootStyle>)
-    }
+    return (<RootStyle>
+        {GenerateProfileCard()}
+    </RootStyle>)
 }
 
 export default Profile;
