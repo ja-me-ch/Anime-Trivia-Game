@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
-import Profile from './Profile';
+import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
+import ProfileCard from './ProfileCard';
 
 function ProfileCardsPanel() {
     const { profiles } = useContext(AnimeTriviaGameContext);
@@ -8,7 +8,7 @@ function ProfileCardsPanel() {
 
     useEffect(() => {
         setProfileCards(profiles.map((e) => {
-            return <Profile props={e} key={e.id}/>
+            return <ProfileCard props={e} key={e.id}/>
         }));
     }, [profiles]);
     if (profiles.length === 0) return null;

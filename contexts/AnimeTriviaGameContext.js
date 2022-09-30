@@ -22,21 +22,6 @@ export function AnimeTriviaGameProvider(props) {
         }
     }
 
-    // const AddProfile = function (profile) { //Old Add Profile | no longer needed probably
-    //     const doesProfileExist = masterList.profiles.some((e) => (e.id) === profile.User.id);
-    //     if (doesProfileExist === false) {
-    //         masterList.profiles.push({
-    //             id: profile.User.id,
-    //             name: profile.User.name,
-    //             // lists: mediaListCollection.lists
-    //         });
-    //         // console.log('Master List');
-    //         // console.log(masterList);
-    //         return true;
-    //     }
-    //     return true; //Change to true when testing styles, otherwise false
-    // }
-
     const UpdateListPool = function ({ checked, list, id, name, listName }) {
         setProfiles(
             profiles.map((p) => //finds the profile (p) = id else just return (p)

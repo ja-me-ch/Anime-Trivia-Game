@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from "@emotion/styled";
 // import styled from "@emotion/styled/macro";
 
-import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
-import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
+import GetMediaListCollectionByUserId from '../../graphql/getMediaListCollectionByUserId';
+import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -85,6 +85,7 @@ const ClearIconCircle = styled('div')((props) => ({
     background: 'rgba(30, 30, 30, 1)',
     opacity: '0',
     transition: 'all 0.1s ease',
+    cursor: 'pointer',
     '&:active': {
         color: 'rgba(30, 30, 30, 1)',
         background: 'white'

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
-import MakeRequest from '../graphql/makeRequest';
-import GetUserByName from '../graphql/getUserByName';
-import GetMediaListCollectionByUserId from '../graphql/getMediaListCollectionByUserId';
-import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
+import MakeRequest from '../../graphql/makeRequest';
+import GetUserByName from '../../graphql/getUserByName';
+import GetMediaListCollectionByUserId from '../../graphql/getMediaListCollectionByUserId';
+import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { TextField } from '@mui/material';
 
 function AddProfile(props) {
