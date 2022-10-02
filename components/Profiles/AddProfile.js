@@ -35,9 +35,6 @@ function AddProfile(props) {
         if (e.code === 'Enter') {
             CallApi(nameField)
         }
-        if (e.code === 'Escape') {
-            console.log('Escape was pressed!')
-        }
     }
 
     return (
@@ -56,7 +53,6 @@ function AddProfile(props) {
                 value={nameField}
                 onChange={(e) => setNameField(e.target.value)}
             />
-            {/* {profiles} */}
         </div>
     )
 }

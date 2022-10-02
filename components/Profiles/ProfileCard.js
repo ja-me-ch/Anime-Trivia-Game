@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styled from "@emotion/styled";
-// import styled from "@emotion/styled/macro";
-
-import GetMediaListCollectionByUserId from '../../graphql/getMediaListCollectionByUserId';
+import styled from '@emotion/styled';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -57,7 +54,6 @@ const Name = styled('h5')((props) => ({
     letterSpacing: '2.5px',
     textShadow: '4px 4px 12px rgba(0,0,0,0.5)',
     fontFamily: 'Roboto, sans-serif'
-
 }));
 
 const ListContainer = styled('div')((props) => ({
@@ -86,9 +82,13 @@ const ClearIconCircle = styled('div')((props) => ({
     opacity: '0',
     transition: 'all 0.1s ease',
     cursor: 'pointer',
+    '&:hover': {
+        color: 'rgba(30, 30, 30, 1)',  
+        background: 'white',
+    },
     '&:active': {
         color: 'rgba(30, 30, 30, 1)',
-        background: 'white'
+        background: 'grey'
     }
 }));
 

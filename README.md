@@ -1,5 +1,5 @@
 # Anime-Trivia-Game
-
+This is unofficial and not affiliated with AniList in any way.
 This will be a browser game that takes 2 or more urls of users on AniList, find the common entries in their lists and generate random trivia.
 
 # Below are Notes from Brainstorming, etc.

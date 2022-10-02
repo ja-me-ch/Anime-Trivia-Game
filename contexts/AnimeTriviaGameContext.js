@@ -4,7 +4,9 @@ export const AnimeTriviaGameContext = createContext();
 
 export function AnimeTriviaGameProvider(props) {
     const [profiles, setProfiles] = useState([]);
-    const [listPool, setListPool] = useState([]);
+    // const [listPool, setListPool] = useState([]);
+    const [combinedPool, setCombinedPool] = useState([]);
+    const [commonList, setCommonList] = useState([]);
     const masterList = { profiles: [], listPool: [] };
 
 
@@ -14,6 +16,12 @@ export function AnimeTriviaGameProvider(props) {
             const listWithCheckData = data.lists.map((e, index) => {
                 return { ...data.lists[index], checked: false }
             });
+
+            // listWithCheckData.forEach((list) => {
+            //     list.entries = list.entries.map((e) => {
+            //         return e.mediaId
+            //     });
+            // });
 
             setProfiles([...profiles, {
                 ...data.profile,
@@ -33,12 +41,88 @@ export function AnimeTriviaGameProvider(props) {
             )
         )
 
-        if (checked) { //if checked add to listPool
-            setListPool([...listPool, { ...list, owner: name, id: id, checked: checked }])
+        const foundIndex = combinedPool.findIndex((e) => e.id === id);
+        if (checked) {
+            if (foundIndex !== -1) {
+                const newCombinedPool = combinedPool;
+                newCombinedPool[foundIndex].combinedEntries.push(...list.entries);
+                newCombinedPool[foundIndex].addedListNames.push(list.name);
+                setCombinedPool(newCombinedPool);
+            }
+            else {
+                const oldCb = combinedPool;
+                const newCb = [
+                    ...oldCb,
+                    {
+                        id,
+                        owner: name,
+                        combinedEntries: oldCb.combinedEntries !== undefined ? [...oldCb.combinedEntries, ...list.entries] : [...list.entries],
+                        addedListNames: oldCb.addedListNames !== undefined ? [...oldCb.addedListNames, ...listName] : [listName]
+                    }
+                ]
+                setCombinedPool(newCb);
+            }
         }
-        else if (!checked) { //if not checked filter from list pool
-            setListPool(listPool.filter((l) => l.name !== listName || l.id !== id));
+        else { //if not checked filter from list pool
+            const filteredList = combinedPool[foundIndex].combinedEntries.filter((e) => {
+                return !list.entries.some((m) => {
+                    return m.mediaId === e.mediaId
+                });
+            });
+            const filteredListNames = combinedPool[foundIndex].addedListNames.filter((e) => e !== listName);
+            setCombinedPool(combinedPool.map((e) =>
+                e.id === id ? {
+                    ...e,
+                    combinedEntries: filteredList,
+                    addedListNames: filteredListNames
+                } : e
+            ))
         }
+        // if (combinedPool.length < 1) {
+        //     setCombinedPool(
+        //         [
+        //             ...combinedPool,
+        //             {
+        //                 id,
+        //                 owner: name,
+        //                 combinedEntries: [...list.entries],
+        //                 addedListNames: [list.name]
+        //             }
+        //         ]
+        //     )
+        // }
+        // else {
+
+        //     if (foundIndex === -1) setCombinedPool([...combinedPool, { id, owner: name, combinedEntries: [...list.entries], addedListNames: [list.name] }]);
+        // else {
+        //     const newCombinedPool = combinedPool;
+        //     newCombinedPool[foundIndex].combinedEntries.push(...list.entries);
+        //     newCombinedPool[foundIndex].addedListNames.push(list.name);
+        //     setCombinedPool(newCombinedPool);
+        // }
+        // }
+        // }
+        // else { //if not checked filter from list pool
+        //     const filteredList = combinedPool[foundIndex].combinedEntries.filter((e) => {
+        //         return !list.entries.some((m) => {
+        //             return m.mediaId === e.mediaId
+        //         });
+        //     });
+        //     const filteredListNames = combinedPool[foundIndex].addedListNames.filter((e) => e !== listName);
+        //     setCombinedPool(combinedPool.map((e) =>
+        //         e.id === id ? {
+        //             ...e,
+        //             combinedEntries: filteredList,
+        //             addedListNames: filteredListNames
+        //         } : e
+        //     ))
+        // }
+    }
+
+    const UpdateCommonList = function () {
+        for (const cmbEnList of combinedPool) {
+            console.log(cmbEnList.combinedEntries);
+        }//end of for...of
     }
 
     const RemoveProfile = function (profileId) {
@@ -51,7 +135,7 @@ export function AnimeTriviaGameProvider(props) {
             value={{
                 profiles,
                 AddProfile,
-                masterList,
+                combinedPool,
                 UpdateListPool,
                 RemoveProfile
             }}

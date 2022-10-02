@@ -1,13 +1,13 @@
 import React from 'react';
 import { AnimeTriviaGameProvider } from '../contexts/AnimeTriviaGameContext';
-import AddProfile from './Profiles/AddProfile';
-import ProfileCardsPanel from './Profiles/ProfileCardsPanel';
+import Profiles from './Profiles/Profiles';
+import QuestionPanel from './QuestionPanel/QuestionPanel';
 
 function AnimeTriviaGame() {
     return (
         <AnimeTriviaGameProvider>
-            <AddProfile />
-            <ProfileCardsPanel />
+           <Profiles />
+           <QuestionPanel />
         </AnimeTriviaGameProvider>
     )
 }
