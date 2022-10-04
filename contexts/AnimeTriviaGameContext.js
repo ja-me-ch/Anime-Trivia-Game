@@ -90,66 +90,29 @@ export function AnimeTriviaGameProvider(props) {
             )
         }
         setCombinedPool(newCb)
-        // if (combinedPool.length < 1) {
-        //     setCombinedPool(
-        //         [
-        //             ...combinedPool,
-        //             {
-        //                 id,
-        //                 owner: name,
-        //                 combinedEntries: [...list.entries],
-        //                 addedListNames: [list.name]
-        //             }
-        //         ]
-        //     )
-        // }
-        // else {
-
-        //     if (foundIndex === -1) setCombinedPool([...combinedPool, { id, owner: name, combinedEntries: [...list.entries], addedListNames: [list.name] }]);
-        // else {
-        //     const newCombinedPool = combinedPool;
-        //     newCombinedPool[foundIndex].combinedEntries.push(...list.entries);
-        //     newCombinedPool[foundIndex].addedListNames.push(list.name);
-        //     setCombinedPool(newCombinedPool);
-        // }
-        // }
-        // }
-        // else { //if not checked filter from list pool
-        //     const filteredList = combinedPool[foundIndex].combinedEntries.filter((e) => {
-        //         return !list.entries.some((m) => {
-        //             return m.mediaId === e.mediaId
-        //         });
-        //     });
-        //     const filteredListNames = combinedPool[foundIndex].addedListNames.filter((e) => e !== listName);
-        //     setCombinedPool(combinedPool.map((e) =>
-        //         e.id === id ? {
-        //             ...e,
-        //             combinedEntries: filteredList,
-        //             addedListNames: filteredListNames
-        //         } : e
-        //     ))
-        // }
     }
 
     const UpdateCommonList = function () {
         console.log('update common list');
-        // const tempCommonList = commonList;
-        // for (const cmbEnList of combinedPool) {
-        //     for (const mediaEn of cmbEnList.combinedEntries) {
-        //         const foundIndex = commonList.findIndex((e) => e.mediaId === mediaEn);
-        //         console.log(`${mediaEn} : ${foundIndex}`)
-        //         if (foundIndex === -1) { //if not found 
-        //             tempCommonList.push({
-        //                 mediaId: mediaEn,
-        //                 users: [cmbEnList.owner]
-        //             });
-        //         }
-        //         else { //if found
-        //             tempCommonList[foundIndex].users.push(cmbEnList.owner);
-        //         }
-        //     }
-        // }//end of for...of
-        // setCommonList(tempCommonList);
+        combinedPool.forEach((user) => {
+            user.combinedEntries.forEach((entry, index) => {
+                console.log(entry)
+                if (commonList.some((e) => {
+                    return e.mediaId === entry
+                })) {
+                    console.log(`${entry} is already in commonList`)
+                    console.log(commonList[index].users.push(user.owner));
+                }
+                else {
+                    console.log(`${entry} is not in commonList`)
+                    commonList.push({
+                        mediaId: entry,
+                        users: [user.owner]
+                    })
+                }
+            })
+        })
+        console.log(commonList);
     }
 
     const RemoveProfile = function (profileId) {
