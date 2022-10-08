@@ -6,7 +6,7 @@ function QuestionPanel() {
 
     useEffect(() => {
         UpdateCommonList();
-
+        
     }, [combinedPool])
 
 

@@ -8,7 +8,7 @@ export function AnimeTriviaGameProvider(props) {
     const [profiles, setProfiles] = useState([]);
     // const [listPool, setListPool] = useState([]);
     const [combinedPool, setCombinedPool] = useState([]);
-    const commonList = [];
+    const [commonList, setCommonList] = useState([]);
     const masterList = { profiles: [], listPool: [] };
 
 
@@ -94,25 +94,35 @@ export function AnimeTriviaGameProvider(props) {
 
     const UpdateCommonList = function () {
         console.log('update common list');
+        const tempCommonList = [];
         combinedPool.forEach((user) => {
             user.combinedEntries.forEach((entry, index) => {
                 console.log(entry)
-                if (commonList.some((e) => {
+                if (tempCommonList.some((e) => {
                     return e.mediaId === entry
-                })) {
-                    console.log(`${entry} is already in commonList`)
-                    console.log(commonList[index].users.push(user.owner));
+                })) { //if entry is already in tempCommonList
+                    console.log(`${entry} is already in commonList`);
+                    // console.log(tempCommonList[index].users)
+                    // console.log(tempCommonList[index].users.includes(user.owner))
+                    // tempCommonList[index].users.push(user.owner);
+                    if (!tempCommonList[index].users.includes(user.owner)) {
+                        console.log(`${user.owner} added to ${entry}`)
+                        tempCommonList[index].users.push(user.owner)
+                    }
+                    else {
+                        console.log(`${user.owner} is already added for ${entry}`)
+                    }
                 }
-                else {
+                else { //else entry isnt found push the mediaId and the users
                     console.log(`${entry} is not in commonList`)
-                    commonList.push({
+                    tempCommonList.push({
                         mediaId: entry,
                         users: [user.owner]
                     })
                 }
             })
         })
-        console.log(commonList);
+        setCommonList(tempCommonList);
     }
 
     const RemoveProfile = function (profileId) {
