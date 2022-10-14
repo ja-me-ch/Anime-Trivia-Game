@@ -2,12 +2,12 @@ import React, { useEffect, useContext } from 'react';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 
 function QuestionPanel() {
-    const { combinedPool, UpdateCommonList } = useContext(AnimeTriviaGameContext);
+    const { commonList } = useContext(AnimeTriviaGameContext);
 
     useEffect(() => {
-        UpdateCommonList();
-        
-    }, [combinedPool])
+        const list = commonList.filter((e) => e.users.length >= 2);
+        console.log(list);
+    }, [commonList])
 
 
 
