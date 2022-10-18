@@ -50,20 +50,20 @@ const MakeRequest = function (props) {
             return err;
         });
 
-    function handleResponse(response) {
-        return response.json()
-            .then(function (json) {
-                return response.ok ? json : Promise.reject(json);
-            });
-    }
+    // function handleResponse(response) {
+    //     return response.json()
+    //         .then(function (json) {
+    //             return response.ok ? json : Promise.reject(json);
+    //         });
+    // }
 
-    function handleData(data) {
-        return data;
-    }
+    // function handleData(data) {
+    //     return data;
+    // }
 
-    function handleError(error) {
-        return (error);
-    }
+    // function handleError(error) {
+    //     return (error);
+    // }
 }
 
 export default MakeRequest;
