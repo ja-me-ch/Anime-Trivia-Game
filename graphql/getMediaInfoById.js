@@ -1,6 +1,7 @@
 const GetMediaInfoById = function (props) {
     const query = `query($id: Int) {
   Media(id: $id){
+    id,
     title {
       romaji
       english
@@ -39,7 +40,25 @@ const GetMediaInfoById = function (props) {
     },
     studios {
       edges {
-        id
+        id,
+        node {
+          name
+        }
+      }
+    },
+    relations {
+      edges {
+        id,
+        relationType,
+        node {
+          id,
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+        }
       }
     }
   }

@@ -17,3 +17,5 @@ Which anime does this character appear in?
 
 When did this (anime/manga) being airing/start publishing?
 
+Choose a voice actor from a character in an anime, display 5 random characters that they voice
+Question: This voice actor voices these characters, who do they voice in this anime
