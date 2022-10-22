@@ -1,5 +1,5 @@
-import GetMediaInfoById from "../graphql/getMediaInfoById";
-import MakeRequest from "../graphql/makeRequest";
+import GetMediaInfoById from "../../graphql/getMediaInfoById";
+import MakeRequest from "../../graphql/makeRequest";
 
 //Generate the question:
 //In what season did this anime air in? eg. Fall 2012
@@ -9,18 +9,18 @@ import MakeRequest from "../graphql/makeRequest";
 
 //todo: return question template
 async function AnimeSeasonAirDate(mediaId) {
-        MakeRequest(GetMediaInfoById(mediaId))
-            .then(async (res) => {
-                console.log(res.data.Media);
-                const relatedMedia = [{ id: mediaId, title: res.data.Media.title.romaji }];
-                if (res.data.Media.relations.edges.length) {
-                    res.data.Media.relations.edges.forEach(async (r) => {
-                        if (r.relationType === 'PREQUEL') FindPrequel(await GetMediaInfo(r.node.id), relatedMedia);
-                        if (r.relationType === 'SEQUEL') FindSequel(await GetMediaInfo(r.node.id), relatedMedia);
-                    })
-                }
-                console.log(relatedMedia);
-            })
+    MakeRequest(GetMediaInfoById(mediaId))
+        .then(async (res) => {
+            console.log(res.data.Media);
+            const relatedMedia = [{ id: mediaId, title: res.data.Media.title.romaji }];
+            if (res.data.Media.relations.edges.length) {
+                res.data.Media.relations.edges.forEach(async (r) => {
+                    if (r.relationType === 'PREQUEL') FindPrequel(await GetMediaInfo(r.node.id), relatedMedia);
+                    if (r.relationType === 'SEQUEL') FindSequel(await GetMediaInfo(r.node.id), relatedMedia);
+                })
+            }
+            console.log(relatedMedia);
+        })
 }
 
 const GetMediaInfo = async function (mediaId) {
@@ -31,7 +31,7 @@ const GetMediaInfo = async function (mediaId) {
 }
 
 const FindPrequel = async function (mediaData, relatedMedia) {
-    relatedMedia.push({id: mediaData.id, title: mediaData.title.romaji})
+    relatedMedia.push({ id: mediaData.id, title: mediaData.title.romaji })
     mediaData.relations.edges.forEach(async (r) => {
         if (r.relationType === 'PREQUEL') {
             console.log(relatedMedia);
