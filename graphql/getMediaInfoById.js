@@ -2,11 +2,18 @@ const GetMediaInfoById = function (props) {
     const query = `query($id: Int) {
   Media(id: $id){
     id,
+    siteUrl,
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    },
+    bannerImage,
     title {
       romaji
       english
       native
-      userPreferred
     },
     characters {
       edges {
@@ -22,7 +29,6 @@ const GetMediaInfoById = function (props) {
             last
             full
             native
-            userPreferred,
           },
         }
       }
@@ -56,7 +62,6 @@ const GetMediaInfoById = function (props) {
             romaji
             english
             native
-            userPreferred
           }
         }
       }

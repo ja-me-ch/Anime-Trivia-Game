@@ -1,9 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
-import GetRelatedAnime from '../../helper-functions/Functions/getRelatedAnime';
+import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
+import Question from './Question';
 
 function QuestionPanel() {
     const { commonList } = useContext(AnimeTriviaGameContext);
+
+    const [currentQuestion, setCurrentQuestion] = useState();
 
     useEffect(() => {
         const list = commonList.filter((e) => e.users.length >= 2);
@@ -13,7 +16,8 @@ function QuestionPanel() {
             // await MakeRequest(GetMediaInfoById(15689)).then((res) => console.log(res))
             // await MakeRequest(GetStaffById(95028)).then((res) => console.log(res))
 
-            GetRelatedAnime(15689);
+            const data = await AnimeSeasonAirDate(15689);
+            setCurrentQuestion(data);
         }
 
         CallApi();
@@ -22,12 +26,13 @@ function QuestionPanel() {
     }, [commonList])
 
 
+    if (currentQuestion === undefined) return null;
+    // console.log(currentQuestion);
 
-
-
+    //pass currentQuestion to Question component
     return (
         <div>
-
+            <Question props={currentQuestion}/>
         </div>
     )
 }

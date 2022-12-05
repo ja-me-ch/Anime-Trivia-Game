@@ -1,5 +1,7 @@
-import GetMediaInfoById from "../../graphql/getMediaInfoById";
-import MakeRequest from "../../graphql/makeRequest";
+import GetMediaInfoById from '../../graphql/getMediaInfoById';
+import MakeRequest from '../../graphql/makeRequest';
+import Question from '../../components/QuestionPanel/Question';
+import Answer from '../../components/QuestionPanel/Answer';
 
 //Generate the question:
 //In what season did this anime air in? eg. Fall 2012
@@ -8,46 +10,60 @@ import MakeRequest from "../../graphql/makeRequest";
 //proceed with finding random answers for question
 
 //todo: return question template
-async function AnimeSeasonAirDate(mediaId) {
-    MakeRequest(GetMediaInfoById(mediaId))
-        .then(async (res) => {
-            console.log(res.data.Media);
-            const relatedMedia = [{ id: mediaId, title: res.data.Media.title.romaji }];
-            if (res.data.Media.relations.edges.length) {
-                res.data.Media.relations.edges.forEach(async (r) => {
-                    if (r.relationType === 'PREQUEL') FindPrequel(await GetMediaInfo(r.node.id), relatedMedia);
-                    if (r.relationType === 'SEQUEL') FindSequel(await GetMediaInfo(r.node.id), relatedMedia);
-                })
-            }
-            console.log(relatedMedia);
-        })
-}
-
-const GetMediaInfo = async function (mediaId) {
-    return MakeRequest(GetMediaInfoById(mediaId))
+async function AnimeSeasonAirDate(mediaId, commonList) {
+    const mediaInfo = await MakeRequest(GetMediaInfoById(mediaId))
         .then((res) => {
-            return res.data.Media;
-        })
+            return res.data.Media
+        });
+
+    const answers = [];
+    answers.push(
+        {
+            answer: `${mediaInfo.season} ${mediaInfo.seasonYear}`,
+            isCorrect: true
+        }
+    )
+
+    while (answers.length < 4) {
+        let falseAnswer = {
+            answer: `${generateRandomSeason()} ${generateRandomYear(mediaInfo.seasonYear)}`,
+            isCorrect: false
+        }
+        if (!answers.some((q) => q.answer === falseAnswer.answer)) {
+            answers.push(falseAnswer);
+        }
+    }
+
+    const answerComponents = answers.map((a) => {
+        return <Answer text={a.answer} isCorrect={a.isCorrect}/>
+    })
+
+
+    //todo: generate full JSX for the question to be displayed in the question module
+    return ({
+        title: mediaInfo.title,
+        question: `${mediaInfo.title.romaji} was released in which season and year?`,
+        answers: answers,
+        coverImage: mediaInfo.coverImage,
+        bannerImage: mediaInfo.bannerImage,
+        siteUrl: mediaInfo.siteUrl,
+        //possible use for options: dont show coverImage/bannerImage incase of spoilers
+        //eg. options: {bannerImage: false}
+        //options: {} 
+    })
+
 }
 
-const FindPrequel = async function (mediaData, relatedMedia) {
-    relatedMedia.push({ id: mediaData.id, title: mediaData.title.romaji })
-    mediaData.relations.edges.forEach(async (r) => {
-        if (r.relationType === 'PREQUEL') {
-            console.log(relatedMedia);
-            FindPrequel(await GetMediaInfo(r.node.id), relatedMedia);
-        }
-    })
+const generateRandomYear = function (year) {
+    const max = year + 5;
+    const min = year - 5;
+    return Math.floor(min + Math.random() * (max - min + 1));
 }
 
-const FindSequel = async function (mediaData, relatedMedia) {
-    relatedMedia.push({ id: mediaData.id, title: mediaData.title.romaji })
-    mediaData.relations.edges.forEach(async (r) => {
-        if (r.relationType === 'SEQUEL') {
-            console.log(relatedMedia);
-            FindSequel(await GetMediaInfo(r.node.id), relatedMedia);
-        }
-    })
+const generateRandomSeason = function () {
+    const seasons = ['SPRING', 'SUMMER', 'FALL', 'WINTER'];
+    const rnd = Math.floor(Math.random() * seasons.length);
+    return seasons[rnd];
 }
 
 

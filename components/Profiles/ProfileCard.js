@@ -19,7 +19,7 @@ const CardTop = styled('div')((props) => ({
     url(${props.background})` : null,
     backgroundSize: props.background ? '155%' : null,
     position: 'relative',
-    backgroundPosition: props.background ?'50% 50%' : null,
+    backgroundPosition: props.background ? '50% 50%' : null,
     height: '60%',
     minHeight: '60%',
     transition: 'all 3s ease',
@@ -83,7 +83,7 @@ const ClearIconCircle = styled('div')((props) => ({
     transition: 'all 0.1s ease',
     cursor: 'pointer',
     '&:hover': {
-        color: 'rgba(30, 30, 30, 1)',  
+        color: 'rgba(30, 30, 30, 1)',
         background: 'white',
     },
     '&:active': {
