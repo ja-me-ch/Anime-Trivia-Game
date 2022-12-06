@@ -42,10 +42,14 @@ const AnswerText = styled('span')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, index } = props;
+    const { text, isCorrect, index, onClick } = props;
     const letters = ['A', 'B', 'C', 'D'];
+
+    const handleOnClick = function() {
+        onClick();
+    }
     return (
-        <RootStyle>
+        <RootStyle onClick={handleOnClick}>
             <LetterChoice>{letters[index]}.</LetterChoice>
             <TextBox>
                 <AnswerText>{text}</AnswerText>

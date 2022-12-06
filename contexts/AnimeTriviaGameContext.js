@@ -7,6 +7,7 @@ export const AnimeTriviaGameContext = createContext();
 export function AnimeTriviaGameProvider(props) {
     const [profiles, setProfiles] = useState([]);
     const [commonList, setCommonList] = useState([]);
+    const [lockAnswers, setLockAnswers] = useState(false);
 
 
     const AddProfile = function (data) { //New Add Profile
@@ -92,6 +93,10 @@ export function AnimeTriviaGameProvider(props) {
         //if currently airing anime, eliminate N/a questions like end date/episode count
     }
 
+    const AnswerOnClick = function(isCorrect) {
+        console.log('clicked!')
+    }
+
     return (
         <AnimeTriviaGameContext.Provider
             value={{
@@ -99,7 +104,8 @@ export function AnimeTriviaGameProvider(props) {
                 AddProfile,
                 commonList,
                 UpdateListPool,
-                RemoveProfile
+                RemoveProfile,
+                AnswerOnClick
             }}
         >
             {props.children}

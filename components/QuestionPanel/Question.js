@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
-import { fontSize } from '@mui/system';
+import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import ShuffleArray from '../../helper-functions/Functions/shuffleArray';
 import Answer from './Answer';
 
@@ -66,13 +66,14 @@ const AnswersContainer = styled('div')((props) => ({
 }));
 
 function Question(props) {
+    const { AnswerOnClick } = useContext(AnimeTriviaGameContext);
     const { bannerImage, question, title, siteUrl, answers } = props.props;
     console.log(title);
     console.log(props.props);
     const shuffledAnswers = ShuffleArray(answers);
     console.log(shuffledAnswers);
     const answerComponents = shuffledAnswers.map((a, index) => {
-        return <Answer text={a.answer} isCorrect={a.isCorrect} index={index} />
+        return <Answer text={a.answer} isCorrect={a.isCorrect} index={index} onClick={AnswerOnClick} />;
     });
 
     console.log(answerComponents)
