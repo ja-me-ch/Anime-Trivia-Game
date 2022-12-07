@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 const RootStyle = styled('div')((props) => ({
@@ -10,10 +10,12 @@ const RootStyle = styled('div')((props) => ({
     // border: '1px solid red',
     borderRadius: '15px',
     margin: '6px',
-    background: '#302640',
+    background: props.colors[0],
     transition: 'all 0.5s ease',
+    pointerEvents: props.toggled ? 'none' : '',
+    cursor: 'pointer',
     '&:hover': {
-        background: '#534070'
+        background: props.colors[props.colors.length - 1]
     }
 }));
 
@@ -42,15 +44,31 @@ const AnswerText = styled('span')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, index, onClick } = props;
-    const letters = ['A', 'B', 'C', 'D'];
+    const { text, isCorrect, letter, lockAnswers, AnswerOnClick, defaultColors, toggledColors } = props;
+    const [clicked, setClicked] = useState(false);
 
-    const handleOnClick = function() {
-        onClick();
+    const handleOnClick = function () {
+        AnswerOnClick(isCorrect);
+        setClicked(true);
     }
+
+    const getColors = function () {
+        if (lockAnswers) {
+            if (clicked) {
+                return toggledColors;
+            }
+            else if (isCorrect) {
+                return toggledColors
+            }
+            else return defaultColors;
+        }
+        else return defaultColors;
+    }
+
+
     return (
-        <RootStyle onClick={handleOnClick}>
-            <LetterChoice>{letters[index]}.</LetterChoice>
+        <RootStyle onClick={handleOnClick} colors={getColors()} toggled={lockAnswers}>
+            <LetterChoice>{letter}.</LetterChoice>
             <TextBox>
                 <AnswerText>{text}</AnswerText>
             </TextBox>

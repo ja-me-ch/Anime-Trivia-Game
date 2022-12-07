@@ -1,10 +1,23 @@
 import React, { useEffect, useContext, useState } from 'react';
+import styled from '@emotion/styled';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
 import Question from './Question';
+import Answer from './Answer';
+
+const AnswersContainer = styled('div')((props) => ({
+    // border: '1px solid purple',
+    margin: '1em 0em',
+    width: '100%',
+    height: 'auto',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignContent: 'center',
+    justifyContent: 'center'
+}));
 
 function QuestionPanel() {
-    const { commonList } = useContext(AnimeTriviaGameContext);
+    const { commonList, lockAnswers, AnswerOnClick } = useContext(AnimeTriviaGameContext);
 
     const [currentQuestion, setCurrentQuestion] = useState();
 
@@ -19,20 +32,45 @@ function QuestionPanel() {
             const data = await AnimeSeasonAirDate(15689);
             setCurrentQuestion(data);
         }
-
         CallApi();
-
-
     }, [commonList])
 
 
     if (currentQuestion === undefined) return null;
-    // console.log(currentQuestion);
+    console.log(currentQuestion);
 
-    //pass currentQuestion to Question component
+    const defaultColors = ['#302640', '#534070'];
+    const correctColors = ['#5A895D'];
+    const incorrectColors = ['#794F4F'];
+    const letters = ['A', 'B', 'C', 'D'];
+    const answerComponents = currentQuestion.answers.map((a, index) => {
+        const toggledColors = [];
+        if (a.isCorrect) toggledColors = correctColors;
+        else toggledColors = incorrectColors;
+        return <Answer
+            text={a.answer}
+            isCorrect={a.isCorrect}
+            letter={letters[index]}
+            lockAnswers={lockAnswers}
+            AnswerOnClick={AnswerOnClick}
+            defaultColors={defaultColors}
+            toggledColors={toggledColors}
+        // AnswersProps={AnswersProps}
+        />;
+    })
+
+    //decouple Answer.js from Question.js
     return (
         <div>
-            <Question props={currentQuestion}/>
+            <Question
+                bannerImage={currentQuestion.bannerImage}
+                question={currentQuestion.question}
+                title={currentQuestion.title}
+                siteUrl={currentQuestion.siteUrl}
+            />
+            <AnswersContainer>
+                {answerComponents}
+            </AnswersContainer>
         </div>
     )
 }

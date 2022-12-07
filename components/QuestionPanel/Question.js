@@ -66,17 +66,17 @@ const AnswersContainer = styled('div')((props) => ({
 }));
 
 function Question(props) {
-    const { AnswerOnClick } = useContext(AnimeTriviaGameContext);
-    const { bannerImage, question, title, siteUrl, answers } = props.props;
-    console.log(title);
-    console.log(props.props);
-    const shuffledAnswers = ShuffleArray(answers);
-    console.log(shuffledAnswers);
-    const answerComponents = shuffledAnswers.map((a, index) => {
-        return <Answer text={a.answer} isCorrect={a.isCorrect} index={index} onClick={AnswerOnClick} />;
-    });
+    const { bannerImage, question, title, siteUrl } = props;
+    // const shuffledAnswers = ShuffleArray(answers);
+    // console.log(shuffledAnswers);
+    // const answerComponents = shuffledAnswers.map((a, index) => {
+    //     return <Answer text={a.answer} isCorrect={a.isCorrect} index={index} AnswersProps={AnswersProps} />;
+    // });
 
-    console.log(answerComponents)
+    // const updatedCurrentQuestion = props.props;
+    // updatedCurrentQuestion.answers = answerComponents;
+    // props.setCurrentQuestion(updatedCurrentQuestion);
+
     return (
         <RootStyle>
             <QuestionContainer bannerImage={bannerImage}>
@@ -86,9 +86,9 @@ function Question(props) {
                     <QuestionText>{question}</QuestionText>
                 </QuestionTextBox>
             </QuestionContainer>
-            <AnswersContainer>
+            {/* <AnswersContainer>
                 {answerComponents}
-            </AnswersContainer>
+            </AnswersContainer> */}
         </RootStyle>
     )
 }

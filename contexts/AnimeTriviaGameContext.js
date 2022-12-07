@@ -93,8 +93,9 @@ export function AnimeTriviaGameProvider(props) {
         //if currently airing anime, eliminate N/a questions like end date/episode count
     }
 
-    const AnswerOnClick = function(isCorrect) {
+    const AnswerOnClick = function (isCorrect) {
         console.log('clicked!')
+        setLockAnswers(true);
     }
 
     return (
@@ -105,6 +106,7 @@ export function AnimeTriviaGameProvider(props) {
                 commonList,
                 UpdateListPool,
                 RemoveProfile,
+                lockAnswers, 
                 AnswerOnClick
             }}
         >

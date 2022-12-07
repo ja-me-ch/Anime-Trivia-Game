@@ -1,7 +1,6 @@
 import GetMediaInfoById from '../../graphql/getMediaInfoById';
 import MakeRequest from '../../graphql/makeRequest';
-import Question from '../../components/QuestionPanel/Question';
-import Answer from '../../components/QuestionPanel/Answer';
+import ShuffleArray from '../Functions/shuffleArray';
 
 //Generate the question:
 //In what season did this anime air in? eg. Fall 2012
@@ -34,16 +33,11 @@ async function AnimeSeasonAirDate(mediaId, commonList) {
         }
     }
 
-    const answerComponents = answers.map((a) => {
-        return <Answer text={a.answer} isCorrect={a.isCorrect}/>
-    })
-
-
     //todo: generate full JSX for the question to be displayed in the question module
     return ({
         title: mediaInfo.title,
         question: `${mediaInfo.title.romaji} was released in which season and year?`,
-        answers: answers,
+        answers: ShuffleArray(answers),
         coverImage: mediaInfo.coverImage,
         bannerImage: mediaInfo.bannerImage,
         siteUrl: mediaInfo.siteUrl,
@@ -51,7 +45,6 @@ async function AnimeSeasonAirDate(mediaId, commonList) {
         //eg. options: {bannerImage: false}
         //options: {} 
     })
-
 }
 
 const generateRandomYear = function (year) {
@@ -65,7 +58,5 @@ const generateRandomSeason = function () {
     const rnd = Math.floor(Math.random() * seasons.length);
     return seasons[rnd];
 }
-
-
 
 export default AnimeSeasonAirDate;
