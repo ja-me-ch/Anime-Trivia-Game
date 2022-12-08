@@ -7,8 +7,8 @@ import Answer from './Answer';
 const RootStyle = styled('div')((props) => ({
     // border: '1px solid lime',
     width: '100%',
+    minWidth: '600px',
     height: 'auto',
-
 }));
 
 const QuestionContainer = styled('div')((props) => ({
@@ -19,7 +19,7 @@ const QuestionContainer = styled('div')((props) => ({
     justifyContent: 'center',
     backgroundImage: props.bannerImage ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 100%),
     url(${props.bannerImage})` : null,
-    backgroundSize: '160%',
+    backgroundSize: '150%',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
     backgroundRepeat: 'no-repeat'
 }));

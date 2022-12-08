@@ -1,12 +1,14 @@
 import { common } from '@mui/material/colors';
 import { refType } from '@mui/utils';
 import React, { createContext, useState } from 'react';
+import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
 
 export const AnimeTriviaGameContext = createContext();
 
 export function AnimeTriviaGameProvider(props) {
     const [profiles, setProfiles] = useState([]);
     const [commonList, setCommonList] = useState([]);
+    const [questionHistory, setQuestionHistory] = useState([]);
     const [lockAnswers, setLockAnswers] = useState(false);
 
 
@@ -86,11 +88,21 @@ export function AnimeTriviaGameProvider(props) {
         setProfiles(profiles.filter((e) => e.id !== profileId));
     }
 
-    const GenerateQuestions = function () {
+    const GenerateNewQuestion = function () {
         //create a question data state that will hold questions and weights
         //pick a random entry from commonList
         //check for preliminary things: eg. if the anime has more than 4 characters
         //if currently airing anime, eliminate N/a questions like end date/episode count
+        console.log('generating new question');
+        const MakeCall = async function () {
+            return await AnimeSeasonAirDate(15689)
+        }
+        MakeCall()
+            .then((res) => {
+                const newQuestionHistory = questionHistory.map((e) => e)
+                newQuestionHistory.push(res);
+                setQuestionHistory(newQuestionHistory);
+            })
     }
 
     const AnswerOnClick = function (isCorrect) {
@@ -100,14 +112,22 @@ export function AnimeTriviaGameProvider(props) {
 
     return (
         <AnimeTriviaGameContext.Provider
+            //TODO: reorganize values
             value={{
                 profiles,
                 AddProfile,
                 commonList,
                 UpdateListPool,
                 RemoveProfile,
-                lockAnswers, 
-                AnswerOnClick
+                lockAnswers,
+                AnswerOnClick,
+                questionHistory,
+                GenerateNewQuestion
+                // questionHistory: {
+                //     value: questionHistory,
+                //     setValue: setQuestionHistory,
+                //     newQuestion: GenerateNewQuestion
+                // }
             }}
         >
             {props.children}

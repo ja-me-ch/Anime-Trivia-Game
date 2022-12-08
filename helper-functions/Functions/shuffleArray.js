@@ -1,6 +1,5 @@
 const ShuffleArray = function (inputArray) {
     const array = inputArray;
-    console.log(inputArray);
     const shuffledArray = [];
 
     while (array.length > 0) {
