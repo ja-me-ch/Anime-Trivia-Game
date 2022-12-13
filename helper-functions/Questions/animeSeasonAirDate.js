@@ -19,14 +19,16 @@ async function AnimeSeasonAirDate(mediaId, commonList) {
     answers.push(
         {
             answer: `${mediaInfo.season} ${mediaInfo.seasonYear}`,
-            isCorrect: true
+            isCorrect: true,
+            clicked: false
         }
     )
 
     while (answers.length < 4) {
         let falseAnswer = {
             answer: `${generateRandomSeason()} ${generateRandomYear(mediaInfo.seasonYear)}`,
-            isCorrect: false
+            isCorrect: false,
+            clicked: false
         }
         if (!answers.some((q) => q.answer === falseAnswer.answer)) {
             answers.push(falseAnswer);

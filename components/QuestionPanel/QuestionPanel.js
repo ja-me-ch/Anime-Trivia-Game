@@ -1,10 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from '@emotion/styled';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
+import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContext';
 import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
 import Question from './Question';
 import Answer from './Answer';
-import { CurrencyBitcoin } from '@mui/icons-material';
 
 const AnswersContainer = styled('div')((props) => ({
     // border: '1px solid purple',
@@ -18,12 +18,12 @@ const AnswersContainer = styled('div')((props) => ({
 }));
 
 function QuestionPanel() {
-    const { commonList, lockAnswers, AnswerOnClick, profiles, questionHistory, GenerateNewQuestion } = useContext(AnimeTriviaGameContext);
+    const { questionHistory } = useContext(AnimeTriviaGameContext);
 
-    const [currentQuestion, setCurrentQuestion] = useState();
+    const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, onClickAnswer } = useContext(QuestionAndAnswerContext);
+
 
     useEffect(() => {
-        const list = commonList.filter((e) => e.users.length >= 2);
 
         /*
             DONE:
@@ -50,49 +50,70 @@ function QuestionPanel() {
         }
         // console.log(questionHistory);
         console.log('useEffect triggered!');
-        console.log('questionHistory[0]: ' + questionHistory[0]);
-        console.log('currentQuestion: ' + currentQuestion)
-        setCurrentQuestion(questionHistory[0]);
+        setCurrentQuestion(questionHistory[questionNumber]);
         // CallApi();
-    }, [questionHistory, currentQuestion])
+    }, [questionHistory, questionNumber, currentQuestion])
 
-    if (currentQuestion === undefined) return <button onClick={() => GenerateNewQuestion()}>Start/Next</button>;
+    // if (currentQuestion === undefined) return <button onClick={() => GenerateNewQuestion()}>Start/Next</button>;
     // console.log(questionHistory);
-    console.log('past if check');
     // console.log(currentQuestion.answers);
 
-    const defaultColors = ['#302640', '#534070'];
-    const correctColors = ['#5A895D'];
-    const incorrectColors = ['#794F4F'];
-    const letters = ['A', 'B', 'C', 'D'];
-    const answerComponents = currentQuestion.answers.map((a, index) => {
-        const toggledColors = [];
-        if (a.isCorrect) toggledColors = correctColors;
-        else toggledColors = incorrectColors;
-        return <Answer
-            text={a.answer}
-            isCorrect={a.isCorrect}
-            letter={letters[index]}
-            lockAnswers={lockAnswers}
-            AnswerOnClick={AnswerOnClick}
-            defaultColors={defaultColors}
-            toggledColors={toggledColors}
-        // AnswersProps={AnswersProps}
-        />;
-    })
+    const setButton = function (currentQuestion) {
+        if (currentQuestion === undefined) {
+            return <button onClick={() => getNextQuestion()}>Start</button>
+        }
+        else return <button onClick={() => {
+            getNextQuestion();
+        }
+        }>Next</button>
+    }
 
-    //decouple Answer.js from Question.js
+    const setQuestionsAndAnswers = function (currentQuestion) {
+        console.log(currentQuestion)
+        if (currentQuestion === undefined) {
+            return (null);
+        }
+        else {
+            const defaultColors = ['#302640', '#534070'];
+            const correctColors = ['#5A895D'];
+            const incorrectColors = ['#794F4F'];
+            const letters = ['A', 'B', 'C', 'D'];
+
+            const answerComponents = currentQuestion.answers.map((a, index) => {
+                const toggledColors = [];
+                if (a.isCorrect) toggledColors = correctColors;
+                else toggledColors = incorrectColors;
+                return <Answer
+                    text={a.answer}
+                    isCorrect={a.isCorrect}
+                    letter={letters[index]}
+                    disableAnswering={disableAnswering}
+                    onClickAnswer={onClickAnswer}
+                    defaultColors={defaultColors}
+                    toggledColors={toggledColors}
+                    clicked={a.clicked}
+                    key={`${letters[index]}-${index}-${a.answer}`}
+                // AnswersProps={AnswersProps}
+                />;
+            });
+            return <div>
+                <Question
+                    bannerImage={currentQuestion.bannerImage}
+                    question={currentQuestion.question}
+                    title={currentQuestion.title}
+                    siteUrl={currentQuestion.siteUrl}
+                />
+                <AnswersContainer>
+                    {answerComponents}
+                </AnswersContainer>
+            </div>
+        }
+    }
+
     return (
         <div>
-            <Question
-                bannerImage={currentQuestion.bannerImage}
-                question={currentQuestion.question}
-                title={currentQuestion.title}
-                siteUrl={currentQuestion.siteUrl}
-            />
-            <AnswersContainer>
-                {answerComponents}
-            </AnswersContainer>
+            {setButton(currentQuestion)}
+            {setQuestionsAndAnswers(currentQuestion)}
         </div>
     )
 }

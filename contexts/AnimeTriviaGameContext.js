@@ -1,7 +1,8 @@
-import { common } from '@mui/material/colors';
-import { refType } from '@mui/utils';
 import React, { createContext, useState } from 'react';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
+import getRandomCommonMediaId from '../helper-functions/Functions/getRandomCommonMediaId';
+
+
 
 export const AnimeTriviaGameContext = createContext();
 
@@ -9,8 +10,6 @@ export function AnimeTriviaGameProvider(props) {
     const [profiles, setProfiles] = useState([]);
     const [commonList, setCommonList] = useState([]);
     const [questionHistory, setQuestionHistory] = useState([]);
-    const [lockAnswers, setLockAnswers] = useState(false);
-
 
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
@@ -88,14 +87,17 @@ export function AnimeTriviaGameProvider(props) {
         setProfiles(profiles.filter((e) => e.id !== profileId));
     }
 
-    const GenerateNewQuestion = function () {
+    const GenerateNewQuestion = function (commonUserCount) {
         //create a question data state that will hold questions and weights
         //pick a random entry from commonList
         //check for preliminary things: eg. if the anime has more than 4 characters
         //if currently airing anime, eliminate N/a questions like end date/episode count
         console.log('generating new question');
+
+        const list = commonList.filter((e) => e.users.length >= 0);
+
         const MakeCall = async function () {
-            return await AnimeSeasonAirDate(15689)
+            return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
         }
         MakeCall()
             .then((res) => {
@@ -105,10 +107,6 @@ export function AnimeTriviaGameProvider(props) {
             })
     }
 
-    const AnswerOnClick = function (isCorrect) {
-        console.log('clicked!')
-        setLockAnswers(true);
-    }
 
     return (
         <AnimeTriviaGameContext.Provider
@@ -119,9 +117,8 @@ export function AnimeTriviaGameProvider(props) {
                 commonList,
                 UpdateListPool,
                 RemoveProfile,
-                lockAnswers,
-                AnswerOnClick,
                 questionHistory,
+                setQuestionHistory,
                 GenerateNewQuestion
                 // questionHistory: {
                 //     value: questionHistory,
