@@ -19,9 +19,14 @@ const QuestionContainer = styled('div')((props) => ({
     justifyContent: 'center',
     backgroundImage: props.bannerImage ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 100%),
     url(${props.bannerImage})` : null,
-    backgroundSize: '150%',
+    backgroundSize: '100%',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
-    backgroundRepeat: 'no-repeat'
+    backgroundRepeat: 'no-repeat',
+    transition: 'all 30s ease',
+    '&:hover': {
+        backgroundSize: '120%'
+    }
+
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
@@ -67,15 +72,6 @@ const AnswersContainer = styled('div')((props) => ({
 
 function Question(props) {
     const { bannerImage, question, title, siteUrl } = props;
-    // const shuffledAnswers = ShuffleArray(answers);
-    // console.log(shuffledAnswers);
-    // const answerComponents = shuffledAnswers.map((a, index) => {
-    //     return <Answer text={a.answer} isCorrect={a.isCorrect} index={index} AnswersProps={AnswersProps} />;
-    // });
-
-    // const updatedCurrentQuestion = props.props;
-    // updatedCurrentQuestion.answers = answerComponents;
-    // props.setCurrentQuestion(updatedCurrentQuestion);
 
     return (
         <RootStyle>
@@ -86,9 +82,6 @@ function Question(props) {
                     <QuestionText>{question}</QuestionText>
                 </QuestionTextBox>
             </QuestionContainer>
-            {/* <AnswersContainer>
-                {answerComponents}
-            </AnswersContainer> */}
         </RootStyle>
     )
 }

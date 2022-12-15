@@ -10,36 +10,31 @@ export function QuestionAndAnswerProvider(props) {
     const [questionNumber, setQuestionNumber] = useState(-1);
     const [disableAnswering, setDisableAnswering] = useState(true);
     const [clicked, setClicked] = useState([]);
-    /*
-        clicked state is the state for the status of the 4 questions
-        whether or not they have been clicked,
-        if the user gets the answer wrong, 
-        the index corresponding to the answer will be set as true and the toggle color will show (red)
-    */
 
     const { commonList, questionHistory, setQuestionHistory } = useContext(AnimeTriviaGameContext)
 
-    const getNextQuestion = function () {
-        const list = commonList.filter((e) => e.users.length >= 0);
-
-        const MakeCall = async function () {
-            return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
-        }
-        MakeCall()
-            .then((res) => {
-                const newQuestionHistory = questionHistory.map((e) => e)
-                newQuestionHistory.push(res);
-                setQuestionHistory(newQuestionHistory);
-                setQuestionNumber((s) => {
-                    s = s + 1;
-                    return s;
+    const getNextQuestion = function (commonUserCount) {
+        const list = commonList.filter((e) => e.users.length >= commonUserCount);
+        if (list.length > 0) {
+            console.log(list);
+            const MakeCall = async function () {
+                return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
+                // return await AnimeSeasonAirDate(142329);
+            }
+            MakeCall()
+                .then((res) => {
+                    const newQuestionHistory = questionHistory.map((e) => e)
+                    newQuestionHistory.push(res);
+                    setQuestionHistory(newQuestionHistory);
+                    setQuestionNumber((s) => {
+                        s = s + 1;
+                        return s;
+                    });
+                    setDisableAnswering(false);
                 });
-                setDisableAnswering(false);
-            });
-    }
-
-    const onClickAnswer = function () {
-        setDisableAnswering(true);
+    
+            setClicked([]);
+        }
     }
 
     const toggleClicked = function (index, isCorrect) {
@@ -63,7 +58,6 @@ export function QuestionAndAnswerProvider(props) {
                 questionNumber,
                 getNextQuestion,
                 disableAnswering,
-                onClickAnswer,
                 clicked,
                 toggleClicked
             }}>

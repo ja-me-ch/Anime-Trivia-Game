@@ -44,30 +44,13 @@ const AnswerText = styled('span')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, letter, disableAnswering, onClickAnswer, defaultColors, toggledColors } = props;
-    // const [clicked, setClicked] = useState(props.clickState);
-    let clicked = false;
+    const { text, isCorrect, letter, index, colors, disableAnswering, toggleClicked} = props;
     const handleOnClick = function () {
-        clicked = true;
-        onClickAnswer();
+        toggleClicked(index, isCorrect);
     }
-
-    const getColors = function () {
-        if (disableAnswering) {
-            if (clicked) {
-                return toggledColors;
-            }
-            else if (isCorrect) {
-                return toggledColors
-            }
-            else return defaultColors;
-        }
-        else return defaultColors;
-    }
-
 
     return (
-        <RootStyle onClick={handleOnClick} colors={getColors()} toggled={disableAnswering}>
+        <RootStyle onClick={handleOnClick} colors={colors} toggled={disableAnswering}>
             <LetterChoice>{letter}.</LetterChoice>
             <TextBox>
                 <AnswerText>{text}</AnswerText>
