@@ -6,6 +6,7 @@ import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContex
 import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
 import Question from './Question';
 import Answer from './Answer';
+import VoiceActorAnimeCharacter from '../../helper-functions/Questions/voiceActorAnimeCharacter';
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
@@ -39,6 +40,8 @@ function QuestionPanel() {
 
     const [commonUserCount, setCommonUserCount] = useState(1);
 
+    VoiceActorAnimeCharacter(21400);
+
     useEffect(() => {
 
         /*
@@ -63,8 +66,10 @@ function QuestionPanel() {
 
     const setCommonUserCount_Select = function () {
         const menuItems = [];
-        for (let i = 1; i <= profiles.length; i++) {
-            menuItems.push(<MenuItem value={i}>{i}</MenuItem>)
+        let length = 1;
+        if (profiles.length > 0) length = profiles.length;
+        for (let i = 1; i <= length; i++) {
+            menuItems.push(<MenuItem value={i} key={`menuItem-${i}`}>{i}</MenuItem>)
         }
         return <FormControl>
             <CommonUserCount_Select
@@ -92,7 +97,7 @@ function QuestionPanel() {
         else {
             buttonText = 'Next';
         }
-        return <StartNext_Button disabled={!disableAnswering} onClick={() => {
+        return <StartNext_Button disabled={!disableAnswering || profiles.length === 0} onClick={() => {
             getNextQuestion(commonUserCount);
         }
         }>{buttonText}</StartNext_Button>

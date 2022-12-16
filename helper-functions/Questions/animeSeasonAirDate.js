@@ -4,12 +4,9 @@ import ShuffleArray from '../Functions/shuffleArray';
 
 //Generate the question:
 //In what season did this anime air in? eg. Fall 2012
-//find all related anime (eg. prequel sequel)
-//filter all of them from commonList
 //proceed with finding random answers for question
 
-//todo: return question template
-async function AnimeSeasonAirDate(mediaId, commonList) {
+const AnimeSeasonAirDate = async function (mediaId) {
     const mediaInfo = await MakeRequest(GetMediaInfoById(mediaId))
         .then((res) => {
             return res.data.Media
@@ -35,7 +32,6 @@ async function AnimeSeasonAirDate(mediaId, commonList) {
         }
     }
 
-    //todo: generate full JSX for the question to be displayed in the question module
     return ({
         title: mediaInfo.title,
         question: `${mediaInfo.title.romaji} was released in which season and year?`,

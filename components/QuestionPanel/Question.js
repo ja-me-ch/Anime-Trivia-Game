@@ -77,8 +77,8 @@ function Question(props) {
         <RootStyle>
             <QuestionContainer bannerImage={bannerImage}>
                 <QuestionTextBox>
-                    <NativeTitle><a href={siteUrl} target='_blank'>{title.native}</a></NativeTitle>
-                    <Title><a href={siteUrl} target='_blank'>{title.english}</a></Title>
+                    <NativeTitle><a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a></NativeTitle>
+                    <Title><a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a></Title>
                     <QuestionText>{question}</QuestionText>
                 </QuestionTextBox>
             </QuestionContainer>
