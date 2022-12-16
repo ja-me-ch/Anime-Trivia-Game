@@ -6,7 +6,10 @@ import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContex
 import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
 import Question from './Question';
 import Answer from './Answer';
+
+
 import VoiceActorAnimeCharacter from '../../helper-functions/Questions/voiceActorAnimeCharacter';
+import GetAllCharactersVoicedByStaffId from '../../graphql/getAllCharactersVoicedByStaffId';
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
@@ -40,7 +43,8 @@ function QuestionPanel() {
 
     const [commonUserCount, setCommonUserCount] = useState(1);
 
-    VoiceActorAnimeCharacter(21400);
+    // VoiceActorAnimeCharacter(21400);
+    GetAllCharactersVoicedByStaffId();
 
     useEffect(() => {
 
