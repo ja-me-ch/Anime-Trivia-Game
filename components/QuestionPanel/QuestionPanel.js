@@ -9,7 +9,6 @@ import Answer from './Answer';
 
 
 import VoiceActorAnimeCharacter from '../../helper-functions/Questions/voiceActorAnimeCharacter';
-import GetAllCharactersVoicedByStaffId from '../../graphql/getAllCharactersVoicedByStaffId';
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
@@ -44,7 +43,6 @@ function QuestionPanel() {
     const [commonUserCount, setCommonUserCount] = useState(1);
 
     // VoiceActorAnimeCharacter(21400);
-    GetAllCharactersVoicedByStaffId();
 
     useEffect(() => {
 
@@ -108,7 +106,6 @@ function QuestionPanel() {
     }
 
     const setQuestionsAndAnswers_Div = function (currentQuestion) {
-        console.log(currentQuestion)
         if (currentQuestion === undefined) {
             return (null);
         }
@@ -140,15 +137,20 @@ function QuestionPanel() {
                     colors={getAnswerColor()}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more
+                    customChildren={a.customChildren}
                     key={`${letters[index]}-${index}-${a.answer}`}
                 />;
             });
+            console.log(currentQuestion);
             return <div>
                 <Question
-                    bannerImage={currentQuestion.bannerImage ? currentQuestion.bannerImage : currentQuestion.coverImage.extraLarge}
-                    question={currentQuestion.question}
-                    title={currentQuestion.title}
-                    siteUrl={currentQuestion.siteUrl}
+                    // bannerImage={currentQuestion.bannerImage ? currentQuestion.bannerImage : currentQuestion.coverImage.extraLarge}
+                    // question={currentQuestion.question}
+                    // title={currentQuestion.title}
+                    // siteUrl={currentQuestion.siteUrl}
+                    // customChildren={currentQuestion.customChildren}
+                    // template={currentQuestion.template}
+                    props={currentQuestion}
                 />
                 <Answers_Container>
                     {answerComponents}

@@ -27,6 +27,8 @@ const AnimeSeasonAirDate = async function (mediaId) {
             isCorrect: false,
             clicked: false
         }
+
+        //if the falseAnswer.answer is not a duplicate of an answer in answers, push into answers
         if (!answers.some((q) => q.answer === falseAnswer.answer)) {
             answers.push(falseAnswer);
         }
@@ -38,7 +40,7 @@ const AnimeSeasonAirDate = async function (mediaId) {
         answers: ShuffleArray(answers),
         coverImage: mediaInfo.coverImage,
         bannerImage: mediaInfo.bannerImage,
-        siteUrl: mediaInfo.siteUrl,
+        siteUrl: mediaInfo.siteUrl
         //possible use for options: dont show coverImage/bannerImage incase of spoilers
         //eg. options: {bannerImage: false}
         //options: {} 

@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { AnimeTriviaGameContext } from './AnimeTriviaGameContext';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
+import VoiceActorAnimeCharacter from '../helper-functions/Questions/voiceActorAnimeCharacter';
 import getRandomCommonMediaId from '../helper-functions/Functions/getRandomCommonMediaId';
 
 export const QuestionAndAnswerContext = createContext();
@@ -16,9 +17,13 @@ export function QuestionAndAnswerProvider(props) {
     const getNextQuestion = function (commonUserCount) {
         const list = commonList.filter((e) => e.users.length >= commonUserCount);
         if (list.length > 0) {
-            console.log(list);
+            // console.log(list);
             const MakeCall = async function () {
-                return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
+                //to test 11583
+                const selection = await VoiceActorAnimeCharacter(11583);
+                console.log(selection);
+                return selection;
+                // return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
                 // return await AnimeSeasonAirDate(142329);
             }
             MakeCall()

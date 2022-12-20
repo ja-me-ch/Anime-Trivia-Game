@@ -7,6 +7,7 @@ const RootStyle = styled('div')((props) => ({
     justifyContent: 'space-between',
     width: 'auto',
     height: 'auto',
+    minHeight: '4rem',
     // border: '1px solid red',
     borderRadius: '15px',
     margin: '6px',
@@ -21,6 +22,8 @@ const RootStyle = styled('div')((props) => ({
 
 const TextBox = styled('div')((props) => ({
     padding: '1.2em 0',
+    display: 'flex',
+    alignItems: 'center',
     // width: '100%',
     // border: '1px solid blue',
 }));
@@ -34,7 +37,7 @@ const LetterChoice = styled('span')((props) => ({
     // border: '1px solid yellow'
 }));
 
-const AnswerText = styled('span')((props) => ({
+const AnswerText = styled('div')((props) => ({
     display: 'flex',
     alignItems: 'center',
     marginRight: '1.4em',
@@ -44,7 +47,7 @@ const AnswerText = styled('span')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, letter, index, colors, disableAnswering, toggleClicked} = props;
+    const { text, isCorrect, letter, index, colors, disableAnswering, toggleClicked, customChildren } = props;
     const handleOnClick = function () {
         toggleClicked(index, isCorrect);
     }
@@ -53,7 +56,10 @@ function Answer(props) {
         <RootStyle onClick={handleOnClick} colors={colors} toggled={disableAnswering}>
             <LetterChoice>{letter}.</LetterChoice>
             <TextBox>
-                <AnswerText>{text}</AnswerText>
+                <AnswerText>
+                    {/* {customChildren === undefined ? <span>{text}</span> : customChildren} */}
+                    {customChildren}
+                </AnswerText>
             </TextBox>
             <div></div>
         </RootStyle>

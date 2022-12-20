@@ -1,3 +1,6 @@
+/*
+Todo: Refactor query to only contain necessary fields
+*/
 const GetMediaInfoById = function (props) {
     const query = `query($id: Int) {
   Media(id: $id){
