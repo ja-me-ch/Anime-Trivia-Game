@@ -60,15 +60,18 @@ const CenterImageContainer = styled('div')((props) => ({
     display: 'flex',
     justifyContent: 'center',
     // height: 'auto',
-    width: '25%',
-    border: '1px solid red',
+    width: '40%',
+    minWidth: '175px',
+    // border: '1px solid red',
     // flexBasis: '30%'
 }));
 
 const CenterImageImg = styled('img')((props) => ({
     borderRadius: '3px',
-    height: 'auto',
-    width: '25%'
+    // height: 'auto',
+    objectFit: 'cover',
+    // minWidth: '20%',
+    maxWidth: '100%'
 }));
 
 const AnswerImages = styled('div')((props) => ({
@@ -99,7 +102,10 @@ const AnswerImage = styled('img')((props) => ({
     // left: '0',
     borderRadius: '10px',
     padding: '2px',
-    width: '100%',
+    // height: '100%',
+    objectFit: 'cover',
+    objectPosition: '50% 50%',
+    maxWidth: '100%',
     transition: 'all 1s ease'
 }));
 
@@ -141,9 +147,9 @@ const Images = function ({ props }) {
                     display: 'flex',
                     // border: '1px solid blue'
                 }}>
-                    {/* <CenterImageContainer> */}
+                    <CenterImageContainer>
                         <CenterImageImg src={images[0]} />
-                    {/* </CenterImageContainer> */}
+                    </CenterImageContainer>
                     <div style={{
                         padding: '5px'
                     }}>

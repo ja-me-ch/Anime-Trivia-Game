@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext } from 'react';
 import { AnimeTriviaGameContext } from './AnimeTriviaGameContext';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
 import VoiceActorAnimeCharacter from '../helper-functions/Questions/voiceActorAnimeCharacter';
-import getRandomCommonMediaId from '../helper-functions/Functions/getRandomCommonMediaId';
+import getRandomIndex from '../helper-functions/Functions/getRandomIndex';
 
 export const QuestionAndAnswerContext = createContext();
 
@@ -20,7 +20,7 @@ export function QuestionAndAnswerProvider(props) {
             // console.log(list);
             const MakeCall = async function () {
                 //to test 11583
-                const selection = await VoiceActorAnimeCharacter(11583);
+                const selection = await VoiceActorAnimeCharacter(getRandomIndex(list).mediaId);
                 console.log(selection);
                 return selection;
                 // return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
