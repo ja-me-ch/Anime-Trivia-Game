@@ -137,11 +137,11 @@ function QuestionPanel() {
                     colors={getAnswerColor()}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more
-                    customChildren={a.customChildren}
+                    customChildren={a.customChildren !== undefined ? a.customChildren : undefined}
                     key={`${letters[index]}-${index}-${a.answer}`}
                 />;
             });
-            console.log(currentQuestion);
+            // console.log(currentQuestion);
             return <div>
                 <Question
                     // bannerImage={currentQuestion.bannerImage ? currentQuestion.bannerImage : currentQuestion.coverImage.extraLarge}

@@ -122,7 +122,7 @@ const AnswerImageLetter = styled('h2')((props) => ({
 }));
 
 const Images = function ({ props }) {
-    console.log(props);
+    // console.log(props);
     const { bannerImage, question, title, siteUrl, customChildren, images } = props;
 
     const imageElements = images.map((i, index) => {

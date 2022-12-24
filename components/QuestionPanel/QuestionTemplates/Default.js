@@ -54,7 +54,7 @@ const QuestionText = styled('div')((props) => ({
 }));
 
 const Default = function (props) {
-    console.log(props);
+    // console.log(props);
     const { bannerImage, question, title, siteUrl, customChildren } = props.props;
 
     return (

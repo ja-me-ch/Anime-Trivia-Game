@@ -57,8 +57,8 @@ function Answer(props) {
             <LetterChoice>{letter}.</LetterChoice>
             <TextBox>
                 <AnswerText>
-                    {/* {customChildren === undefined ? <span>{text}</span> : customChildren} */}
-                    {customChildren}
+                    {customChildren === undefined ? <span>{text}</span> : customChildren}
+                    {/* {customChildren} */}
                 </AnswerText>
             </TextBox>
             <div></div>

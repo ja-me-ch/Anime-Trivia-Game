@@ -1,4 +1,5 @@
 import GetCharacterVoiceActorByMediaId from '../../graphql/getCharacterVoiceActorByMediaId';
+import styled from '@emotion/styled';
 import MakeRequest from '../../graphql/makeRequest';
 import ShuffleArray from '../Functions/shuffleArray';
 import getRandomIndex from '../Functions/getRandomIndex';
@@ -11,15 +12,26 @@ import Images from '../../components/QuestionPanel/QuestionTemplates/Images';
     If anime doesn't have > 4 characters, return null
 */
 
+const CustomNameSpan = styled('span')((props) => ({
+    display: 'block',
+    width: '100%',
+    textAlign: 'center',
+    margin: props.native ? '0 0 -8px 0' : '0',
+    fontSize: props.native ? '0.8em' : '1.2em'
+}));
+
 const VoiceActorAnimeCharacter = async function (mediaId) {
-    console.log(mediaId);
+    // console.log(mediaId);
     const mediaInfo = await MakeRequest(GetCharacterVoiceActorByMediaId(mediaId))
         .then((res) => {
             return res.data.Media;
         });
-        
+
     const characters = mediaInfo.characters.edges;
-    if (characters.length < 4) return 'less than 4'
+    if (characters.length < 4) {
+        // console.log(`${mediaInfo}`)
+        return undefined;
+    }
     // let selectedCharacter = mediaInfo.characters.edges[getRandomIndex(mediaInfo.characters.edges)]
     // for (let i = 0; i < 4; i++) {
     //     characters.push(mediaInfo.characters.edges[getRandomIndex(mediaInfo.characters.edges)])
@@ -36,14 +48,14 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
     while (pendingCharacters.length !== 4 || i === 20) {
         let pendingCharacter = getRandomCharacter(characters, 'Japanese', true);
         if (!pendingCharacters.some((a) => a.voiceActor.id === pendingCharacter.voiceActor.id)) {
-            console.log(`${i} - ${pendingCharacter.voiceActor.id} is not in answers.`);
+            // console.log(`${i} - ${pendingCharacter.voiceActor.id} is not in answers.`);
             // console.log(`pendingCharacter`)
             // console.log(pendingCharacter)
             pendingCharacters.push(pendingCharacter);
         }
-        else {
-            console.log(`${i} - ${pendingCharacter.voiceActor.id} is already in answers.`);
-        }
+        // else {
+        //     console.log(`${i} - ${pendingCharacter.voiceActor.id} is already in answers.`);
+        // }
         i++;
         if (i === 20) {
             return undefined;
@@ -51,24 +63,28 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
     }
 
     const answers = pendingCharacters.map((c) => {
-        const customChildren = <div>
-            <div>{`${c.character.name.native}`}</div>
-            <div>{`${c.character.name.full}`}</div>
-        </div>
+        const getCustomChildren = function () {
+            const nativeName = c.character.name.native;
+            const fullName = c.character.name.full;
+            return <div>
+                {nativeName !== null ? <CustomNameSpan native={true}>{`${nativeName}`}</CustomNameSpan> : null}
+                <CustomNameSpan>{`${fullName}`}</CustomNameSpan>
+            </div>
+        }
         return {
-            answer: `${c.character.name.last} ${c.character.name.first} ${c.character.name.native}`,
+            answer: `${c.character.name.full}, ${c.character.name.native}`,
             isCorrect: c.isCorrect ? true : false,
             clicked: false,
-            customChildren: customChildren,
+            customChildren: getCustomChildren(),
             image: c.character.image.large
         }
     });
 
-    console.log(pendingCharacters);
+    // console.log(pendingCharacters);
 
     const randomizedAnswers = ShuffleArray(answers);
-    console.log('answers:')
-    console.log(randomizedAnswers);
+    // console.log('answers:')
+    // console.log(randomizedAnswers);
     const images = [
         pendingCharacters[0].voiceActor.image.large,
         randomizedAnswers[0].image,

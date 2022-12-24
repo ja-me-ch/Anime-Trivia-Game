@@ -3,6 +3,7 @@ import { AnimeTriviaGameContext } from './AnimeTriviaGameContext';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
 import VoiceActorAnimeCharacter from '../helper-functions/Questions/voiceActorAnimeCharacter';
 import getRandomIndex from '../helper-functions/Functions/getRandomIndex';
+import getRandomQuestion from '../helper-functions/Questions/master';
 
 export const QuestionAndAnswerContext = createContext();
 
@@ -20,11 +21,13 @@ export function QuestionAndAnswerProvider(props) {
             // console.log(list);
             const MakeCall = async function () {
                 //to test 11583
-                const selection = await VoiceActorAnimeCharacter(getRandomIndex(list).mediaId);
-                console.log(selection);
-                return selection;
+                // const selection = await VoiceActorAnimeCharacter(getRandomIndex(list).mediaId);
+                // console.log(selection);
+                // return selection;
                 // return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
                 // return await AnimeSeasonAirDate(142329);
+
+                return getRandomQuestion(list);
             }
             MakeCall()
                 .then((res) => {
@@ -37,8 +40,24 @@ export function QuestionAndAnswerProvider(props) {
                     });
                     setDisableAnswering(false);
                 });
-    
-            setClicked([]);
+
+
+                //transfer below to makecall.then()
+            const pendingNewQuestion = getRandomQuestion(list);
+            console.log(pendingNewQuestion)
+            if (pendingNewQuestion !== undefined) {
+                setClicked([]);
+                setDisableAnswering(false);
+                const newQuestionHistory = questionHistory.map((e) => e)
+                newQuestionHistory.push(pendingNewQuestion);
+                setQuestionHistory(newQuestionHistory);
+                setQuestionNumber((s) => {
+                    s = s + 1;
+                    return s;
+                });
+
+            }
+
         }
     }
 

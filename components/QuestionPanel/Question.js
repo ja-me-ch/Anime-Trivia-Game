@@ -12,7 +12,7 @@ const RootStyle = styled('div')((props) => ({
 
 function Question({props}) {
     const { template } = props;
-    console.log('TEMPLATE: ', template);
+    // console.log('TEMPLATE: ', template);
 
     const getTemplate = function (template) {
         if (template === undefined || template === 'Default') {
