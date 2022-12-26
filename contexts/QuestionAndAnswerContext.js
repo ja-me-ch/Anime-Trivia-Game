@@ -17,21 +17,24 @@ export function QuestionAndAnswerProvider(props) {
 
     const getNextQuestion = function (commonUserCount) {
         const list = commonList.filter((e) => e.users.length >= commonUserCount);
-        if (list.length > 0) {
-            // console.log(list);
-            const MakeCall = async function () {
-                //to test 11583
-                // const selection = await VoiceActorAnimeCharacter(getRandomIndex(list).mediaId);
-                // console.log(selection);
-                // return selection;
-                // return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
-                // return await AnimeSeasonAirDate(142329);
+        if (list.length === 0) return null;
 
-                return getRandomQuestion(list);
-            }
-            MakeCall()
-                .then((res) => {
-                    const newQuestionHistory = questionHistory.map((e) => e)
+        const MakeCall = async function () {
+            setClicked([]);
+            setDisableAnswering(true);
+            return await getRandomQuestion(list);
+        }
+
+        MakeCall()
+            .then((res) => {
+                console.log(res)
+                // const pendingNewQuestion = getRandomQuestion(list);
+                if (res === undefined) {
+                    // setDisableAnswering(false);
+                    return null;
+                }
+                else {
+                    const newQuestionHistory = questionHistory.map((e) => e);
                     newQuestionHistory.push(res);
                     setQuestionHistory(newQuestionHistory);
                     setQuestionNumber((s) => {
@@ -39,26 +42,25 @@ export function QuestionAndAnswerProvider(props) {
                         return s;
                     });
                     setDisableAnswering(false);
-                });
+                }
+            });
 
 
-                //transfer below to makecall.then()
-            const pendingNewQuestion = getRandomQuestion(list);
-            console.log(pendingNewQuestion)
-            if (pendingNewQuestion !== undefined) {
-                setClicked([]);
-                setDisableAnswering(false);
-                const newQuestionHistory = questionHistory.map((e) => e)
-                newQuestionHistory.push(pendingNewQuestion);
-                setQuestionHistory(newQuestionHistory);
-                setQuestionNumber((s) => {
-                    s = s + 1;
-                    return s;
-                });
+        //     //transfer below to makecall.then()
+        // console.log(pendingNewQuestion)
+        // if (pendingNewQuestion !== undefined) {
+        //     setDisableAnswering(false);
+        //     const newQuestionHistory = questionHistory.map((e) => e)
+        //     newQuestionHistory.push(pendingNewQuestion);
+        //     setQuestionHistory(newQuestionHistory);
+        //     setQuestionNumber((s) => {
+        //         s = s + 1;
+        //         return s;
+        //     });
 
-            }
+        // }
 
-        }
+
     }
 
     const toggleClicked = function (index, isCorrect) {

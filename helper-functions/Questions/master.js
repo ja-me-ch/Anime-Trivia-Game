@@ -19,29 +19,26 @@ const getRandomQuestion = async function (commonList) {
     let randomMediaEntry = getRandomIndex(commonList);
     let randomQuestion = getRandomIndex(questions);
 
-    const question = await getQuestionData(randomMediaEntry, randomQuestion);
+    const question = undefined;
+    question = await getQuestionData(randomMediaEntry, randomQuestion);
     let i = 0;
-    while (question === undefined) {
-        console.log('while loop!')
-        let pendingQuestion = await getQuestionData(randomMediaEntry, randomQuestion);
-        // console.log(pendingQuestion);
-        if (pendingQuestion === undefined) {
-            console.log(`${pendingQuestion.mediaId} is not valid, rerolling.`)
-            i++;
-        }
-        else {
-            question = pendingQuestion;
-            return question;
-        }
+    let maxCalls = 20;
 
-        if (i === 20) {
-            return undefined;
-        }
+    for (let i = 0; i < maxCalls; i++) {
+        const pendingQuestion = undefined;
+        pendingQuestion = await getQuestionData(randomMediaEntry, randomQuestion)
+            .then((res) => {
+                if (res !== undefined) return res;
+                i++;
+            });
+        if (pendingQuestion !== undefined) return pendingQuestion;
     }
+
 }
 
 const getQuestionData = async function (media, question) {
-    const questionData = await question(11583);
+    // console.log(media.mediaId)
+    const questionData = await question(media.mediaId);
     // console.log(questionData)
     return questionData;
 }
