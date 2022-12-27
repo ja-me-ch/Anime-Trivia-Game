@@ -16,17 +16,17 @@ const questions = [
 ]
 
 const getRandomQuestion = async function (commonList) {
-    let randomMediaEntry = getRandomIndex(commonList);
-    let randomQuestion = getRandomIndex(questions);
+    // let randomMediaEntry = getRandomIndex(commonList);
+    // let randomQuestion = getRandomIndex(questions);
 
-    const question = undefined;
-    question = await getQuestionData(randomMediaEntry, randomQuestion);
+    // const question = undefined;
+    // question = await getQuestionData(randomMediaEntry, randomQuestion);
     let i = 0;
     let maxCalls = 20;
 
     for (let i = 0; i < maxCalls; i++) {
         const pendingQuestion = undefined;
-        pendingQuestion = await getQuestionData(randomMediaEntry, randomQuestion)
+        pendingQuestion = await getQuestionData(getRandomIndex(commonList), getRandomIndex(questions))
             .then((res) => {
                 if (res !== undefined) return res;
                 i++;
@@ -37,9 +37,9 @@ const getRandomQuestion = async function (commonList) {
 }
 
 const getQuestionData = async function (media, question) {
-    // console.log(media.mediaId)
+    console.log(media.mediaId)
     const questionData = await question(media.mediaId);
-    // console.log(questionData)
+    // if (questionData !== undefined) console.log(questionData.title.romaji);
     return questionData;
 }
 
