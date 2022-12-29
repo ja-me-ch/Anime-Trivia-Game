@@ -41,9 +41,6 @@ const AnimeSeasonAirDate = async function (mediaId) {
         coverImage: mediaInfo.coverImage,
         bannerImage: mediaInfo.bannerImage,
         siteUrl: mediaInfo.siteUrl
-        //possible use for options: dont show coverImage/bannerImage incase of spoilers
-        //eg. options: {bannerImage: false}
-        //options: {} 
     })
 }
 

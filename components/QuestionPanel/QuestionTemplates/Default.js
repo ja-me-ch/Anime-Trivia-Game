@@ -16,10 +16,10 @@ const QuestionContainer = styled('div')((props) => ({
     position: 'relative',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
     backgroundRepeat: 'no-repeat',
-    transition: 'all 20s ease',
-    '&:hover': {
-        // backgroundSize: '175%'
-    }
+    // transition: 'all 20s ease',
+    // '&:hover': {
+    //     // backgroundSize: '175%'
+    // }
 
 }));
 

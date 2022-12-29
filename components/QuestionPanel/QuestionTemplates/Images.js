@@ -90,7 +90,7 @@ const AnswerImageContainer = styled('div')((props) => ({
         '.answerImageLetter': {
             opacity: '0',
         },
-        '.answerImage' : {
+        '.answerImage': {
             borderRadius: '5px'
         }
     }
@@ -128,9 +128,9 @@ const Images = function ({ props }) {
     const imageElements = images.map((i, index) => {
         const letters = ['A', 'B', 'C', 'D']
         if (index > 0) {
-            return <AnswerImageContainer>
-                <AnswerImage src={i} className='answerImage'/>
-                <AnswerImageLetter className='answerImageLetter'>{letters[index-1]}</AnswerImageLetter>
+            return <AnswerImageContainer key={`${i}-${letters[index - 1]}`}>
+                <AnswerImage src={i} className='answerImage' />
+                <AnswerImageLetter className='answerImageLetter'>{letters[index - 1]}</AnswerImageLetter>
             </AnswerImageContainer>
         }
     })
@@ -153,10 +153,10 @@ const Images = function ({ props }) {
                     <div style={{
                         padding: '5px'
                     }}>
-                    <QuestionText>{question}</QuestionText>
-                    <AnswerImages>
-                        {imageElements}
-                    </AnswerImages>
+                        <QuestionText>{question}</QuestionText>
+                        <AnswerImages>
+                            {imageElements}
+                        </AnswerImages>
                     </div>
                 </div>
             </QuestionTextBox>
