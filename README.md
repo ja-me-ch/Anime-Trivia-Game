@@ -5,10 +5,16 @@ This will be a browser game that takes 2 or more urls of users on AniList, find 
 # Below are Notes from Brainstorming, etc.
 
 # Todos
-Derive commonList from profiles instead of combinedPool, eliminate combinedPool afterwards and implement removal of entries from commonList
+- Remove hyperlinks from question display, add them in after the question has been answered
+- track score
 
-# Notes
-Keep Users/Profile in a state, keep a list of lists with references to the owner(Profile/User) in a non-state variable
+
+# Notes/Extras
+- if no banner is found find a banner from previous/related anime (prequel, parent, manga)
+- question and answer selection is not yet weighted
+- maybe display type of anime (special, movie, sequel, parent)
+- remove year if its in the title (eg. Hunter x Hunter (2011))
+
 
 # Sample Questions
 Which anime does this character appear in?
@@ -17,5 +23,5 @@ Which anime does this character appear in?
 
 <!-- When did this (anime/manga) being airing/start publishing? -->
 
-Choose a voice actor from a character in an anime, display 5 random characters that they voice
-Question: This voice actor voices these characters, who do they voice in this anime
+<!-- Choose a voice actor from a character in an anime, display 5 random characters that they voice
+Question: This voice actor voices these characters, who do they voice in this anime -->
