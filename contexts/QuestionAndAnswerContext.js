@@ -71,9 +71,9 @@ export function QuestionAndAnswerProvider(props) {
             }
             else newClicked.push(false);
         }
+        
         setDisableAnswering(true);
-
-        setClicked(newClicked);
+        setClicked(!newClicked);
     }
 
     return (

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { display, positions } from '@mui/system';
+import Answer from '../Answer';
 
 const QuestionContainer = styled('div')((props) => ({
     width: '100%',
@@ -37,21 +38,21 @@ const QuestionTextBox = styled('div')((props) => ({
     justifyContent: 'center',
 }));
 
-const NativeTitle = styled('h2')(({disableAnswering}) => ({
+const NativeTitle = styled('h2')(({ disableAnswering }) => ({
     padding: '0px',
     marginTop: '-5px',
     marginBottom: '-5px',
     fontSize: '1em',
     textAlign: 'center',
-    pointerEvents: !disableAnswering ? 'none' : ''
+    pointerEvents: disableAnswering ? '' : 'none'
 }));
 
-const Title = styled('h2')(({disableAnswering}) => ({
+const Title = styled('h2')(({ disableAnswering }) => ({
     padding: '0px',
     margin: '0 0 10px 0',
     fontSize: '1.5em',
     textAlign: 'center',
-    pointerEvents: !disableAnswering ? 'none' : ''
+    pointerEvents: disableAnswering ? '' : 'none'
 }));
 
 const QuestionText = styled('div')((props) => ({
@@ -79,12 +80,12 @@ const CenterImageImg = styled('img')((props) => ({
 const AnswerImages = styled('div')((props) => ({
     padding: '5px',
     display: 'flex',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
     display: 'flex',
-    justifyContent: 'space-evenly',
+    // justifyContent: 'space-evenly',
     // border: '1px solid yellow',
     position: 'relative',
     width: 'auto',
@@ -112,7 +113,7 @@ const AnswerImage = styled('img')((props) => ({
 }));
 
 const AnswerImageLetter = styled('h2')((props) => ({
-    display: 'inline',
+    display: 'inline-block',
     position: 'absolute',
     right: '5px',
     bottom: '-100px',
@@ -127,22 +128,32 @@ const Images = function ({ props }) {
     // console.log(props);
     const { bannerImage, question, title, siteUrl, customChildren, images, disableAnswering } = props;
 
+    const letters = ['A', 'B', 'C', 'D']
     const imageElements = images.map((i, index) => {
-        const letters = ['A', 'B', 'C', 'D']
+
         if (index > 0) {
-            return <AnswerImageContainer key={`${i}-${letters[index - 1]}`}>
-                <AnswerImage src={i} className='answerImage' />
+            const answerImageContainer = <AnswerImageContainer key={`${i}-${letters[index - 1]}`}>
+                <AnswerImage src={i.image} className='answerImage' />
                 <AnswerImageLetter className='answerImageLetter'>{letters[index - 1]}</AnswerImageLetter>
             </AnswerImageContainer>
+
+            if (disableAnswering) {
+                answerImageContainer = <a href={i.siteUrl} style={{ display: 'contents' }} target='_blank' key={`link-${i}-${letters[index - 1]}`}>{answerImageContainer}</a>;
+            }
+            return answerImageContainer;
         }
-    })
+    });
+
+    const CenterImage = <CenterImageImg src={images[0].image} />;
+    if (disableAnswering) { CenterImage = <a href={images[0].siteUrl} style={{ display: 'contents' }} target='_blank'>{CenterImage}</a> }
+
     return (
         <QuestionContainer bannerImage={bannerImage}>
             <QuestionTextBox>
-                <NativeTitle>
+                <NativeTitle disableAnswering={disableAnswering}>
                     <a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a>
                 </NativeTitle>
-                <Title>
+                <Title disableAnswering={disableAnswering}>
                     <a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a>
                 </Title>
                 <div style={{
@@ -150,7 +161,7 @@ const Images = function ({ props }) {
                     // border: '1px solid blue'
                 }}>
                     <CenterImageContainer>
-                        <CenterImageImg src={images[0]} />
+                        {CenterImage}
                     </CenterImageContainer>
                     <div style={{
                         padding: '5px'

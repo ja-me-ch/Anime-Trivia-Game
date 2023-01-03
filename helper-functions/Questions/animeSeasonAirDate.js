@@ -12,6 +12,8 @@ const AnimeSeasonAirDate = async function (mediaId) {
             return res.data.Media
         });
 
+    if (mediaInfo.season === null || mediaInfo.seasonYear === null) return undefined;
+
     const answers = [];
     answers.push(
         {

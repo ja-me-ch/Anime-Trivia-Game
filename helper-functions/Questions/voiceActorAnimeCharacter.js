@@ -63,8 +63,6 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
     }
 
     const answers = pendingCharacters.map((c) => {
-        console.log('c');
-        console.log(c)
         const getCustomChildren = function () {
             const nativeName = c.character.name.native;
             const fullName = c.character.name.full;
@@ -78,21 +76,37 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
             isCorrect: c.isCorrect ? true : false,
             clicked: false,
             customChildren: getCustomChildren(),
-            image: c.character.image.large
+            image: c.character.image.large,
+            siteUrl: c.character.siteUrl
         }
     });
 
-    console.log(pendingCharacters[0]);
+    // console.log(pendingCharacters[0]);
 
     const randomizedAnswers = ShuffleArray(answers);
     // console.log('answers:')
-    console.log(randomizedAnswers[0]);
+    // console.log(randomizedAnswers[0]);
     const images = [
-        pendingCharacters[0].voiceActor.image.large,
-        randomizedAnswers[0].image,
-        randomizedAnswers[1].image,
-        randomizedAnswers[2].image,
-        randomizedAnswers[3].image,
+        {
+            image: pendingCharacters[0].voiceActor.image.large,
+            siteUrl: pendingCharacters[0].voiceActor.siteUrl
+        },
+        {
+            image: randomizedAnswers[0].image,
+            siteUrl: randomizedAnswers[0].siteUrl
+        },
+        {
+            image: randomizedAnswers[1].image,
+            siteUrl: randomizedAnswers[1].siteUrl
+        },
+        {
+            image: randomizedAnswers[2].image,
+            siteUrl: randomizedAnswers[2].siteUrl
+        },
+        {
+            image: randomizedAnswers[3].image,
+            siteUrl: randomizedAnswers[3].siteUrl
+        },
     ]
 
     return ({
