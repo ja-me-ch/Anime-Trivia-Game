@@ -37,19 +37,21 @@ const QuestionTextBox = styled('div')((props) => ({
     justifyContent: 'center',
 }));
 
-const NativeTitle = styled('h2')((props) => ({
+const NativeTitle = styled('h2')(({disableAnswering}) => ({
     padding: '0px',
     marginTop: '-5px',
     marginBottom: '-5px',
     fontSize: '1em',
-    textAlign: 'center'
+    textAlign: 'center',
+    pointerEvents: !disableAnswering ? 'none' : ''
 }));
 
-const Title = styled('h2')((props) => ({
+const Title = styled('h2')(({disableAnswering}) => ({
     padding: '0px',
     margin: '0 0 10px 0',
     fontSize: '1.5em',
     textAlign: 'center',
+    pointerEvents: !disableAnswering ? 'none' : ''
 }));
 
 const QuestionText = styled('div')((props) => ({
@@ -123,7 +125,7 @@ const AnswerImageLetter = styled('h2')((props) => ({
 
 const Images = function ({ props }) {
     // console.log(props);
-    const { bannerImage, question, title, siteUrl, customChildren, images } = props;
+    const { bannerImage, question, title, siteUrl, customChildren, images, disableAnswering } = props;
 
     const imageElements = images.map((i, index) => {
         const letters = ['A', 'B', 'C', 'D']

@@ -33,20 +33,21 @@ const QuestionTextBox = styled('div')((props) => ({
     justifyContent: 'center',
 }));
 
-const NativeTitle = styled('h2')((props) => ({
+const NativeTitle = styled('h2')(({ disableAnswering }) => ({
     padding: '0px',
     marginTop: '-5px',
     marginBottom: '-5px',
     fontSize: '1em',
-    textAlign: 'center'
+    textAlign: 'center',
+    pointerEvents: !disableAnswering ? 'none' : ''
 }));
 
-const Title = styled('h2')((props) => ({
+const Title = styled('h2')(({ disableAnswering }) => ({
     padding: '0px',
     margin: '0 0 10px 0',
     fontSize: '1.5em',
     textAlign: 'center',
-
+    pointerEvents: !disableAnswering ? 'none' : ''
 }));
 
 const QuestionText = styled('div')((props) => ({
@@ -55,13 +56,13 @@ const QuestionText = styled('div')((props) => ({
 
 const Default = function (props) {
     // console.log(props);
-    const { bannerImage, question, title, siteUrl, customChildren } = props.props;
+    const { bannerImage, question, title, siteUrl, customChildren, disableAnswering } = props.props;
 
     return (
         <QuestionContainer bannerImage={bannerImage}>
             <QuestionTextBox>
-                <NativeTitle><a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a></NativeTitle>
-                <Title><a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a></Title>
+                <NativeTitle disableAnswering={disableAnswering}><a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a></NativeTitle>
+                <Title disableAnswering={disableAnswering}><a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a></Title>
                 <QuestionText>{question}</QuestionText>
                 {customChildren !== undefined ? customChildren : null}
             </QuestionTextBox>

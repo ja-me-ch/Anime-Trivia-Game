@@ -63,6 +63,8 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
     }
 
     const answers = pendingCharacters.map((c) => {
+        console.log('c');
+        console.log(c)
         const getCustomChildren = function () {
             const nativeName = c.character.name.native;
             const fullName = c.character.name.full;
@@ -80,11 +82,11 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
         }
     });
 
-    // console.log(pendingCharacters);
+    console.log(pendingCharacters[0]);
 
     const randomizedAnswers = ShuffleArray(answers);
     // console.log('answers:')
-    // console.log(randomizedAnswers);
+    console.log(randomizedAnswers[0]);
     const images = [
         pendingCharacters[0].voiceActor.image.large,
         randomizedAnswers[0].image,

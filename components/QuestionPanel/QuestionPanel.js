@@ -150,7 +150,7 @@ function QuestionPanel() {
                     // siteUrl={currentQuestion.siteUrl}
                     // customChildren={currentQuestion.customChildren}
                     // template={currentQuestion.template}
-                    props={currentQuestion}
+                    props={{...currentQuestion, disableAnswering}}
                 />
                 <Answers_Container>
                     {answerComponents}
