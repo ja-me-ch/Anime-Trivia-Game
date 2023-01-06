@@ -101,12 +101,12 @@ function QuestionPanel() {
             buttonText = 'Next';
         }
         const getButtonStatus = function () {
-            if (questionNumber === -1) return false;
+            if (commonList.length === 0) return true;
             else {
-                if (disableAnswering) return false;
-                else return true;
+                if (clicked.length === 0) return true;
+                else return false;
             }
-            
+
         }
         return <StartNext_Button
             disabled={getButtonStatus()}
