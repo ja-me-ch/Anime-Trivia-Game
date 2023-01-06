@@ -10,7 +10,7 @@ export const QuestionAndAnswerContext = createContext();
 export function QuestionAndAnswerProvider(props) {
     const [currentQuestion, setCurrentQuestion] = useState();
     const [questionNumber, setQuestionNumber] = useState(-1);
-    const [disableAnswering, setDisableAnswering] = useState(true);
+    const [disableAnswering, setDisableAnswering] = useState(false);
     const [clicked, setClicked] = useState([]);
 
     const { commonList, questionHistory, setQuestionHistory } = useContext(AnimeTriviaGameContext)
@@ -20,29 +20,32 @@ export function QuestionAndAnswerProvider(props) {
         if (list.length === 0) return null;
 
         const MakeCall = async function () {
-            setClicked([]);
-            setDisableAnswering(true);
+            // setDisableAnswering(true);
             return await getRandomQuestion(list);
         }
-
+        
         MakeCall()
-            .then((res) => {
-                console.log(res)
-                // const pendingNewQuestion = getRandomQuestion(list);
-                if (res === undefined) {
-                    // setDisableAnswering(false);
-                    return null;
+        .then((res) => {
+            console.log('res');
+            console.log(res);
+            // const pendingNewQuestion = getRandomQuestion(list);
+            if (res === undefined) {
+                setDisableAnswering(true);
+                return null;
+            }
+            else {
+                const newQuestionHistory = questionHistory.map((e) => e);
+                newQuestionHistory.push(res);
+                setQuestionHistory(newQuestionHistory);
+                setQuestionNumber((s) => {
+                    s = s + 1;
+                    return s;
+                });
+                setClicked([]);
+                setDisableAnswering(false);
                 }
-                else {
-                    const newQuestionHistory = questionHistory.map((e) => e);
-                    newQuestionHistory.push(res);
-                    setQuestionHistory(newQuestionHistory);
-                    setQuestionNumber((s) => {
-                        s = s + 1;
-                        return s;
-                    });
-                    setDisableAnswering(false);
-                }
+            }).finally(() => {
+                // setDisableAnswering(false);
             });
 
 
@@ -71,9 +74,8 @@ export function QuestionAndAnswerProvider(props) {
             }
             else newClicked.push(false);
         }
-        
         setDisableAnswering(true);
-        setClicked(!newClicked);
+        setClicked(newClicked);
     }
 
     return (

@@ -14,9 +14,9 @@ extra:
 */
 
 const questions = [
-    // AnimeSeasonAirDate,
+    AnimeSeasonAirDate,
     VoiceActorAnimeCharacter,
-    // AnimeEpisodeCount
+    AnimeEpisodeCount
 ]
 
 const getRandomQuestion = async function (commonList) {

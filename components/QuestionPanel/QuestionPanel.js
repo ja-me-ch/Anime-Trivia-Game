@@ -39,6 +39,7 @@ function QuestionPanel() {
     const { profiles, questionHistory } = useContext(AnimeTriviaGameContext);
 
     const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, clicked, toggleClicked } = useContext(QuestionAndAnswerContext);
+    const { commonList } = useContext(AnimeTriviaGameContext);
 
     const [commonUserCount, setCommonUserCount] = useState(1);
 
@@ -64,7 +65,7 @@ function QuestionPanel() {
             extra: keep track of whether the question was answered correctly
         */
         setCurrentQuestion(questionHistory[questionNumber]);
-    }, [questionNumber])
+    }, [questionNumber, disableAnswering])
 
     const setCommonUserCount_Select = function () {
         const menuItems = [];
@@ -99,10 +100,20 @@ function QuestionPanel() {
         else {
             buttonText = 'Next';
         }
-        return <StartNext_Button disabled={!disableAnswering || profiles.length === 0} onClick={() => {
-            getNextQuestion(commonUserCount);
+        const getButtonStatus = function () {
+            if (questionNumber === -1) return false;
+            else {
+                if (disableAnswering) return false;
+                else return true;
+            }
+            
         }
-        }>{buttonText}</StartNext_Button>
+        return <StartNext_Button
+            disabled={getButtonStatus()}
+            onClick={() => {
+                getNextQuestion(commonUserCount);
+            }
+            }>{buttonText}</StartNext_Button>
     }
 
     const setQuestionsAndAnswers_Div = function (currentQuestion) {
@@ -121,7 +132,7 @@ function QuestionPanel() {
                 will show the correct answer if the guess was incorrect
                 */
                 const getAnswerColor = function () {
-                    if (disableAnswering) {
+                    if (clicked.length > 0) {
                         if (a.isCorrect) return correctColors;
                         else if (clicked[index] === true && a.isCorrect === false) return incorrectColors;
                         else return defaultColors;
@@ -150,7 +161,7 @@ function QuestionPanel() {
                     // siteUrl={currentQuestion.siteUrl}
                     // customChildren={currentQuestion.customChildren}
                     // template={currentQuestion.template}
-                    props={{...currentQuestion, disableAnswering}}
+                    props={{ ...currentQuestion, disableAnswering }}
                 />
                 <Answers_Container>
                     {answerComponents}
