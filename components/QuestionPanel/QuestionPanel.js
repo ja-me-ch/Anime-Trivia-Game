@@ -36,14 +36,11 @@ const Answers_Container = styled('div')((props) => ({
 }));
 
 function QuestionPanel() {
-    const { profiles, questionHistory } = useContext(AnimeTriviaGameContext);
+    const { profiles, questionHistory, commonList } = useContext(AnimeTriviaGameContext);
 
-    const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, clicked, toggleClicked } = useContext(QuestionAndAnswerContext);
-    const { commonList } = useContext(AnimeTriviaGameContext);
+    const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, clicked, toggleClicked, buttonStatus } = useContext(QuestionAndAnswerContext);
 
     const [commonUserCount, setCommonUserCount] = useState(1);
-
-    // VoiceActorAnimeCharacter(21400);
 
     useEffect(() => {
 
@@ -100,14 +97,18 @@ function QuestionPanel() {
         else {
             buttonText = 'Next';
         }
+
         const getButtonStatus = function () {
-            if (commonList.length === 0) return true;
+            if (buttonStatus) return true;
+            else if (commonList.length === 0) return true;
             else {
-                if (clicked.length === 0) return true;
+                if (commonList.length > 0 && questionNumber === -1) return false;
+                if (disableAnswering === false) return true;
                 else return false;
             }
 
         }
+
         return <StartNext_Button
             disabled={getButtonStatus()}
             onClick={() => {

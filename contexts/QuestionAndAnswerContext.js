@@ -12,18 +12,21 @@ export function QuestionAndAnswerProvider(props) {
     const [questionNumber, setQuestionNumber] = useState(-1);
     const [disableAnswering, setDisableAnswering] = useState(false);
     const [clicked, setClicked] = useState([]);
+    const [buttonStatus, setButtonStatus] = useState(false);
 
     const { commonList, questionHistory, setQuestionHistory } = useContext(AnimeTriviaGameContext)
 
     const getNextQuestion = function (commonUserCount) {
+        setButtonStatus(true);
         const list = commonList.filter((e) => e.users.length >= commonUserCount);
         if (list.length === 0) return null;
 
         const MakeCall = async function () {
-            // setDisableAnswering(true);
             return await getRandomQuestion(list);
         }
-        
+    
+        setTimeout(5000);
+
         MakeCall()
         .then((res) => {
             console.log('res');
@@ -45,8 +48,8 @@ export function QuestionAndAnswerProvider(props) {
                 setDisableAnswering(false);
                 }
             }).finally(() => {
-                // setDisableAnswering(false);
-            });
+                setButtonStatus(false);
+            })
 
 
         //     //transfer below to makecall.then()
@@ -87,7 +90,8 @@ export function QuestionAndAnswerProvider(props) {
                 getNextQuestion,
                 disableAnswering,
                 clicked,
-                toggleClicked
+                toggleClicked,
+                buttonStatus
             }}>
             {props.children}
         </QuestionAndAnswerContext.Provider>

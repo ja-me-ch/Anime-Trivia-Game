@@ -4,7 +4,7 @@ import ProfileCardsPanel from './ProfileCardsPanel';
 import styled from '@emotion/styled';
 
 const RootStyle = styled('div')((props) => ({
-    border: '1px solid red'
+    // border: '1px solid red'
 }))
 
 function Profiles(props) {

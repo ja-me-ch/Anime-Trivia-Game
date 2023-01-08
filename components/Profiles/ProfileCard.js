@@ -17,14 +17,14 @@ const BannerImage = styled('img')((props) => ({
 const CardTop = styled('div')((props) => ({
     background: props.background ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 100%),
     url(${props.background})` : null,
-    backgroundSize: props.background ? '155%' : null,
+    backgroundSize: props.background ? '135%' : null,
     position: 'relative',
     backgroundPosition: props.background ? '50% 50%' : null,
-    height: '60%',
-    minHeight: '60%',
-    transition: 'all 3s ease',
+    height: '50%',
+    minHeight: '50%',
+    transition: 'all 6s ease',
     '&:hover': {
-        backgroundSize: '170%'
+        backgroundSize: '150%'
     }
 }));
 
@@ -32,12 +32,12 @@ const CardBottom = styled('div')((props) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '40%'
+    height: '50%'
 }));
 
 const SquareContainer = styled('div')((props) => ({
     position: 'relative',
-    top: '45%',
+    top: '50%',
     left: '3%',
     width: '125px',
     height: '125px',
@@ -48,8 +48,8 @@ const SquareContainer = styled('div')((props) => ({
 
 const Name = styled('h5')((props) => ({
     position: 'relative',
-    top: '-20%',
-    left: '33%',
+    top: '-72%',
+    left: '34%',
     fontSize: '30px',
     letterSpacing: '2.5px',
     textShadow: '4px 4px 12px rgba(0,0,0,0.5)',
@@ -93,8 +93,9 @@ const ClearIconCircle = styled('div')((props) => ({
 }));
 
 const RootStyle = styled('div')((props) => ({
-    width: '450px',
-    height: '300px',
+    width: '100%',
+    minWidth: '450px',
+    height: '250px',
     // margin: 'auto',
     // padding: 'none',
     borderRadius: '15px',

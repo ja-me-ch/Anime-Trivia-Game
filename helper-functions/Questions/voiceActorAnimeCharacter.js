@@ -9,7 +9,7 @@ import Images from '../../components/QuestionPanel/QuestionTemplates/Images';
     [voice actor] voices which character in [anime]?
     //Display 4 characters from the anime
 
-    If anime doesn't have > 4 characters, return null
+    If anime doesn't have > 4 characters, return undefined
 */
 
 const CustomNameSpan = styled('span')((props) => ({
