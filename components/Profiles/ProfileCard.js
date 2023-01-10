@@ -68,7 +68,7 @@ const ListContainer = styled('div')((props) => ({
 }));
 
 const ClearIconCircle = styled('div')((props) => ({
-    className: 'clearIconCircle',
+    // className: 'clearIconCircle',
     position: 'absolute',
     top: '10px',
     right: '10px',

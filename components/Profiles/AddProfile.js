@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { useContext } from 'react';
+import styled from '@emotion/styled';
 import MakeRequest from '../../graphql/makeRequest';
 import GetUserByName from '../../graphql/getUserByName';
 import GetMediaListCollectionByUserId from '../../graphql/getMediaListCollectionByUserId';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { TextField } from '@mui/material';
+
+const RootStyle = styled('div')((props) => ({
+    margin: '0 5px'
+}));
 
 function AddProfile(props) {
     const [nameField, setNameField] = useState('melody');
@@ -38,7 +43,7 @@ function AddProfile(props) {
     }
 
     return (
-        <div>
+        <RootStyle>
             <TextField sx={{
                 border: '1px solid white',
                 borderRadius: '6px'
@@ -53,7 +58,7 @@ function AddProfile(props) {
                 value={nameField}
                 onChange={(e) => setNameField(e.target.value)}
             />
-        </div>
+        </RootStyle>
     )
 }
 

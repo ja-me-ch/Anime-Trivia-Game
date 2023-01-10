@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from '@emotion/styled';
-import { AnimeTriviaGameProvider } from '../contexts/AnimeTriviaGameContext';
+import { AnimeTriviaGameContext, AnimeTriviaGameProvider } from '../contexts/AnimeTriviaGameContext';
 import { QuestionAndAnswerProvider } from '../contexts/QuestionAndAnswerContext';
 import Profiles from './Profiles/Profiles';
 import Question from './QuestionPanel/Question';
 import QuestionPanel from './QuestionPanel/QuestionPanel';
-import { display } from '@mui/system';
 
 const RootStyle = styled('div')(() => ({
     display: 'flex',
@@ -13,26 +12,29 @@ const RootStyle = styled('div')(() => ({
 }));
 
 const RightSideBar = styled('div')(() => ({
+    // flexGrow: '1',
     border: '1px solid yellow'
 }));
 
 const CenterContainer = styled('div')(() => ({
+    flexGrow: '4',
     border: '1px solid green'
 }));
 
 const LeftSideBar = styled('div')(() => ({
-    maxWidth: '',
+    // flexGrow: '1',
     border: '1px solid blue'
 }));
 
 function AnimeTriviaGame() {
+    // const { showRightBar, showLeftBar } = useContext(AnimeTriviaGameContext);
 
     return (
         <AnimeTriviaGameProvider>
             <RootStyle>
-                <RightSideBar>
+                <LeftSideBar>
 
-                </RightSideBar>
+                </LeftSideBar>
 
                 <CenterContainer>
                     <QuestionAndAnswerProvider>
@@ -40,9 +42,9 @@ function AnimeTriviaGame() {
                     </QuestionAndAnswerProvider>
                 </CenterContainer>
 
-                <LeftSideBar>
+                <RightSideBar>
                     <Profiles />
-                </LeftSideBar>
+                </RightSideBar>
             </RootStyle>
         </AnimeTriviaGameProvider>
     )

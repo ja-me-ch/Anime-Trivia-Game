@@ -11,6 +11,10 @@ export function AnimeTriviaGameProvider(props) {
     const [commonList, setCommonList] = useState([]);
     const [questionHistory, setQuestionHistory] = useState([]);
 
+    //Menu/UI states
+    const [showRightBar, setShowRightBar] = useState(true);
+    const [showLeftBar, setShowLeftBar] = useState(false);
+
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
         if (!doesProfileExist) {
@@ -107,6 +111,14 @@ export function AnimeTriviaGameProvider(props) {
             })
     }
 
+    const toggleRightBar = function() {
+        console.log('toggling right bar!')
+        setShowRightBar((s) => (!s))
+    }
+
+    const toggleLeftBar = function() {
+        setShowLeftBar((s) => (!s));
+    }
 
     return (
         <AnimeTriviaGameContext.Provider
@@ -119,12 +131,11 @@ export function AnimeTriviaGameProvider(props) {
                 RemoveProfile,
                 questionHistory,
                 setQuestionHistory,
-                GenerateNewQuestion
-                // questionHistory: {
-                //     value: questionHistory,
-                //     setValue: setQuestionHistory,
-                //     newQuestion: GenerateNewQuestion
-                // }
+                GenerateNewQuestion,
+                toggleRightBar,
+                toggleLeftBar,
+                showRightBar,
+                showLeftBar
             }}
         >
             {props.children}

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from '@emotion/styled';
-import { Select, MenuItem, FormControl, InputLabel, Button } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, Button, CircularProgress } from '@mui/material';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContext';
 import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
@@ -9,6 +9,10 @@ import Answer from './Answer';
 
 
 import VoiceActorAnimeCharacter from '../../helper-functions/Questions/voiceActorAnimeCharacter';
+const RootStyle = styled('div')((props) => ({
+    position: 'relative',
+    overflow: 'hidden'
+}));
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
@@ -32,7 +36,22 @@ const Answers_Container = styled('div')((props) => ({
     display: 'flex',
     flexWrap: 'wrap',
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // zIndex: '110'
+}));
+
+const LoadingOverlay = styled('div')(({buttonStatus}) => ({
+    position: 'absolute',
+    left: '0',
+    // height: '100vh',
+    // width: '100vw',
+    height: '100%',
+    width: '100%',
+    background: 'rgba(0, 0, 0, 0.4)',
+    // zIndex: buttonStatus ? '100' : '-1',
+    // opacity: buttonStatus ? '100' : '0',
+    zIndex: '110',
+    opactiy: '100'
 }));
 
 function QuestionPanel() {
@@ -171,14 +190,25 @@ function QuestionPanel() {
         }
     }
 
+    const getLoadingOverlay = function () {
+
+    }
+
     return (
-        <div>
+        <RootStyle buttonStatus={buttonStatus}>
+            {buttonStatus && <LoadingOverlay>
+                <CircularProgress sx={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%'
+                }} />
+            </LoadingOverlay>}
             <div>
                 {setCommonUserCount_Select()}
                 {setStartNext_Button(currentQuestion)}
             </div>
             {setQuestionsAndAnswers_Div(currentQuestion)}
-        </div>
+        </RootStyle>
     )
 }
 

@@ -44,7 +44,7 @@ const MakeRequest = function (props) {
                 });
         })
         .then((data) => {
-            return data
+            return data;
         })
         .catch((err) => {
             return err;

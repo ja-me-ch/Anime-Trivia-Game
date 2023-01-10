@@ -24,8 +24,6 @@ export function QuestionAndAnswerProvider(props) {
         const MakeCall = async function () {
             return await getRandomQuestion(list);
         }
-    
-        setTimeout(5000);
 
         MakeCall()
         .then((res) => {
