@@ -46,7 +46,9 @@ function AddProfile(props) {
         <RootStyle>
             <TextField sx={{
                 border: '1px solid white',
-                borderRadius: '6px'
+                borderRadius: '6px',
+                minWidth: '200px',
+                width: '200px'
             }}
                 inputProps={{
                     sx: {

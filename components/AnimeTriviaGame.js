@@ -5,10 +5,12 @@ import { QuestionAndAnswerProvider } from '../contexts/QuestionAndAnswerContext'
 import Profiles from './Profiles/Profiles';
 import Question from './QuestionPanel/Question';
 import QuestionPanel from './QuestionPanel/QuestionPanel';
+import TopBar from './Stage/TopBar';
+import CenterBar from './Stage/CenterBar';
 
 const RootStyle = styled('div')(() => ({
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'column'
 }));
 
 const RightSideBar = styled('div')(() => ({
@@ -21,31 +23,19 @@ const CenterContainer = styled('div')(() => ({
     border: '1px solid green'
 }));
 
-const LeftSideBar = styled('div')(() => ({
-    // flexGrow: '1',
-    border: '1px solid blue'
-}));
-
 function AnimeTriviaGame() {
     // const { showRightBar, showLeftBar } = useContext(AnimeTriviaGameContext);
 
     return (
         <AnimeTriviaGameProvider>
-            <RootStyle>
-                <LeftSideBar>
+            <QuestionAndAnswerProvider>
+                <RootStyle>
+                    <TopBar />
 
-                </LeftSideBar>
+                    <CenterBar />
 
-                <CenterContainer>
-                    <QuestionAndAnswerProvider>
-                        <QuestionPanel />
-                    </QuestionAndAnswerProvider>
-                </CenterContainer>
-
-                <RightSideBar>
-                    <Profiles />
-                </RightSideBar>
-            </RootStyle>
+                </RootStyle>
+            </QuestionAndAnswerProvider>
         </AnimeTriviaGameProvider>
     )
 }

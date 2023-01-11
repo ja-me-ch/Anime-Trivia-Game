@@ -1,6 +1,35 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import ProfileCard from './ProfileCard';
+import styled from '@emotion/styled';
+
+const RootStyle = styled('div')(() => ({
+    // border: '1px solid red',
+    // width: '100%',
+    // background: 'grey',
+    // padding: '5px',
+    // paddingBottom: '10px',
+    // height: '100%',
+    // overflow: 'hidden',
+    // // scrollbarGutter: 'auto',
+    // // scrollbarColor: 'unset',
+    // // scrollbarWidth: 'thin',
+    // overflowX: 'hidden',
+    // overflowY: 'scroll',
+
+    // '&::-webkit-scrollbar': {
+    //     backgroundColor: 'grey',
+    //     width: '0px',
+    //     // height: '50%',
+    //     // position: 'relative',
+    // },
+    // '&:hover': {
+    //     '&::-webkit-scrollbar': {
+    //         width: '2px',
+    //         border: '1px solid red'
+    //     }
+    // }
+}));
 
 function ProfileCardsPanel() {
     const { profiles } = useContext(AnimeTriviaGameContext);
@@ -13,9 +42,9 @@ function ProfileCardsPanel() {
     }, [profiles]);
     if (profiles.length === 0) return null;
     return (
-        <div>
+        <RootStyle>
             {profileCards}
-        </div>
+        </RootStyle>
     )
 }
 
