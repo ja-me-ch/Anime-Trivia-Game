@@ -195,14 +195,15 @@ function QuestionPanel() {
 
     return (
         <RootStyle buttonStatus={buttonStatus}>
-            {showRightBar && <LoadingOverlay onClick={() => { toggleRightBar() }}>
-            </LoadingOverlay>}
-            {buttonStatus && <LoadingOverlay>
-                <CircularProgress sx={{
+            {(buttonStatus || (showRightBar && questionNumber > -1)) && <LoadingOverlay
+                onClick={() => {
+                    if (showRightBar) toggleRightBar();
+                }}>
+                {buttonStatus && <CircularProgress sx={{
                     position: 'absolute',
                     left: '50%',
                     top: '50%'
-                }} />
+                }} />}
             </LoadingOverlay>}
             <div>
                 {setCommonUserCount_Select()}

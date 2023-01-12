@@ -5,21 +5,24 @@ This will be a browser game that takes 2 or more urls of users on AniList, find 
 # Below are Notes from Brainstorming, etc.
 
 # Todos
-- Remove hyperlinks from question display, add them in after the question has been answered
 - track score
 
 
 # Notes/Extras
 - if no banner is found find a banner from previous/related anime (prequel, parent, manga)
 - question and answer selection is not yet weighted
-- maybe display type of anime (special, movie, sequel, parent)
+- maybe display type of anime (special, ova, movie, sequel, parent)
 - remove year if its in the title (eg. Hunter x Hunter (2011))
+- consider moving commonUser count selector to Profiles
+- redo layout of Images template
 
 
 # Sample Questions
 Which anime does this character appear in?
 
 (Musician) performed a musical theme for which anime?
+
+Using Images template, which of these characters (4 images) is (name of character)
 
 <!-- When did this (anime/manga) being airing/start publishing? -->
 
