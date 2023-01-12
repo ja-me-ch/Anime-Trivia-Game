@@ -40,7 +40,7 @@ const Answers_Container = styled('div')((props) => ({
     // zIndex: '110'
 }));
 
-const LoadingOverlay = styled('div')(({buttonStatus}) => ({
+const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
     position: 'absolute',
     left: '0',
     // height: '100vh',
@@ -50,12 +50,11 @@ const LoadingOverlay = styled('div')(({buttonStatus}) => ({
     background: 'rgba(0, 0, 0, 0.4)',
     // zIndex: buttonStatus ? '100' : '-1',
     // opacity: buttonStatus ? '100' : '0',
-    zIndex: '110',
-    opactiy: '100'
+    zIndex: '50',
 }));
 
 function QuestionPanel() {
-    const { profiles, questionHistory, commonList } = useContext(AnimeTriviaGameContext);
+    const { profiles, questionHistory, commonList, showRightBar, toggleRightBar } = useContext(AnimeTriviaGameContext);
 
     const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, clicked, toggleClicked, buttonStatus } = useContext(QuestionAndAnswerContext);
 
@@ -196,12 +195,14 @@ function QuestionPanel() {
 
     return (
         <RootStyle buttonStatus={buttonStatus}>
-            {buttonStatus && <LoadingOverlay>
-                <CircularProgress sx={{
+            {/* {showRightBar && <LoadingOverlay onClick={() => { toggleRightBar }}>
+            </LoadingOverlay>} */}
+            {buttonStatus  || showRightBar && <LoadingOverlay>
+                {buttonStatus && <CircularProgress sx={{
                     position: 'absolute',
                     left: '50%',
                     top: '50%'
-                }} />
+                }} />}
             </LoadingOverlay>}
             <div>
                 {setCommonUserCount_Select()}

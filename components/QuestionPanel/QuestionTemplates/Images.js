@@ -79,12 +79,15 @@ const CenterImageImg = styled('img')((props) => ({
 
 const AnswerImages = styled('div')((props) => ({
     padding: '5px',
-    display: 'flex',
+    // display: 'flex',
     // justifyContent: 'space-evenly',
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
-    display: 'flex',
+    // display: 'flex',
+    
     // justifyContent: 'space-evenly',
     // border: '1px solid yellow',
     position: 'relative',
@@ -105,7 +108,7 @@ const AnswerImage = styled('img')((props) => ({
     // left: '0',
     borderRadius: '10px',
     padding: '2px',
-    // height: '100%',
+    height: '100%',
     objectFit: 'cover',
     objectPosition: '50% 50%',
     maxWidth: '100%',
@@ -119,7 +122,7 @@ const AnswerImageLetter = styled('h2')((props) => ({
     bottom: '-100px',
     fontSize: '5em',
     color: '#ECECEC',
-    zIndex: '100',
+    // zIndex: '10',
     WebkitTextStroke: '2.5px black',
     transition: 'all 0.7s ease',
 }));

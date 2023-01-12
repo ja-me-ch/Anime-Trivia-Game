@@ -6,28 +6,35 @@ import { Button, Collapse } from '@mui/material'
 import styled from '@emotion/styled';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 
-const RootStyle = styled('div')(({ showRightBar }) => ({
+const RootStyle = styled('div')(({ profiles, showRightBar }) => ({
     // border: '1px solid red',
     // position: 'relative',
     width: '100%',
-    background: 'grey',
-    padding: '10px 5px',
+    background: 'black',
+    padding: '6px 6px',
     margin: '0px 0px',
-    maxHeight: '50vh',
-    overflow: 'auto',
+    borderRadius: '3px',
+    maxHeight: '60vh',
+    overflow: 'overlay',
     overflowX: 'hidden',
+    visibility: profiles > 0 ? 'visible' : 'hidden',
+    zIndex: showRightBar && profiles > 0 ? '200' : '0',
     '&::-webkit-scrollbar': {
         width: '0px',
         position: 'relative',
+        background: 'rgba(26, 26, 26, 0.9)'
         // background: 'red',
         // border: '1px solid black',
     },
     '&::-webkit-scrollbar-thumb': {
-        background: 'red'
+        background: 'rgba(77, 77, 77, 0.9)',
+        borderRadius: '5px',
+        position: 'relative',
+        right: '-100px'
     },
     '&:hover': {
         '&::-webkit-scrollbar': {
-            width: '8px'
+            width: '6px'
         }
     }
 }));
@@ -51,11 +58,11 @@ const DrawerIconContainer = styled('div')((props) => ({
 
 
 function Profiles(props) {
-    const { toggleRightBar, showRightBar } = useContext(AnimeTriviaGameContext);
+    const { toggleRightBar, showRightBar, profiles } = useContext(AnimeTriviaGameContext);
 
     return (
         <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
-            <RootStyle>
+            <RootStyle profiles={profiles.length} showRightBar={showRightBar}>
                 <ProfileCardsPanel />
             </RootStyle>
         </Collapse>
