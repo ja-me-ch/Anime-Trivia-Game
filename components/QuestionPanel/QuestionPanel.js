@@ -189,10 +189,6 @@ function QuestionPanel() {
         }
     }
 
-    const getLoadingOverlay = function () {
-
-    }
-
     return (
         <RootStyle buttonStatus={buttonStatus}>
             {(buttonStatus || (showRightBar && questionNumber > -1)) && <LoadingOverlay

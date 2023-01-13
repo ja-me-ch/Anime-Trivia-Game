@@ -23,6 +23,7 @@ Which anime does this character appear in?
 (Musician) performed a musical theme for which anime?
 
 Using Images template, which of these characters (4 images) is (name of character)
+Using Images template (1) what is the name of this character?
 
 <!-- When did this (anime/manga) being airing/start publishing? -->
 
