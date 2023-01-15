@@ -35,6 +35,7 @@ export function QuestionAndAnswerProvider(props) {
                 return null;
             }
             else {
+                console.log(res);
                 const newQuestionHistory = questionHistory.map((e) => e);
                 newQuestionHistory.push(res);
                 setQuestionHistory(newQuestionHistory);

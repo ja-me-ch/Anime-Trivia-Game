@@ -116,8 +116,12 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
         coverImage: mediaInfo.coverImage,
         bannerImage: mediaInfo.bannerImage,
         siteUrl: mediaInfo.siteUrl,
-        images: images,
-        template: 'Images'
+        template: {
+            name: 'Images',
+            showMain: true,
+            imagesCount: 4,
+            images: images,
+        }
     })
 
 

@@ -11,7 +11,7 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 function Question({props}) {
-    const { template } = props;
+    const name  = props.template.name
     // console.log('TEMPLATE: ', template);
 
     const getTemplate = function (template) {
@@ -25,7 +25,7 @@ function Question({props}) {
 
     return (
         <RootStyle>
-            {getTemplate(template)}
+            {getTemplate(name)}
         </RootStyle>
     )
 }

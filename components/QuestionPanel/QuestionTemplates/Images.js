@@ -77,17 +77,17 @@ const CenterImageImg = styled('img')((props) => ({
     maxWidth: '100%'
 }));
 
-const AnswerImages = styled('div')((props) => ({
+const AnswerImages = styled('div')(({imagesCount}) => ({
     padding: '5px',
     // display: 'flex',
     // justifyContent: 'space-evenly',
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gridTemplateColumns: `repeat(${imagesCount}, 1fr)`,
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
     // display: 'flex',
-    
+
     // justifyContent: 'space-evenly',
     // border: '1px solid yellow',
     position: 'relative',
@@ -129,8 +129,8 @@ const AnswerImageLetter = styled('h2')((props) => ({
 
 const Images = function ({ props }) {
     // console.log(props);
-    const { bannerImage, question, title, siteUrl, customChildren, images, disableAnswering } = props;
-
+    const { bannerImage, template, question, title, siteUrl, customChildren, disableAnswering } = props;
+    const { images, imagesCount, showMain } = template;
     const letters = ['A', 'B', 'C', 'D']
     const imageElements = images.map((i, index) => {
 
@@ -147,7 +147,7 @@ const Images = function ({ props }) {
         }
     });
 
-    const CenterImage = <CenterImageImg src={images[0].image} />;
+    const CenterImage = showMain ? <CenterImageImg src={images[0].image} /> : null;
     if (disableAnswering) { CenterImage = <a href={images[0].siteUrl} style={{ display: 'contents' }} target='_blank'>{CenterImage}</a> }
 
     return (
@@ -163,14 +163,14 @@ const Images = function ({ props }) {
                     display: 'flex',
                     // border: '1px solid blue'
                 }}>
-                    <CenterImageContainer>
+                    {showMain && <CenterImageContainer>
                         {CenterImage}
-                    </CenterImageContainer>
+                    </CenterImageContainer>}
                     <div style={{
                         padding: '5px'
                     }}>
                         <QuestionText>{question}</QuestionText>
-                        <AnswerImages>
+                        <AnswerImages imagesCount={imagesCount}>
                             {imageElements}
                         </AnswerImages>
                     </div>

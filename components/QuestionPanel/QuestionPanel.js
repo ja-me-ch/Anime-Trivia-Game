@@ -79,6 +79,7 @@ function QuestionPanel() {
             TODO:
             extra: keep track of whether the question was answered correctly
         */
+       console.log(questionHistory[questionNumber]);
         setCurrentQuestion(questionHistory[questionNumber]);
     }, [questionNumber, disableAnswering])
 
