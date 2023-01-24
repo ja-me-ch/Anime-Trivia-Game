@@ -3,6 +3,7 @@ import getRandomIndex from "../Functions/getRandomIndex";
 import AnimeSeasonAirDate from "./animeSeasonAirDate";
 import VoiceActorAnimeCharacter from "./voiceActorAnimeCharacter";
 import AnimeEpisodeCount from "./animeEpisodeCount";
+import AnimeCharacterName from "./animeCharacterName";
 
 /*
 -Randomly selects a question
@@ -15,8 +16,9 @@ extra:
 
 const questions = [
     // AnimeSeasonAirDate,
-    VoiceActorAnimeCharacter,
-    // AnimeEpisodeCount
+    // VoiceActorAnimeCharacter,
+    // AnimeEpisodeCount,
+    AnimeCharacterName
 ]
 
 const getRandomQuestion = async function (commonList) {
@@ -26,7 +28,7 @@ const getRandomQuestion = async function (commonList) {
     // const question = undefined;
     // question = await getQuestionData(randomMediaEntry, randomQuestion);
     // let i = 0;
-    let maxCalls = 10;
+    let maxCalls = 1;
 
     for (let i = 0; i < maxCalls; i++) {
         const pendingQuestion = undefined;

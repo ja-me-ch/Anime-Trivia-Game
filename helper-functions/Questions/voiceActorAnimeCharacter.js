@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import MakeRequest from '../../graphql/makeRequest';
 import ShuffleArray from '../Functions/shuffleArray';
 import getRandomIndex from '../Functions/getRandomIndex';
-import Images from '../../components/QuestionPanel/QuestionTemplates/Images';
 
 /*Generates the question:
     [voice actor] voices which character in [anime]?
