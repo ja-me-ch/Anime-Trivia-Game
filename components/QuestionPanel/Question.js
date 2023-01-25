@@ -11,23 +11,26 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 function Question({props}) {
-    const name  = props.template.name
+    // const name  = props.template.name
     // console.log('TEMPLATE: ', template);
 
-    const getTemplate = function (template) {
-        if (template === undefined || template === 'Default') {
-            return <Default props={props} />
-        }
-        else if (template === 'Images') {
-            return <Images props={props} />
-        }
-    }
+    
 
     return (
         <RootStyle>
-            {getTemplate(name)}
+            {getTemplate(props)}
         </RootStyle>
     )
+}
+
+const getTemplate = function (props) {
+    console.log(props);
+    if (props.template.name === undefined || props.template.name === 'Default') {
+        return <Default props={props} />
+    }
+    else if (props.template.name === 'Images') {
+        return <Images props={props} />
+    }
 }
 
 export default Question;

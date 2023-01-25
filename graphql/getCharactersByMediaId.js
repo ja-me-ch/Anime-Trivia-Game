@@ -8,7 +8,20 @@ const GetCharactersByMediaId = function (props) {
       native
       userPreferred
     },
-    characters{
+    siteUrl
+    coverImage {
+      extraLarge
+      large
+      medium
+      color
+    }
+    bannerImage
+    title {
+      romaji
+      english
+      native
+    }
+    characters {
       nodes {
         id
         name {

@@ -62,19 +62,11 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
     }
 
     const answers = pendingCharacters.map((c) => {
-        const getCustomChildren = function () {
-            const nativeName = c.character.name.native;
-            const fullName = c.character.name.full;
-            return <div>
-                {nativeName !== null ? <CustomNameSpan native={true}>{`${nativeName}`}</CustomNameSpan> : null}
-                <CustomNameSpan>{`${fullName}`}</CustomNameSpan>
-            </div>
-        }
         return {
             answer: `${c.character.name.full}, ${c.character.name.native}`,
             isCorrect: c.isCorrect ? true : false,
             clicked: false,
-            customChildren: getCustomChildren(),
+            customChildren: getCustomChildren(c),
             image: c.character.image.large,
             siteUrl: c.character.siteUrl
         }
@@ -122,9 +114,15 @@ const VoiceActorAnimeCharacter = async function (mediaId) {
             images: images,
         }
     })
+}
 
-
-
+const getCustomChildren = function (c) {
+    const nativeName = c.character.name.native;
+    const fullName = c.character.name.full;
+    return <div>
+        {nativeName !== null ? <CustomNameSpan native={true}>{`${nativeName}`}</CustomNameSpan> : null}
+        <CustomNameSpan>{`${fullName}`}</CustomNameSpan>
+    </div>
 }
 
 const getRandomCharacter = function (charactersArray, language, requiresVoiceActor) {
