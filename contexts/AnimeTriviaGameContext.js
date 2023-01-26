@@ -112,12 +112,24 @@ export function AnimeTriviaGameProvider(props) {
     }
 
     const toggleRightBar = function() {
-        console.log('toggling right bar!')
         setShowRightBar((s) => (!s))
     }
 
     const toggleLeftBar = function() {
         setShowLeftBar((s) => (!s));
+    }
+
+    const getQuestionHistory = function() {
+        return questionHistory;
+    }
+
+    const updateQuestionHistory = function(questionIndex, answerIndex) {
+        setQuestionHistory((q) => {
+            console.log(q);
+            q[questionIndex].answers[answerIndex].clicked = true;
+            console.log(q);
+            return q;
+        });
     }
 
     return (
@@ -135,7 +147,9 @@ export function AnimeTriviaGameProvider(props) {
                 toggleRightBar,
                 toggleLeftBar,
                 showRightBar,
-                showLeftBar
+                showLeftBar,
+                getQuestionHistory,
+                updateQuestionHistory
             }}
         >
             {props.children}

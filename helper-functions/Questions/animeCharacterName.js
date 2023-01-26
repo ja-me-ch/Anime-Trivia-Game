@@ -40,7 +40,6 @@ const AnimeCharacterName = async function (mediaId) {
             return undefined;
         }
     }
-    console.log(charactersArray);
 
     const answers = charactersArray.map((c, index) => {
         return {
@@ -56,6 +55,10 @@ const AnimeCharacterName = async function (mediaId) {
     // console.log(answers);
 
     const images = [
+        {
+            image: mediaInfo.coverImage.large,
+            siteUrl: mediaInfo.siteUrl
+        },
         {
             image: charactersArray[0].image.large,
             siteUrl: charactersArray[0].siteUrl
@@ -74,7 +77,7 @@ const AnimeCharacterName = async function (mediaId) {
         template: {
             name: 'Images',
             showMain: true,
-            imagesCount: 0,
+            imagesCount: 1,
             images: images,
         }
     })

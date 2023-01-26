@@ -24,7 +24,6 @@ function Question({props}) {
 }
 
 const getTemplate = function (props) {
-    console.log(props);
     if (props.template === undefined) return <Default props={props} />
     else if (props.template.name === 'Images') return <Images props={props} />
     else if (props.template.name === 'Default') return <Default props={props} />

@@ -28,13 +28,13 @@ const QuestionContainer = styled('div')((props) => ({
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
-    width: '70%',
+    // width: '70%',
     minHeight: '250px',
     height: 'auto',
     // border: '1px solid red',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',
-    padding: '15px',
+    padding: '20px 25px',
     justifyContent: 'center',
 }));
 
@@ -56,15 +56,19 @@ const Title = styled('h2')(({ disableAnswering }) => ({
 }));
 
 const QuestionText = styled('div')((props) => ({
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: '10px'
 }));
 
 const CenterImageContainer = styled('div')((props) => ({
     display: 'flex',
+    flexShrink: '0',
     justifyContent: 'center',
+    borderSizing: 'unset',
+    marginRight: '25px',
     // height: 'auto',
-    width: '40%',
-    minWidth: '175px',
+    minWidth: '25%',
+    // minWidth: '175px',
     // border: '1px solid red',
     // flexBasis: '30%'
 }));
@@ -86,9 +90,9 @@ const AnswerImages = styled('div')(({imagesCount}) => ({
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
-    // display: 'flex',
+    display: 'flex',
 
-    // justifyContent: 'space-evenly',
+    justifyContent: 'space-evenly',
     // border: '1px solid yellow',
     position: 'relative',
     width: 'auto',
@@ -132,12 +136,12 @@ const Images = function ({ props }) {
     const { bannerImage, template, question, title, siteUrl, customChildren, disableAnswering } = props;
     const { images, imagesCount, showMain } = template;
     const letters = ['A', 'B', 'C', 'D']
-    const imageElements = images.map((i, index) => {
 
+    const imageElements = images.map((i, index) => {
         if (index > 0) {
             const answerImageContainer = <AnswerImageContainer key={`${i}-${letters[index - 1]}`}>
                 <AnswerImage src={i.image} className='answerImage' />
-                <AnswerImageLetter className='answerImageLetter'>{letters[index - 1]}</AnswerImageLetter>
+                {imagesCount === 4 ? <AnswerImageLetter className='answerImageLetter'>{letters[index - 1]}</AnswerImageLetter> : null}
             </AnswerImageContainer>
 
             if (disableAnswering) {
@@ -161,6 +165,7 @@ const Images = function ({ props }) {
                 </Title>
                 <div style={{
                     display: 'flex',
+                    justifyContent: 'space-evenly'
                     // border: '1px solid blue'
                 }}>
                     {showMain && <CenterImageContainer>
@@ -169,7 +174,8 @@ const Images = function ({ props }) {
                     <div style={{
                         padding: '5px',
                         display: imagesCount === 0 ? 'flex' : null,
-                        alignItems: imagesCount === 0 ? 'center' : null
+                        alignItems: imagesCount === 0 ? 'center' : null,
+                        justifyContent: 'center'
                     }}>
                         <QuestionText>{question}</QuestionText>
                         <AnswerImages imagesCount={imagesCount}>

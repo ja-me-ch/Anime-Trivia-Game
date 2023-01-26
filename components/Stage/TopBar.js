@@ -43,8 +43,9 @@ const CenterSide = styled('div')(() => ({
 }));
 
 const TopBar = function () {
-    const { toggleRightBar, showRightBar } = useContext(AnimeTriviaGameContext);
+    const { toggleRightBar, showRightBar, getQuestionHistory } = useContext(AnimeTriviaGameContext);
 
+    console.log(getQuestionHistory());
 
     return (
         <RootStyle>

@@ -14,7 +14,7 @@ export function QuestionAndAnswerProvider(props) {
     const [clicked, setClicked] = useState([]);
     const [buttonStatus, setButtonStatus] = useState(false);
 
-    const { commonList, questionHistory, setQuestionHistory } = useContext(AnimeTriviaGameContext)
+    const { commonList, questionHistory, setQuestionHistory, updateQuestionHistory } = useContext(AnimeTriviaGameContext)
 
     const getNextQuestion = function (commonUserCount) {
         setButtonStatus(true);
@@ -36,13 +36,25 @@ export function QuestionAndAnswerProvider(props) {
             }
             else {
                 console.log(res);
-                const newQuestionHistory = questionHistory.map((e) => e);
-                newQuestionHistory.push(res);
-                setQuestionHistory(newQuestionHistory);
-                setQuestionNumber((s) => {
-                    s = s + 1;
-                    return s;
-                });
+
+                // const newQuestionHistory = questionHistory.map((e) => e);
+                // newQuestionHistory.push(res);
+                // setQuestionHistory(newQuestionHistory);
+                setQuestionHistory((h) => {
+                    const newHistory = h.map((h) => (h));
+                    newHistory.push(res);
+                    return newHistory;
+                })
+
+
+                // setQuestionNumber((s) => {
+                //     s = s + 1;
+                //     return s;
+                // });
+
+                const newQuestionNumber = questionNumber + 1;
+                setQuestionNumber(newQuestionNumber);
+
                 setClicked([]);
                 setDisableAnswering(false);
                 }
@@ -68,7 +80,8 @@ export function QuestionAndAnswerProvider(props) {
 
     }
 
-    const toggleClicked = function (index, isCorrect) {
+    const toggleClicked = function (index) {
+        // console.log(index, isCorrect)
         const newClicked = [];
         for (let i = 0; i < currentQuestion.answers.length; i++) {
             if (i === index) {
@@ -78,6 +91,7 @@ export function QuestionAndAnswerProvider(props) {
         }
         setDisableAnswering(true);
         setClicked(newClicked);
+        updateQuestionHistory(questionNumber, index)
     }
 
     return (
