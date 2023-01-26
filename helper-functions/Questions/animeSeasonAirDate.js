@@ -42,7 +42,10 @@ const AnimeSeasonAirDate = async function (mediaId) {
         answers: ShuffleArray(answers),
         coverImage: mediaInfo.coverImage,
         bannerImage: mediaInfo.bannerImage,
-        siteUrl: mediaInfo.siteUrl
+        siteUrl: mediaInfo.siteUrl,
+        template: {
+            name: 'Default'
+        }
     })
 }
 

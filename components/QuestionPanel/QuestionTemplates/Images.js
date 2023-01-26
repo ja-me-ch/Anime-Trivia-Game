@@ -167,7 +167,9 @@ const Images = function ({ props }) {
                         {CenterImage}
                     </CenterImageContainer>}
                     <div style={{
-                        padding: '5px'
+                        padding: '5px',
+                        display: imagesCount === 0 ? 'flex' : null,
+                        alignItems: imagesCount === 0 ? 'center' : null
                     }}>
                         <QuestionText>{question}</QuestionText>
                         <AnswerImages imagesCount={imagesCount}>
