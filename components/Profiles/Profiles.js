@@ -62,7 +62,7 @@ function Profiles(props) {
 
     return (
         <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
-            <RootStyle profiles={profiles.length} showRightBar={showRightBar}>
+            <RootStyle profiles={profiles.value.length} showRightBar={showRightBar}>
                 <ProfileCardsPanel />
             </RootStyle>
         </Collapse>

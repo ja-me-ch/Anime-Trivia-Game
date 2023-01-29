@@ -14,11 +14,11 @@ export function QuestionAndAnswerProvider(props) {
     const [clicked, setClicked] = useState([]);
     const [buttonStatus, setButtonStatus] = useState(false);
 
-    const { commonList, questionHistory, setQuestionHistory, updateQuestionHistory } = useContext(AnimeTriviaGameContext)
+    const { commonList, questionHistory } = useContext(AnimeTriviaGameContext)
 
     const getNextQuestion = function (commonUserCount) {
         setButtonStatus(true);
-        const list = commonList.filter((e) => e.users.length >= commonUserCount);
+        const list = commonList.value.filter((e) => e.users.length >= commonUserCount);
         if (list.length === 0) return null;
 
         const MakeCall = async function () {
@@ -35,17 +35,18 @@ export function QuestionAndAnswerProvider(props) {
                 return null;
             }
             else {
-                console.log(res);
+                // console.log(res);
 
                 // const newQuestionHistory = questionHistory.map((e) => e);
                 // newQuestionHistory.push(res);
                 // setQuestionHistory(newQuestionHistory);
-                setQuestionHistory((h) => {
-                    const newHistory = h.map((h) => (h));
-                    newHistory.push(res);
-                    return newHistory;
-                })
+                // setQuestionHistory((h) => {
+                //     const newHistory = h.map((h) => (h));
+                //     newHistory.push(res);
+                //     return newHistory;
+                // })
 
+                questionHistory.update(res);
 
                 // setQuestionNumber((s) => {
                 //     s = s + 1;
@@ -91,7 +92,7 @@ export function QuestionAndAnswerProvider(props) {
         }
         setDisableAnswering(true);
         setClicked(newClicked);
-        updateQuestionHistory(questionNumber, index)
+        questionHistory.updateAnswers(questionNumber, index)
     }
 
     return (

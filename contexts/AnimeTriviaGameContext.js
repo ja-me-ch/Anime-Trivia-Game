@@ -1,3 +1,4 @@
+import { Update } from '@mui/icons-material';
 import React, { createContext, useState } from 'react';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
 //import getRandomCommonMediaId from '../helper-functions/Functions/getRandomCommonMediaId';
@@ -111,19 +112,29 @@ export function AnimeTriviaGameProvider(props) {
             })
     }
 
-    const toggleRightBar = function() {
+    const toggleRightBar = function () {
         setShowRightBar((s) => (!s))
     }
 
-    const toggleLeftBar = function() {
+    const toggleLeftBar = function () {
         setShowLeftBar((s) => (!s));
     }
 
-    const getQuestionHistory = function() {
-        return questionHistory;
-    }
+    const getQuestionHistory = function () {
+        let correctAnswers = 0;
+        let answeredQuestions = 0;
+        questionHistory.forEach((e) => {
+            if (e.answers.some((a) => a.clicked === true)) {
+                answeredQuestions++;
+                const guess = e.answers.find((a) => (a.clicked === true));
+                if (guess.isCorrect === true) correctAnswers++;
+            }
+        });
+        if (answeredQuestions === 0) return undefined;
+        return [correctAnswers, answeredQuestions];
+    };
 
-    const updateQuestionHistory = function(questionIndex, answerIndex) {
+    const updateAnswersQuestionHistory = function (questionIndex, answerIndex) {
         setQuestionHistory((q) => {
             console.log(q);
             q[questionIndex].answers[answerIndex].clicked = true;
@@ -132,24 +143,39 @@ export function AnimeTriviaGameProvider(props) {
         });
     }
 
+    const updateQuestionHistory = function (newQuestion) {
+        setQuestionHistory((h) => {
+            const newHistory = h.map((h) => (h));
+            newHistory.push(newQuestion);
+            return newHistory;
+        })
+    }
+
     return (
         <AnimeTriviaGameContext.Provider
             //TODO: reorganize values
             value={{
-                profiles,
-                AddProfile,
-                commonList,
-                UpdateListPool,
-                RemoveProfile,
-                questionHistory,
-                setQuestionHistory,
+                profiles: {
+                    value: profiles,
+                    add: AddProfile,
+                    remove: RemoveProfile
+                },
+                commonList: {
+                    value: commonList,
+                    update: UpdateListPool
+                },
+                questionHistory: {
+                    value: questionHistory,
+                    updateAnswers: updateAnswersQuestionHistory,
+                    update: updateQuestionHistory,
+                    score: getQuestionHistory
+                },
+
                 GenerateNewQuestion,
                 toggleRightBar,
                 toggleLeftBar,
                 showRightBar,
                 showLeftBar,
-                getQuestionHistory,
-                updateQuestionHistory
             }}
         >
             {props.children}

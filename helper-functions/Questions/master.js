@@ -15,9 +15,9 @@ extra:
 */
 
 const questions = [
-    // AnimeSeasonAirDate,
+    AnimeSeasonAirDate,
     VoiceActorAnimeCharacter,
-    // AnimeEpisodeCount,
+    AnimeEpisodeCount,
     AnimeCharacterName
 ]
 

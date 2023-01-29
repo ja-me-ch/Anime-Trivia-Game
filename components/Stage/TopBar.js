@@ -8,11 +8,11 @@ import AddProfile from '../Profiles/AddProfile';
 
 
 const RootStyle = styled('div')(() => ({
-    // display: 'flex',
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    // display: 'grid',
+    // gridTemplateColumns: '1fr 1fr 1fr',
     margin: '0 5px 0 5px',
 }));
 
@@ -31,21 +31,44 @@ const RightSide = styled('div')(() => ({
 const LeftSide = styled('div')(() => ({
     display: 'flex',
     justifyContent: 'flex-start',
-    border: '1px solid yellow',
+    // border: '1px solid yellow',
     alignItems: 'center',
 }));
 
 const CenterSide = styled('div')(() => ({
-    display: 'flex',
+    // display: 'inline-block',
+    position: 'absolute',
     justifyContent: 'center',
-    border: '1px solid yellow',
+    left: '50%',
+    top: '20px',
+    // width: '100%',
+    // border: '1px solid yellow',
     alignItems: 'center',
+    fontSize: '2.5em',
+    letterSpacing: '0.3em',
+    transform: 'translateX(-50%)'
+}));
+
+const TotalCorrect = styled('span')(() => ({
+
+}));
+
+const TotalQuestions = styled('span')(() => ({
+
 }));
 
 const TopBar = function () {
-    const { toggleRightBar, showRightBar, getQuestionHistory } = useContext(AnimeTriviaGameContext);
+    const { toggleRightBar, showRightBar, questionHistory } = useContext(AnimeTriviaGameContext);
 
-    console.log(getQuestionHistory());
+    const score = questionHistory.score();
+
+    const getCenterSide = function () {
+        if (score !== undefined) {
+            return <>
+                <span>{score[0]}</span> / <span>{score[1]}</span>
+            </>
+        }
+    }
 
     return (
         <RootStyle>
@@ -54,7 +77,7 @@ const TopBar = function () {
             </LeftSide>
 
             <CenterSide>
-                <h3>Score/question # will go here</h3>
+                {getCenterSide()}
             </CenterSide>
 
             <RightSide>

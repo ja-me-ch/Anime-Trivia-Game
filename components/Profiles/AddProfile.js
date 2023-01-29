@@ -13,7 +13,7 @@ const RootStyle = styled('div')((props) => ({
 
 function AddProfile(props) {
     const [nameField, setNameField] = useState('melody');
-    const { AddProfile } = useContext(AnimeTriviaGameContext);
+    const { profiles } = useContext(AnimeTriviaGameContext);
 
     const CallApi = async function (name) {
         const userParams = GetUserByName(name);
@@ -26,7 +26,7 @@ function AddProfile(props) {
                     setNameField('');
                     await MakeRequest(GetMediaListCollectionByUserId(data.User.id))
                         .then((res) => {
-                            AddProfile({
+                            profiles.add({
                                 profile: data.User,
                                 lists: res.data.MediaListCollection.lists
                             });

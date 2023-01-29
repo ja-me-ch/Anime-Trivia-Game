@@ -80,13 +80,13 @@ function QuestionPanel() {
             extra: keep track of whether the question was answered correctly
         */
     //    console.log(questionHistory[questionNumber]);
-        setCurrentQuestion(questionHistory[questionNumber]);
+        setCurrentQuestion(questionHistory.value[questionNumber]);
     }, [questionNumber, disableAnswering])
 
     const setCommonUserCount_Select = function () {
         const menuItems = [];
         let length = 1;
-        if (profiles.length > 0) length = profiles.length;
+        if (profiles.value.length > 0) length = profiles.value.length;
         for (let i = 1; i <= length; i++) {
             menuItems.push(<MenuItem value={i} key={`menuItem-${i}`}>{i}</MenuItem>)
         }
@@ -119,9 +119,9 @@ function QuestionPanel() {
 
         const getButtonStatus = function () {
             if (buttonStatus) return true;
-            else if (commonList.length === 0) return true;
+            else if (commonList.value.length === 0) return true;
             else {
-                if (commonList.length > 0 && questionNumber === -1) return false;
+                if (commonList.value.length > 0 && questionNumber === -1) return false;
                 if (disableAnswering === false) return true;
                 else return false;
             }

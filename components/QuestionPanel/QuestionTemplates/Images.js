@@ -62,7 +62,7 @@ const QuestionText = styled('div')((props) => ({
 
 const CenterImageContainer = styled('div')((props) => ({
     display: 'flex',
-    flexShrink: '0',
+    flexShrink: '1',
     justifyContent: 'center',
     borderSizing: 'unset',
     marginRight: '25px',

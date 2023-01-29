@@ -112,13 +112,13 @@ const RootStyle = styled('div')((props) => ({
 
 function Profile(props) {
     const { id, name, avatar, bannerImage, siteUrl, lists } = props.props;
-    const { profiles, listPool, UpdateListPool, RemoveProfile } = useContext(AnimeTriviaGameContext);
+    const { profiles, listPool, commonList } = useContext(AnimeTriviaGameContext);
 
     const OnCheckBox = function (e) {
         const foundList = lists.find((list) => {
             return list.name === e.target.name
         });
-        UpdateListPool({
+        commonList.update({
             checked: e.target.checked,
             list: foundList,
             id: id,
@@ -128,7 +128,7 @@ function Profile(props) {
     }
 
     const OnClearIconClick = function (e) {
-        RemoveProfile(id);
+        profiles.remove(id);
     }
 
     const GenerateProfileCard = function () {
