@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 
 import styled from '@emotion/styled';
-import { Button, Collapse } from '@mui/material';
+import { Button, Collapse, Tooltip } from '@mui/material';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import AddProfile from '../Profiles/AddProfile';
 
@@ -64,9 +64,36 @@ const TopBar = function () {
 
     const getCenterSide = function () {
         if (score !== undefined) {
-            return <>
-                <span>{score[0]}</span> / <span>{score[1]}</span>
-            </>
+            const scoreData = {
+                totalCorrect: score[0],
+                totalQuestions: score[1],
+                totalIncorrect: (score[1] - score[0]),
+                percentageCorrect: (score[0] / score[1] * 100).toFixed(2),
+                percentageIncorrect: ((score[1] - score[0]) / score[1] * 100).toFixed(2)
+            }
+
+            const toolTipText = <div
+                style={{
+                    whiteSpace: 'pre-line',
+                    fontSize: '1.4em',
+                    padding: '7px',
+                    lineHeight: '12px',
+                    fontWeight: 600
+                }}>
+                {`Correct: ${scoreData.totalCorrect} (${scoreData.percentageCorrect}%)\n
+                Incorrect: ${scoreData.totalIncorrect} (${scoreData.percentageIncorrect}%)`}
+            </div>
+            return <Tooltip title={toolTipText}>
+                <span>
+                    <TotalCorrect>
+                        {scoreData.totalCorrect}
+                    </TotalCorrect>
+                    /
+                    <TotalQuestions>
+                        {scoreData.totalQuestions}
+                    </TotalQuestions>
+                </span>
+            </Tooltip>
         }
     }
 
