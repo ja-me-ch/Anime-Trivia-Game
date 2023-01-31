@@ -2,12 +2,9 @@ import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 import { display, positions } from '@mui/system';
 import Answer from '../Answer';
+import { Padding } from '@mui/icons-material';
 
 const QuestionContainer = styled('div')((props) => ({
-    width: '100%',
-    height: '100%',
-    // minHeight: '500px',
-    // maxHeight: '20%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -17,7 +14,7 @@ const QuestionContainer = styled('div')((props) => ({
     // backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0 %, rgba(0, 0, 0, 0.3) 100 %)`,
     backgroundSize: 'cover',
     // position: 'relative',
-    padding: '50px',
+    padding: '10px',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
     backgroundRepeat: 'no-repeat',
     // transition: 'all 20s ease',
@@ -28,14 +25,15 @@ const QuestionContainer = styled('div')((props) => ({
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
-    // width: '70%',
-    minHeight: '250px',
-    height: 'auto',
+    maxWidth: '80%',
+    // minHeight: '250px',
+    // height: 'auto',
     // border: '1px solid red',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',
     padding: '20px 25px',
     justifyContent: 'center',
+    // flexGrow: '1'
 }));
 
 const NativeTitle = styled('h2')(({ disableAnswering }) => ({
@@ -81,7 +79,7 @@ const CenterImageImg = styled('img')((props) => ({
     maxWidth: '100%'
 }));
 
-const AnswerImages = styled('div')(({imagesCount}) => ({
+const AnswerImages = styled('div')(({ imagesCount }) => ({
     padding: '5px',
     // display: 'flex',
     // justifyContent: 'space-evenly',
@@ -129,6 +127,11 @@ const AnswerImageLetter = styled('h2')((props) => ({
     // zIndex: '10',
     WebkitTextStroke: '2.5px black',
     transition: 'all 0.7s ease',
+}));
+
+const PaddingDivs = styled('div')((props) => ({
+    // height: 'auto',
+    // flexGrow: '1',
 }));
 
 const Images = function ({ props }) {

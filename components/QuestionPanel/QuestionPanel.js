@@ -7,11 +7,10 @@ import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirD
 import Question from './Question';
 import Answer from './Answer';
 
-
-import VoiceActorAnimeCharacter from '../../helper-functions/Questions/voiceActorAnimeCharacter';
 const RootStyle = styled('div')((props) => ({
     position: 'relative',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    // flex: '1'
 }));
 
 const CommonUserCount_Select = styled(Select)((props) => ({
@@ -23,9 +22,27 @@ const StartNext_Button = styled(Button)((props) => ({
     color: 'white',
     border: '1px solid white',
     transition: 'all 0.5s ease',
+    minHeight: '100%',
     '&:disabled': {
         color: 'red'
     }
+}));
+
+const StartNext_Div = styled('div')(({ disabled }) => ({
+    // position: 'absolute',
+    // left: '50%',
+    // transform: 'translateX(-50%)',
+    color: disabled ? 'red' : 'white',
+    border: '1px solid white',
+    transition: 'all 0.5s ease',
+    // minHeight: '100%',
+    height: '100%',
+    width: '100%',
+    pointerEvents: disabled ? 'none' : 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+
 }));
 
 const Answers_Container = styled('div')((props) => ({
@@ -53,6 +70,29 @@ const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
     zIndex: '50',
 }));
 
+const QuestionHeaderBar = styled('div')((props) => ({
+    border: '1px solid red',
+    display: 'grid',
+    gridTemplateColumns: '33% 34% 33%',
+    minHeight: '100%',
+    height: '100%',
+    // justifyContent: 'space-between',
+}));
+
+const CommonUserContainer = styled('div')((props) => ({
+    width: '100%',
+    border: '1px solid blue',
+    alignSelf: 'flex-start',
+}));
+
+const NextButtonContainer = styled('div')((props) => ({
+    display: 'inline',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)'
+}));
+
+
 function QuestionPanel() {
     const { profiles, questionHistory, commonList, showRightBar, toggleRightBar } = useContext(AnimeTriviaGameContext);
 
@@ -79,7 +119,7 @@ function QuestionPanel() {
             TODO:
             extra: keep track of whether the question was answered correctly
         */
-    //    console.log(questionHistory[questionNumber]);
+        //    console.log(questionHistory[questionNumber]);
         setCurrentQuestion(questionHistory.value[questionNumber]);
     }, [questionNumber, disableAnswering])
 
@@ -128,12 +168,19 @@ function QuestionPanel() {
 
         }
 
-        return <StartNext_Button
+        return <StartNext_Div
             disabled={getButtonStatus()}
-            onClick={() => {
-                getNextQuestion(commonUserCount);
-            }
-            }>{buttonText}</StartNext_Button>
+            onClick={() => getNextQuestion(commonUserCount)}
+        >
+            <span>{buttonText}</span>
+        </StartNext_Div>
+
+        // return <StartNext_Button
+        //     disabled={getButtonStatus()}
+        //     onClick={() => {
+        //         getNextQuestion(commonUserCount);
+        //     }
+        //     }>{buttonText}</StartNext_Button>
     }
 
     const setQuestionsAndAnswers_Div = function (currentQuestion) {
@@ -191,7 +238,7 @@ function QuestionPanel() {
     }
 
     return (
-        <RootStyle buttonStatus={buttonStatus}>
+        <RootStyle>
             {(buttonStatus || (showRightBar && questionNumber > -1)) && <LoadingOverlay
                 onClick={() => {
                     if (showRightBar) toggleRightBar();
@@ -202,10 +249,13 @@ function QuestionPanel() {
                     top: '50%'
                 }} />}
             </LoadingOverlay>}
-            <div>
-                {setCommonUserCount_Select()}
+            <QuestionHeaderBar>
+                <CommonUserContainer>
+                    <span></span>
+                    {setCommonUserCount_Select()}
+                </CommonUserContainer>
                 {setStartNext_Button(currentQuestion)}
-            </div>
+            </QuestionHeaderBar>
             {setQuestionsAndAnswers_Div(currentQuestion)}
         </RootStyle>
     )

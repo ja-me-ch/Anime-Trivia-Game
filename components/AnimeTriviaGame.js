@@ -10,11 +10,13 @@ import CenterBar from './Stage/CenterBar';
 
 const RootStyle = styled('div')(() => ({
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minHeight: '100%',
+    maxHeight: '100%',
+    overflow: 'hidden'
 }));
 
 const RightSideBar = styled('div')(() => ({
-    // flexGrow: '1',
     border: '1px solid yellow'
 }));
 

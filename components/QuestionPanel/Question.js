@@ -5,9 +5,10 @@ import Images from './QuestionTemplates/Images';
 
 const RootStyle = styled('div')((props) => ({
     // border: '1px solid lime',
-    width: '100%',
-    minWidth: '1000px',
-    height: 'auto',
+    // width: '100%',
+    // minWidth: '1000px',
+    // height: 'auto',
+    // flex: '1'
 }));
 
 function Question({props}) {

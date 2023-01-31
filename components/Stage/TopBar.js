@@ -14,6 +14,7 @@ const RootStyle = styled('div')(() => ({
     // display: 'grid',
     // gridTemplateColumns: '1fr 1fr 1fr',
     margin: '0 5px 0 5px',
+    maxHeight: '100px',
 }));
 
 const DrawerIcon = styled(GroupAddIcon)((props) => ({
@@ -39,7 +40,7 @@ const CenterSide = styled('div')(() => ({
     // display: 'inline-block',
     position: 'absolute',
     justifyContent: 'center',
-    left: '50%',
+    left: '50.5%',
     top: '20px',
     // width: '100%',
     // border: '1px solid yellow',
@@ -54,7 +55,7 @@ const TotalCorrect = styled('span')(() => ({
 }));
 
 const TotalQuestions = styled('span')(() => ({
-
+    letterSpacing: '0.1em'
 }));
 
 const TopBar = function () {
@@ -78,6 +79,7 @@ const TopBar = function () {
                     fontSize: '1.4em',
                     padding: '7px',
                     lineHeight: '12px',
+                    letterSpacing: '1px',
                     fontWeight: 600
                 }}>
                 {`Correct: ${scoreData.totalCorrect} (${scoreData.percentageCorrect}%)\n
