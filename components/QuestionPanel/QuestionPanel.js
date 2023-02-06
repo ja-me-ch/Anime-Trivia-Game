@@ -33,16 +33,21 @@ const StartNext_Div = styled('div')(({ disabled }) => ({
     // left: '50%',
     // transform: 'translateX(-50%)',
     color: disabled ? 'red' : 'white',
-    border: '1px solid white',
+    // border: '1px solid white',
     transition: 'all 0.5s ease',
+    background: 'rgb(48, 38, 64)',
     // minHeight: '100%',
     height: '100%',
     width: '100%',
     pointerEvents: disabled ? 'none' : 'auto',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-
+    alignItems: 'center',
+    cursor: 'pointer',
+    borderRadius: '10px',
+    '&:hover': {
+        background: 'rgb(83, 64, 112)'
+    }
 }));
 
 const Answers_Container = styled('div')((props) => ({
@@ -71,7 +76,7 @@ const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
 }));
 
 const QuestionHeaderBar = styled('div')((props) => ({
-    border: '1px solid red',
+    // border: '1px solid red',
     display: 'grid',
     gridTemplateColumns: '33% 34% 33%',
     minHeight: '100%',
@@ -81,7 +86,7 @@ const QuestionHeaderBar = styled('div')((props) => ({
 
 const CommonUserContainer = styled('div')((props) => ({
     width: '100%',
-    border: '1px solid blue',
+    // border: '1px solid blue',
     alignSelf: 'flex-start',
 }));
 

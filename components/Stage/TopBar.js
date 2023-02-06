@@ -4,6 +4,7 @@ import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import styled from '@emotion/styled';
 import { Button, Collapse, Tooltip } from '@mui/material';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import StartIcon from '@mui/icons-material/Start';
 import AddProfile from '../Profiles/AddProfile';
 
 
@@ -17,7 +18,12 @@ const RootStyle = styled('div')(() => ({
     maxHeight: '100px',
 }));
 
-const DrawerIcon = styled(GroupAddIcon)((props) => ({
+const OpenDrawerIcon = styled(GroupAddIcon)((props) => ({
+    fontSize: '2rem',
+    margin: '0.4rem'
+}));
+
+const CloseDrawerIcon = styled(StartIcon)((props) => ({
     fontSize: '2rem',
     margin: '0.4rem'
 }));
@@ -121,7 +127,7 @@ const TopBar = function () {
                     }}
                     onClick={() => { toggleRightBar() }}
                 >
-                    <DrawerIcon />
+                    {showRightBar ? <CloseDrawerIcon/> : <OpenDrawerIcon/>}
                 </Button>
                 <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
                     <AddProfile />
