@@ -5,10 +5,12 @@ import Images from './QuestionTemplates/Images';
 
 const RootStyle = styled('div')((props) => ({
     // border: '1px solid lime',
-    width: '100%',
+    height: '100%',
+    overflow: 'hidden'
+    // maxHeight: 'auto',
+    // width: '100%',
     // minWidth: '1000px',
-    // height: 'auto',
-    // flex: '1'
+    // flex: '1 1 auto'
 }));
 
 function Question({props}) {

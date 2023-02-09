@@ -8,21 +8,25 @@ import Question from './Question';
 import Answer from './Answer';
 
 const RootStyle = styled('div')((props) => ({
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr auto',
     position: 'relative',
     overflow: 'hidden',
-    // flex: '1'
+    height: '100%',
+    maxHeight: '100%',
+    // border: '1px solid'
 }));
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
-    border: '1px solid white'
+    // border: '1px solid white'
 }));
 
 const StartNext_Button = styled(Button)((props) => ({
     color: 'white',
-    border: '1px solid white',
+    // border: '1px solid white',
     transition: 'all 0.5s ease',
-    minHeight: '100%',
+    // minHeight: '100%',
     '&:disabled': {
         color: 'red'
     }
@@ -79,8 +83,8 @@ const QuestionHeaderBar = styled('div')((props) => ({
     // border: '1px solid red',
     display: 'grid',
     gridTemplateColumns: '33% 34% 33%',
-    minHeight: '100%',
-    height: '100%',
+    // minHeight: '100%',
+    height: 'auto',
     // justifyContent: 'space-between',
 }));
 
@@ -225,14 +229,14 @@ function QuestionPanel() {
                 />;
             });
             // console.log(currentQuestion);
-            return <div>
+            return <div style={{
+                display: 'grid',
+                gridTemplateRows: '1fr auto',
+                height: '100%',
+                maxHeight: '100%',
+                overflow: 'hidden'
+            }}>
                 <Question
-                    // bannerImage={currentQuestion.bannerImage ? currentQuestion.bannerImage : currentQuestion.coverImage.extraLarge}
-                    // question={currentQuestion.question}
-                    // title={currentQuestion.title}
-                    // siteUrl={currentQuestion.siteUrl}
-                    // customChildren={currentQuestion.customChildren}
-                    // template={currentQuestion.template}
                     props={{ ...currentQuestion, disableAnswering }}
                 />
                 <Answers_Container>

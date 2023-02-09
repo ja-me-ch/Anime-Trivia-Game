@@ -50,7 +50,7 @@ const TopBar = styled('div')((props) => ({
 }));
 
 const DrawerIconContainer = styled('div')((props) => ({
-    border: '1px solid red',
+    // border: '1px solid red',
     height: '100%'
     // aspectRatio: '1 / 1'
 }));

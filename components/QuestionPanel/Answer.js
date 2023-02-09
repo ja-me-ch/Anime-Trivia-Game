@@ -21,7 +21,7 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 const TextBox = styled('div')((props) => ({
-    padding: '1.2em 0',
+    padding: '1.1em 0',
     display: 'flex',
     alignItems: 'center',
     // width: '100%',

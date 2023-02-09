@@ -2,11 +2,14 @@ import React, { useContext } from 'react';
 import styled from '@emotion/styled';
 
 const QuestionContainer = styled('div')((props) => ({
-    width: '100%',
-    height: 'auto',
-    minHeight: '400px',
+    // width: '100%',
+    minHeight: '100%',
+    height: '100%',
+    // maxHeight: '100%',
+    // flexGrow: '1',
     display: 'flex',
     alignItems: 'center',
+    overflow: 'hidden',
     justifyContent: 'center',
     backgroundImage: props.bannerImage ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 100%),
     url(${props.bannerImage})` : null,
@@ -25,7 +28,7 @@ const QuestionContainer = styled('div')((props) => ({
 
 const QuestionTextBox = styled('div')((props) => ({
     width: '50%',
-    height: 'auto',
+    height: '100%',
     // border: '1px solid red',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',

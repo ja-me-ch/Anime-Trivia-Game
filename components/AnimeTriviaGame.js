@@ -9,20 +9,20 @@ import TopBar from './Stage/TopBar';
 import CenterBar from './Stage/CenterBar';
 
 const RootStyle = styled('div')(() => ({
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100%',
-    maxHeight: '100%',
-    overflow: 'hidden'
+    display: 'grid',
+    gridTemplateRows: 'auto 1fr auto',
+    height: '100vh',
+    minHeight: '100vh',
+    maxHeight: '100vh',
 }));
 
 const RightSideBar = styled('div')(() => ({
-    border: '1px solid yellow'
+    // border: '1px solid yellow'
 }));
 
 const CenterContainer = styled('div')(() => ({
     flexGrow: '4',
-    border: '1px solid green'
+    // border: '1px solid green'
 }));
 
 function AnimeTriviaGame() {
@@ -36,6 +36,12 @@ function AnimeTriviaGame() {
 
                     <CenterBar />
 
+                    <footer style={{
+                        background: 'blue',
+                        height: '2em'
+                    }}>
+                        allo
+                    </footer>
                 </RootStyle>
             </QuestionAndAnswerProvider>
         </AnimeTriviaGameProvider>

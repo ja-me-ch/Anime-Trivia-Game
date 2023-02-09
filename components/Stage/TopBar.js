@@ -9,6 +9,7 @@ import AddProfile from '../Profiles/AddProfile';
 
 
 const RootStyle = styled('div')(() => ({
+    // flex: '1 0 auto',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

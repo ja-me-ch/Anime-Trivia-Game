@@ -5,8 +5,10 @@ import Answer from '../Answer';
 import { Padding } from '@mui/icons-material';
 
 const QuestionContainer = styled('div')((props) => ({
+    height: '100%',
     display: 'flex',
     alignItems: 'center',
+    overflow: 'hidden',
     justifyContent: 'center',
     backgroundImage: props.bannerImage ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 100%),
     url(${props.bannerImage})` : null,
@@ -14,7 +16,6 @@ const QuestionContainer = styled('div')((props) => ({
     // backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0 %, rgba(0, 0, 0, 0.3) 100 %)`,
     backgroundSize: 'cover',
     // position: 'relative',
-    padding: '10px',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
     backgroundRepeat: 'no-repeat',
     // transition: 'all 20s ease',
@@ -25,20 +26,20 @@ const QuestionContainer = styled('div')((props) => ({
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
-    maxWidth: '80%',
+    maxWidth: '90%',
     // minHeight: '250px',
-    // height: 'auto',
+    // height: '100%',
     // border: '1px solid red',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',
-    padding: '20px 25px',
+    // margin: '1%',
     justifyContent: 'center',
     // flexGrow: '1'
 }));
 
 const NativeTitle = styled('h2')(({ disableAnswering }) => ({
-    padding: '0px',
-    marginTop: '-5px',
+    padding: '5px',
+    // marginTop: '-5px',
     marginBottom: '-5px',
     fontSize: '1em',
     textAlign: 'center',
@@ -58,14 +59,16 @@ const QuestionText = styled('div')((props) => ({
     marginBottom: '10px'
 }));
 
-const CenterImageContainer = styled('div')((props) => ({
+const CenterImageContainer = styled('div')(({ imagesCount }) => ({
     display: 'flex',
     // flexShrink: '1',
     justifyContent: 'center',
     borderSizing: 'unset',
-    marginRight: '25px',
-    // height: 'auto',
-    minWidth: '25%',
+    // marginRight: '25px',
+    paddingLeft: '15px',
+    paddingBottom: '15px',
+    height: 'auto',
+    minWidth: imagesCount === 1 ? '50%' : '25%',
     // minWidth: '175px',
     // border: '1px solid red',
     // flexBasis: '50%'
@@ -73,10 +76,12 @@ const CenterImageContainer = styled('div')((props) => ({
 
 const CenterImageImg = styled('img')((props) => ({
     borderRadius: '3px',
-    // height: 'auto',
+    height: 'auto',
     objectFit: 'cover',
+    objectPosition: '50% 50%',
     // minWidth: '20%',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    maxHeight: '100%',
 }));
 
 const AnswerImages = styled('div')(({ imagesCount }) => ({
@@ -168,10 +173,11 @@ const Images = function ({ props }) {
                 </Title>
                 <div style={{
                     display: 'flex',
+                    padding: '5px',
                     justifyContent: 'space-evenly'
                     // border: '1px solid blue'
                 }}>
-                    {showMain && <CenterImageContainer>
+                    {showMain && <CenterImageContainer imagesCount={imagesCount}>
                         {CenterImage}
                     </CenterImageContainer>}
                     <div style={{

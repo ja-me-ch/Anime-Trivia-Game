@@ -7,7 +7,10 @@ import Profiles from '../Profiles/Profiles';
 
 const RootStyle = styled('div')(() => ({
     display: 'flex',
-    flexGrow: '1',
+    // flex: '1 1 auto',
+    // border: '1px solid green',
+    height: '100%',
+    maxHeight: '100%',
     // flexDirection: 'row',
     // justifyContent: 'space-between',
     // gridTemplateColumns: '1fr 1fr 1fr',
@@ -19,8 +22,7 @@ const LeftSide = styled('div')(() => ({
 
 }));
 const CenterSide = styled('div')(() => ({
-    // height: '100%',
-    width: '100%'
+    width: '100%',
 }));
 const RightSide = styled('div')(() => ({
     position: 'absolute',
