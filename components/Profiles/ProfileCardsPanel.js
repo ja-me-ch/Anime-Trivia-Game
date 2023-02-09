@@ -5,7 +5,11 @@ import styled from '@emotion/styled';
 
 const RootStyle = styled('div')(() => ({
     // border: '1px solid red',
-    // width: '100%',
+    width: '450px',
+    // maxWidth: '450px',
+    '@media(max-width: 500px)': {
+        width: '100vw'
+    }
     // background: 'grey',
     // padding: '5px',
     // paddingBottom: '10px',

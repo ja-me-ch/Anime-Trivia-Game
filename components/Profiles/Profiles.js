@@ -11,7 +11,7 @@ const RootStyle = styled('div')(({ profiles, showRightBar }) => ({
     // position: 'relative',
     width: '100%',
     background: 'black',
-    padding: '6px 6px',
+    // padding: '5px 5px',
     margin: '0px 0px',
     borderRadius: '3px',
     maxHeight: '60vh',
@@ -36,6 +36,8 @@ const RootStyle = styled('div')(({ profiles, showRightBar }) => ({
         '&::-webkit-scrollbar': {
             width: '6px'
         }
+    },
+    '@media(max-width: 500px)': {
     }
 }));
 

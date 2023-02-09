@@ -33,7 +33,8 @@ const RightSide = styled('div')(() => ({
     display: 'flex',
     // border: '1px solid red',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    
 }));
 
 const LeftSide = styled('div')(() => ({

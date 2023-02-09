@@ -81,7 +81,7 @@ const CenterImageImg = styled('img')((props) => ({
     objectPosition: '50% 50%',
     // minWidth: '20%',
     maxWidth: '100%',
-    maxHeight: '100%',
+    // maxHeight: '100%',
 }));
 
 const AnswerImages = styled('div')(({ imagesCount }) => ({
@@ -90,11 +90,16 @@ const AnswerImages = styled('div')(({ imagesCount }) => ({
     // justifyContent: 'space-evenly',
     display: 'grid',
     gridTemplateColumns: `repeat(${imagesCount}, 1fr)`,
+    '@media(max-width: 500px)': {
+        gridTemplateColumns: imagesCount === 1 ? `repeat(${imagesCount}, 1fr)` : `repeat(${2}, auto)`,
+        gridTemplateRows: `repeat(${2}, auto)`,
+    }
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
     display: 'flex',
-
+    // flexDirection: 'column',
+    padding: '0.3em',
     justifyContent: 'space-evenly',
     // border: '1px solid yellow',
     position: 'relative',
@@ -114,7 +119,7 @@ const AnswerImage = styled('img')((props) => ({
     // top: '0',
     // left: '0',
     borderRadius: '10px',
-    padding: '2px',
+    padding: '5px',
     height: '100%',
     objectFit: 'cover',
     objectPosition: '50% 50%',
@@ -132,11 +137,16 @@ const AnswerImageLetter = styled('h2')((props) => ({
     // zIndex: '10',
     WebkitTextStroke: '2.5px black',
     transition: 'all 0.7s ease',
+    '@media(max-width: 500px)': {
+        bottom: '-75px'
+    }
 }));
 
-const PaddingDivs = styled('div')((props) => ({
-    // height: 'auto',
-    // flexGrow: '1',
+const QuestionContent = styled('div')((props) => ({
+    display: 'flex',
+    '@media(max-width: 500px)': {
+        flexDirection: 'column'
+    }
 }));
 
 const Images = function ({ props }) {
@@ -171,12 +181,7 @@ const Images = function ({ props }) {
                 <Title disableAnswering={disableAnswering}>
                     <a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a>
                 </Title>
-                <div style={{
-                    display: 'flex',
-                    padding: '5px',
-                    justifyContent: 'space-evenly'
-                    // border: '1px solid blue'
-                }}>
+                <QuestionContent>
                     {showMain && <CenterImageContainer imagesCount={imagesCount}>
                         {CenterImage}
                     </CenterImageContainer>}
@@ -191,7 +196,7 @@ const Images = function ({ props }) {
                             {imageElements}
                         </AnswerImages>
                     </div>
-                </div>
+                </QuestionContent>
             </QuestionTextBox>
             {customChildren !== undefined ? customChildren : null}
         </QuestionContainer>

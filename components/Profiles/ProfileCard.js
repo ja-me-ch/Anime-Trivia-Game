@@ -43,7 +43,10 @@ const SquareContainer = styled('div')((props) => ({
     height: '125px',
     overflow: 'hidden',
     borderRadius: '15px',
-    boxShadow: '4px 4px 12px rgba(0,0,0,0.5)'
+    boxShadow: '4px 4px 12px rgba(0,0,0,0.5)',
+    '@media(max-width: 450px)': {
+        display: 'none'
+    }
 }));
 
 const Name = styled('h5')((props) => ({
@@ -53,7 +56,12 @@ const Name = styled('h5')((props) => ({
     fontSize: '30px',
     letterSpacing: '2.5px',
     textShadow: '4px 4px 12px rgba(0,0,0,0.5)',
-    fontFamily: 'Roboto, sans-serif'
+    fontFamily: 'Roboto, sans-serif',
+    '@media(max-width: 450px)': {
+        top: '-5%',
+        left: '5%',
+        fontSize: '40px'
+    }
 }));
 
 const ListContainer = styled('div')((props) => ({
@@ -64,7 +72,12 @@ const ListContainer = styled('div')((props) => ({
     flexDirection: 'column',
     flexWrap: 'wrap',
     height: '90%',
-    // margin: '5px 15px'
+    // margin: '5px 15px',
+    '@media(max-width: 450px)': {
+        // position: 'unset',
+        // right: '50%',
+        width: '80%',
+    }
 }));
 
 const ClearIconCircle = styled('div')((props) => ({
@@ -93,8 +106,8 @@ const ClearIconCircle = styled('div')((props) => ({
 }));
 
 const RootStyle = styled('div')((props) => ({
-    width: '100%',
-    minWidth: '450px',
+    // width: '100%',
+    // maxWidth: '100vw',
     height: '250px',
     // margin: 'auto',
     // padding: 'none',

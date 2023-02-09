@@ -13,7 +13,7 @@ const RootStyle = styled('div')((props) => ({
     position: 'relative',
     overflow: 'hidden',
     height: '100%',
-    maxHeight: '100%',
+    // maxHeight: '100%',
     // border: '1px solid'
 }));
 
@@ -56,7 +56,7 @@ const StartNext_Div = styled('div')(({ disabled }) => ({
 
 const Answers_Container = styled('div')((props) => ({
     // border: '1px solid purple',
-    margin: '1em 0em',
+    margin: '10px 0px',
     width: '100%',
     height: 'auto',
     display: 'flex',
@@ -82,9 +82,10 @@ const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
 const QuestionHeaderBar = styled('div')((props) => ({
     // border: '1px solid red',
     display: 'grid',
-    gridTemplateColumns: '33% 34% 33%',
+    gridTemplateColumns: '1fr 34% 1fr',
+    paddingBottom: '10px',
     // minHeight: '100%',
-    height: 'auto',
+    // height: 'auto',
     // justifyContent: 'space-between',
 }));
 

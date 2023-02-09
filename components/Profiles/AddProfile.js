@@ -8,7 +8,7 @@ import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { TextField } from '@mui/material';
 
 const RootStyle = styled('div')((props) => ({
-    margin: '0 5px'
+    margin: '5px 5px'
 }));
 
 function AddProfile(props) {

@@ -8,9 +8,10 @@ import Profiles from '../Profiles/Profiles';
 const RootStyle = styled('div')(() => ({
     display: 'flex',
     // flex: '1 1 auto',
-    // border: '1px solid green',
+    width: '100%',
+    // minWidth: '100vw',
     height: '100%',
-    maxHeight: '100%',
+    // maxHeight: '100%',
     // flexDirection: 'row',
     // justifyContent: 'space-between',
     // gridTemplateColumns: '1fr 1fr 1fr',
@@ -25,10 +26,16 @@ const CenterSide = styled('div')(() => ({
     width: '100%',
 }));
 const RightSide = styled('div')(() => ({
+    // border: '1px solid yellow',
     position: 'absolute',
     // height: '',
+    // left: '0%',
     right: '0',
-    zIndex: '100'
+    zIndex: '100',
+    '@media(max-width: 450px)': {
+        // left: 'unset',
+        right: '0'
+    }
 }));
 
 const CenterBar = function () {

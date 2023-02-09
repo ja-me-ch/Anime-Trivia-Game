@@ -11,6 +11,8 @@ import CenterBar from './Stage/CenterBar';
 const RootStyle = styled('div')(() => ({
     display: 'grid',
     gridTemplateRows: 'auto 1fr auto',
+    // border: '1px solid teal',
+    // width: '100vw',
     height: '100vh',
     minHeight: '100vh',
     maxHeight: '100vh',
