@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 
 import styled from '@emotion/styled';
-import { Button, Collapse, Tooltip } from '@mui/material';
+import { Button, Collapse, Tooltip, useTheme } from '@mui/material';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import StartIcon from '@mui/icons-material/Start';
 import AddProfile from '../Profiles/AddProfile';
@@ -70,6 +70,8 @@ const TopBar = function () {
     const { toggleRightBar, showRightBar, questionHistory } = useContext(AnimeTriviaGameContext);
 
     const score = questionHistory.score();
+
+    const theme = useTheme();
 
     const getCenterSide = function () {
         if (score !== undefined) {

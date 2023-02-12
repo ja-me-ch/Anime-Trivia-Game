@@ -97,7 +97,7 @@ export function AnimeTriviaGameProvider(props) {
         //pick a random entry from commonList
         //check for preliminary things: eg. if the anime has more than 4 characters
         //if currently airing anime, eliminate N/a questions like end date/episode count
-        console.log('generating new question');
+        // console.log('generating new question');
 
         const list = commonList.filter((e) => e.users.length >= 0);
 
@@ -136,9 +136,9 @@ export function AnimeTriviaGameProvider(props) {
 
     const updateAnswersQuestionHistory = function (questionIndex, answerIndex) {
         setQuestionHistory((q) => {
-            console.log(q);
+            // console.log(q);
             q[questionIndex].answers[answerIndex].clicked = true;
-            console.log(q);
+            // console.log(q);
             return q;
         });
     }

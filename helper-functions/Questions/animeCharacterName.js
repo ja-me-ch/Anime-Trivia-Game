@@ -94,7 +94,7 @@ const getCustomChildren = function (c) {
 
 const getRandomCharacter = function (charactersArray, characterPool) {
     let pendingCharacter = getRandomIndex(characterPool);
-    console.log(pendingCharacter)
+    // console.log(pendingCharacter)
     if (pendingCharacter.image.large === '"https://s4.anilist.co/file/anilistcdn/character/large/default.jpg' || pendingCharacter.image.medium === 'https://s4.anilist.co/file/anilistcdn/character/medium/default.jpg') return undefined;
     if (charactersArray.some((c) => (c.id === pendingCharacter.id))) return undefined;
     else return pendingCharacter;

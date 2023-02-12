@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { useTheme } from '@mui/material'
 
-const RootStyle = styled('div')((props) => ({
+const RootStyle = styled('div')(({ toggled, colors }) => ({
     display: 'flex',
     flex: '47%',
     justifyContent: 'space-between',
@@ -11,12 +12,12 @@ const RootStyle = styled('div')((props) => ({
     // border: '1px solid red',
     borderRadius: '15px',
     margin: '6px',
-    background: props.colors[0],
+    background: colors[0],
     transition: 'all 0.5s ease',
-    pointerEvents: props.toggled ? 'none' : '',
+    pointerEvents: toggled ? 'none' : '',
     cursor: 'pointer',
     '&:hover': {
-        background: props.colors[props.colors.length - 1]
+        background: toggled ? '' : colors[1]
     }
 }));
 
@@ -47,13 +48,25 @@ const AnswerText = styled('div')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, letter, index, colors, disableAnswering, toggleClicked, customChildren } = props;
+    const { text, isCorrect, letter, index, disableAnswering, clicked, toggleClicked, customChildren } = props;
+    const theme = useTheme();
+
     const handleOnClick = function () {
         toggleClicked(index, isCorrect);
     }
 
+    const getColor = function () {
+        if (disableAnswering) {
+            if (isCorrect) return [theme.palette.success.main];
+            if (clicked) return [theme.palette.error.main];
+            else return [theme.palette.primary.dark];
+        }
+        else {
+            return [theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark]
+        }
+    }
     return (
-        <RootStyle onClick={handleOnClick} colors={colors} toggled={disableAnswering}>
+        <RootStyle onClick={handleOnClick} colors={getColor()} toggled={disableAnswering}>
             <LetterChoice>{letter}.</LetterChoice>
             <TextBox>
                 <AnswerText>

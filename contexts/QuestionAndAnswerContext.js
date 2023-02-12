@@ -27,8 +27,8 @@ export function QuestionAndAnswerProvider(props) {
 
         MakeCall()
         .then((res) => {
-            console.log('res');
-            console.log(res);
+            // console.log('res');
+            // console.log(res);
             // const pendingNewQuestion = getRandomQuestion(list);
             if (res === undefined) {
                 setDisableAnswering(true);

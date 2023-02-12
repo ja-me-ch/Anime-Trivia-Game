@@ -1,9 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from '@emotion/styled';
-import { Select, MenuItem, FormControl, InputLabel, Button, CircularProgress } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, Button, CircularProgress, useTheme } from '@mui/material';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContext';
-import AnimeSeasonAirDate from '../../helper-functions/Questions/animeSeasonAirDate';
 import Question from './Question';
 import Answer from './Answer';
 
@@ -32,14 +31,14 @@ const StartNext_Button = styled(Button)((props) => ({
     }
 }));
 
-const StartNext_Div = styled('div')(({ disabled }) => ({
+const StartNext_Div = styled('div')(({ disabled, colors }) => ({
     // position: 'absolute',
     // left: '50%',
     // transform: 'translateX(-50%)',
     color: disabled ? 'red' : 'white',
     // border: '1px solid white',
     transition: 'all 0.5s ease',
-    background: 'rgb(48, 38, 64)',
+    background: disabled ? colors[2] : colors[0],
     // minHeight: '100%',
     height: '100%',
     width: '100%',
@@ -50,8 +49,8 @@ const StartNext_Div = styled('div')(({ disabled }) => ({
     cursor: 'pointer',
     borderRadius: '10px',
     '&:hover': {
-        background: 'rgb(83, 64, 112)'
-    }
+        background: colors[1]
+    },
 }));
 
 const Answers_Container = styled('div')((props) => ({
@@ -110,6 +109,9 @@ function QuestionPanel() {
 
     const [commonUserCount, setCommonUserCount] = useState(1);
 
+    const theme = useTheme();
+
+    // console.log(theme);
     useEffect(() => {
 
         /*
@@ -180,6 +182,7 @@ function QuestionPanel() {
 
         return <StartNext_Div
             disabled={getButtonStatus()}
+            colors={[theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark]}
             onClick={() => getNextQuestion(commonUserCount)}
         >
             <span>{buttonText}</span>
@@ -193,16 +196,15 @@ function QuestionPanel() {
         //     }>{buttonText}</StartNext_Button>
     }
 
+    const defaultColors = [theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark];
+    const correctColors = [theme.palette.success.main];
+    const incorrectColors = [theme.palette.error.main];
+    const letters = ['A', 'B', 'C', 'D'];
     const setQuestionsAndAnswers_Div = function (currentQuestion) {
         if (currentQuestion === undefined) {
             return (null);
         }
         else {
-            const defaultColors = ['#302640', '#534070'];
-            const correctColors = ['#5A895D'];
-            const incorrectColors = ['#794F4F'];
-            const letters = ['A', 'B', 'C', 'D'];
-
             const answerComponents = currentQuestion.answers.map((a, index) => {
                 /*This function determines what color background the answer component
                 will have when clicked, green if correct, red if incorrect, and
@@ -223,6 +225,7 @@ function QuestionPanel() {
                     letter={letters[index]}
                     index={index}
                     colors={getAnswerColor()}
+                    clicked={clicked[index]}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more
                     customChildren={a.customChildren !== undefined ? a.customChildren : undefined}
