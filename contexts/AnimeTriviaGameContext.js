@@ -16,6 +16,9 @@ export function AnimeTriviaGameProvider(props) {
     const [showRightBar, setShowRightBar] = useState(true);
     const [showLeftBar, setShowLeftBar] = useState(false);
 
+    //ThemeContext
+    const [selectedTheme, setSelectedTheme] = useState('dark');
+
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
         if (!doesProfileExist) {
@@ -110,6 +113,8 @@ export function AnimeTriviaGameProvider(props) {
                 newQuestionHistory.push(res);
                 setQuestionHistory(newQuestionHistory);
             })
+
+        
     }
 
     const toggleRightBar = function () {
@@ -170,7 +175,10 @@ export function AnimeTriviaGameProvider(props) {
                     update: updateQuestionHistory,
                     score: getQuestionHistory
                 },
-
+                selectedTheme: {
+                    value: selectedTheme,
+                    update: setSelectedTheme
+                },
                 GenerateNewQuestion,
                 toggleRightBar,
                 toggleLeftBar,

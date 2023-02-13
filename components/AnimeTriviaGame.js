@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 // import styled from '@emotion/styled';
-import {styled, ThemeProvider, createTheme} from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import { AnimeTriviaGameContext, AnimeTriviaGameProvider } from '../contexts/AnimeTriviaGameContext';
 import { QuestionAndAnswerProvider } from '../contexts/QuestionAndAnswerContext';
-import theme from '../helper-functions/theme';
 import TopBar from './Stage/TopBar';
 import CenterBar from './Stage/CenterBar';
 
@@ -27,23 +26,22 @@ const CenterContainer = styled('div')(() => ({
 }));
 
 function AnimeTriviaGame() {
+    const theme = useTheme();
     return (
         <AnimeTriviaGameProvider>
             <QuestionAndAnswerProvider>
-            <ThemeProvider theme={theme}>
-                    <RootStyle>
-                        <TopBar />
+                <RootStyle>
+                    <TopBar />
 
-                        <CenterBar />
+                    <CenterBar />
 
-                        <footer style={{
-                            background: theme.palette.primary.dark,
-                            height: '2em'
-                        }}>
-                            allo
-                        </footer>
-                    </RootStyle>
-                </ThemeProvider>
+                    <footer style={{
+                        background: 'primary.dark',
+                        height: '2em'
+                    }}>
+                        allo
+                    </footer>
+                </RootStyle>
             </QuestionAndAnswerProvider>
         </AnimeTriviaGameProvider>
     )

@@ -103,7 +103,7 @@ const NextButtonContainer = styled('div')((props) => ({
 
 
 function QuestionPanel() {
-    const { profiles, questionHistory, commonList, showRightBar, toggleRightBar } = useContext(AnimeTriviaGameContext);
+    const { profiles, questionHistory, commonList, showRightBar, toggleRightBar, selectedTheme } = useContext(AnimeTriviaGameContext);
 
     const { currentQuestion, setCurrentQuestion, questionNumber, getNextQuestion, disableAnswering, clicked, toggleClicked, buttonStatus } = useContext(QuestionAndAnswerContext);
 
@@ -133,6 +133,7 @@ function QuestionPanel() {
         */
         //    console.log(questionHistory[questionNumber]);
         setCurrentQuestion(questionHistory.value[questionNumber]);
+        
     }, [questionNumber, disableAnswering])
 
     const setCommonUserCount_Select = function () {
@@ -146,7 +147,13 @@ function QuestionPanel() {
             <CommonUserCount_Select
                 value={commonUserCount}
                 onChange={(e) => {
-                    setCommonUserCount(e.target.value)
+                    setCommonUserCount(e.target.value);
+                    if (selectedTheme.value === 'dark') {
+                        selectedTheme.update('light');
+                    }
+                    else {
+                        selectedTheme.update('dark');
+                    }
                 }}
                 sx={
                     {
@@ -224,7 +231,8 @@ function QuestionPanel() {
                     isCorrect={a.isCorrect}
                     letter={letters[index]}
                     index={index}
-                    colors={getAnswerColor()}
+                    // colors={getAnswerColor()}
+                    selectedTheme={selectedTheme}
                     clicked={clicked[index]}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more

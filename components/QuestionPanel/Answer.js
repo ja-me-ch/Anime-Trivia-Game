@@ -48,7 +48,7 @@ const AnswerText = styled('div')((props) => ({
 }))
 
 function Answer(props) {
-    const { text, isCorrect, letter, index, disableAnswering, clicked, toggleClicked, customChildren } = props;
+    const { text, isCorrect, letter, index, disableAnswering, clicked, toggleClicked, customChildren, selectedTheme } = props;
     const theme = useTheme();
 
     const handleOnClick = function () {
@@ -57,12 +57,12 @@ function Answer(props) {
 
     const getColor = function () {
         if (disableAnswering) {
-            if (isCorrect) return [theme.palette.success.main];
-            if (clicked) return [theme.palette.error.main];
-            else return [theme.palette.primary.dark];
+            if (isCorrect) return [theme.palette[selectedTheme.value].success.main];
+            if (clicked) return [theme.palette[selectedTheme.value].error.main];
+            else return [theme.palette[selectedTheme.value].primary.dark];
         }
         else {
-            return [theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark]
+            return [theme.palette[selectedTheme.value].primary.main, theme.palette[selectedTheme.value].primary.light, theme.palette[selectedTheme.value].primary.dark]
         }
     }
     return (
