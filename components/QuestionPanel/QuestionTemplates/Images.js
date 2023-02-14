@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import styled from '@emotion/styled';
+import { Box, styled, useTheme } from '@mui/material';
 import { display, positions } from '@mui/system';
 import Answer from '../Answer';
 import { Padding } from '@mui/icons-material';
@@ -84,16 +84,20 @@ const CenterImageImg = styled('img')((props) => ({
     // maxHeight: '100%',
 }));
 
-const AnswerImages = styled('div')(({ imagesCount }) => ({
+const AnswerImages = styled('div')(({ imagesCount, theme }) => ({
     padding: '5px',
     // display: 'flex',
     // justifyContent: 'space-evenly',
     display: 'grid',
     gridTemplateColumns: `repeat(${imagesCount}, 1fr)`,
-    '@media(max-width: 500px)': {
+    [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: imagesCount === 1 ? `repeat(${imagesCount}, 1fr)` : `repeat(${2}, auto)`,
-        gridTemplateRows: `repeat(${2}, auto)`,
+        gridTemplateRows: `repeat(${2}, auto)`
     }
+    // '@media(max-width: 500px)': {
+    //     gridTemplateColumns: imagesCount === 1 ? `repeat(${imagesCount}, 1fr)` : `repeat(${2}, auto)`,
+    //     gridTemplateRows: `repeat(${2}, auto)`,
+    // }
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
@@ -127,7 +131,7 @@ const AnswerImage = styled('img')((props) => ({
     transition: 'all 1s ease'
 }));
 
-const AnswerImageLetter = styled('h2')((props) => ({
+const AnswerImageLetter = styled('h2')(({ theme }) => ({
     display: 'inline-block',
     position: 'absolute',
     right: '5px',
@@ -137,23 +141,22 @@ const AnswerImageLetter = styled('h2')((props) => ({
     // zIndex: '10',
     WebkitTextStroke: '2.5px black',
     transition: 'all 0.7s ease',
-    '@media(max-width: 500px)': {
+    [theme.breakpoints.down('sm')]: {
         bottom: '-75px'
     }
 }));
 
-const QuestionContent = styled('div')((props) => ({
+const QuestionContent = styled('div')(({ theme }) => ({
     display: 'flex',
-    '@media(max-width: 500px)': {
+    [theme.breakpoints.down('sm')]: {
         flexDirection: 'column'
     }
 }));
 
 const Images = function ({ props }) {
-    // console.log(props);
     const { bannerImage, template, question, title, siteUrl, customChildren, disableAnswering } = props;
     const { images, imagesCount, showMain } = template;
-    const letters = ['A', 'B', 'C', 'D']
+    const letters = ['A', 'B', 'C', 'D'];
 
     const imageElements = images.map((i, index) => {
         if (index > 0) {

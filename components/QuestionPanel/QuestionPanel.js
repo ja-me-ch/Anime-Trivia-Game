@@ -31,11 +31,11 @@ const StartNext_Button = styled(Button)((props) => ({
     }
 }));
 
-const StartNext_Div = styled('div')(({ disabled, colors }) => ({
+const StartNext_Div = styled('div')(({ disabled, colors, textColor }) => ({
     // position: 'absolute',
     // left: '50%',
     // transform: 'translateX(-50%)',
-    color: disabled ? 'red' : 'white',
+    color: textColor,
     // border: '1px solid white',
     transition: 'all 0.5s ease',
     background: disabled ? colors[2] : colors[0],
@@ -189,7 +189,8 @@ function QuestionPanel() {
 
         return <StartNext_Div
             disabled={getButtonStatus()}
-            colors={[theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark]}
+            colors={[theme.palette[selectedTheme.value].primary.main, theme.palette[selectedTheme.value].primary.light, theme.palette[selectedTheme.value].primary.dark]}
+            textColor={theme.palette[selectedTheme.value].primary.contrastText}
             onClick={() => getNextQuestion(commonUserCount)}
         >
             <span>{buttonText}</span>

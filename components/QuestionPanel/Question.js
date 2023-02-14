@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import Default from './QuestionTemplates/Default';
 import Images from './QuestionTemplates/Images';
@@ -14,10 +14,6 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 function Question({props}) {
-    // const name  = props.template.name
-    // console.log('TEMPLATE: ', template);
-
-    
 
     return (
         <RootStyle>

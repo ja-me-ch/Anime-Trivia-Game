@@ -6,6 +6,7 @@ import { Button, Collapse, Tooltip, useTheme } from '@mui/material';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import StartIcon from '@mui/icons-material/Start';
 import AddProfile from '../Profiles/AddProfile';
+import { Light } from '@mui/icons-material';
 
 
 const RootStyle = styled('div')(() => ({
@@ -19,12 +20,15 @@ const RootStyle = styled('div')(() => ({
     maxHeight: '100px',
 }));
 
-const OpenDrawerIcon = styled(GroupAddIcon)((props) => ({
+const OpenDrawerIcon = styled(GroupAddIcon)(({ textColor }) => ({
+    color: textColor,
+    borderColor: textColor,
     fontSize: '2rem',
     margin: '0.4rem'
 }));
 
-const CloseDrawerIcon = styled(StartIcon)((props) => ({
+const CloseDrawerIcon = styled(StartIcon)(({ textColor }) => ({
+    color: textColor,
     fontSize: '2rem',
     margin: '0.4rem'
 }));
@@ -34,7 +38,7 @@ const RightSide = styled('div')(() => ({
     // border: '1px solid red',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    
+
 }));
 
 const LeftSide = styled('div')(() => ({
@@ -66,12 +70,42 @@ const TotalQuestions = styled('span')(() => ({
     letterSpacing: '0.1em'
 }));
 
+const SiteName = styled('h2')(({ theme }) => ({
+
+}));
+
+const MainColorText = styled('span')(({ colors }) => ({
+    fontSize: '2em',
+    color: colors[0],
+    WebkitTextStroke: `1px ${colors[1]}`
+}));
+
+const LightColorText = styled('span')(({ colors }) => ({
+    fontSize: '2em',
+    color: colors[0],
+    WebkitTextStroke: `1px ${colors[1]}`
+}));
+
 const TopBar = function () {
-    const { toggleRightBar, showRightBar, questionHistory } = useContext(AnimeTriviaGameContext);
+    const { toggleRightBar, showRightBar, questionHistory, selectedTheme } = useContext(AnimeTriviaGameContext);
 
     const score = questionHistory.score();
 
     const theme = useTheme();
+
+    // console.log(theme);
+
+    // const getMainColorSpan = function (contents) {
+    //     return <MainColorText colors={[theme.palette[selectedTheme.value].primary.main, theme.palette[selectedTheme.value].primary.contrastText]}>
+    //         {contents}
+    //     </MainColorText>
+    // }
+
+    // const getLightColorSpan = function (contents) {
+    //     return <LightColorText colors={[theme.palette[selectedTheme.value].primary.light, theme.palette[selectedTheme.value].primary.contrastText]}>
+    //         {contents}
+    //     </LightColorText>
+    // }
 
     const getCenterSide = function () {
         if (score !== undefined) {
@@ -112,7 +146,27 @@ const TopBar = function () {
     return (
         <RootStyle>
             <LeftSide>
-                <h2>Sample Text</h2>
+                <SiteName>
+                    {/* {getMainColorSpan('A')}
+                    {getLightColorSpan('ni')}
+                    {getMainColorSpan('me')}
+                    {getLightColorSpan('T')}
+                    {getMainColorSpan('ri')}
+                    {getLightColorSpan('vi')}
+                    {getMainColorSpan('a')}
+                    {getLightColorSpan('Ga')}
+                    {getMainColorSpan('me')} */}
+
+                    {/* <MainColorText colors={siteNameColors}>A</MainColorText>
+                    <LightColorText>ni</LightColorText>
+                    <MainColorText colors={siteNameColors}>me </MainColorText>
+                    <LightColorText>T</LightColorText>
+                    <MainColorText colors={siteNameColors}>ri</MainColorText>
+                    <LightColorText>vi</LightColorText>
+                    <MainColorText colors={siteNameColors}>a </MainColorText>
+                    <LightColorText>Ga</LightColorText>
+                    <MainColorText colors={siteNameColors}>me</MainColorText> */}
+                </SiteName>
             </LeftSide>
 
             <CenterSide>
@@ -123,15 +177,23 @@ const TopBar = function () {
                 <Button
                     variant='outlined'
                     sx={{
+                        borderColor: theme.palette[selectedTheme.value].primary.contrastText,
                         marginX: '5px',
                         height: '50%',
                         aspectRatio: '1/1',
                         minWidth: 'unset',
                         padding: '25px',
+                        ':hover': {
+                            borderColor: theme.palette[selectedTheme.value].primary.contrastText,
+                            backgroundColor: 'rgba(255, 255, 255, 0.25)'
+                        }
                     }}
                     onClick={() => { toggleRightBar() }}
                 >
-                    {showRightBar ? <CloseDrawerIcon/> : <OpenDrawerIcon/>}
+                    {showRightBar ?
+                        <CloseDrawerIcon textColor={theme.palette[selectedTheme.value].primary.contrastText} />
+                        : <OpenDrawerIcon textColor={theme.palette[selectedTheme.value].primary.contrastText} />
+                    }
                 </Button>
                 <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
                     <AddProfile />
