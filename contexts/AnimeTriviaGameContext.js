@@ -1,5 +1,6 @@
-import { Update } from '@mui/icons-material';
+
 import React, { createContext, useState } from 'react';
+import { useTheme } from '@mui/material';
 import AnimeSeasonAirDate from '../helper-functions/Questions/animeSeasonAirDate';
 //import getRandomCommonMediaId from '../helper-functions/Functions/getRandomCommonMediaId';
 
@@ -18,6 +19,9 @@ export function AnimeTriviaGameProvider(props) {
 
     //ThemeContext
     const [selectedTheme, setSelectedTheme] = useState('dark');
+
+    const theme = useTheme();
+    theme.palette.theme = selectedTheme;
 
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
@@ -176,7 +180,7 @@ export function AnimeTriviaGameProvider(props) {
                     score: getQuestionHistory
                 },
                 selectedTheme: {
-                    value: selectedTheme,
+                    // value: selectedTheme,
                     update: setSelectedTheme
                 },
                 GenerateNewQuestion,

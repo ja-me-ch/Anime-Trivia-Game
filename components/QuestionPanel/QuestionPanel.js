@@ -31,14 +31,14 @@ const StartNext_Button = styled(Button)((props) => ({
     }
 }));
 
-const StartNext_Div = styled('div')(({ disabled, colors, textColor }) => ({
+const StartNext_Div = styled('div')(({ disabled, theme }) => ({
     // position: 'absolute',
     // left: '50%',
     // transform: 'translateX(-50%)',
-    color: textColor,
+    color: theme.palette[theme.palette.theme].primary.contrastText,
     // border: '1px solid white',
     transition: 'all 0.5s ease',
-    background: disabled ? colors[2] : colors[0],
+    background: disabled ? theme.palette[theme.palette.theme].primary.dark : theme.palette[theme.palette.theme].primary.main,
     // minHeight: '100%',
     height: '100%',
     width: '100%',
@@ -49,7 +49,7 @@ const StartNext_Div = styled('div')(({ disabled, colors, textColor }) => ({
     cursor: 'pointer',
     borderRadius: '10px',
     '&:hover': {
-        background: colors[1]
+        background: theme.palette[theme.palette.theme].primary.light
     },
 }));
 
@@ -148,7 +148,8 @@ function QuestionPanel() {
                 value={commonUserCount}
                 onChange={(e) => {
                     setCommonUserCount(e.target.value);
-                    if (selectedTheme.value === 'dark') {
+                    
+                    if (theme.palette.theme === 'dark') {
                         selectedTheme.update('light');
                     }
                     else {
@@ -189,8 +190,8 @@ function QuestionPanel() {
 
         return <StartNext_Div
             disabled={getButtonStatus()}
-            colors={[theme.palette[selectedTheme.value].primary.main, theme.palette[selectedTheme.value].primary.light, theme.palette[selectedTheme.value].primary.dark]}
-            textColor={theme.palette[selectedTheme.value].primary.contrastText}
+            // colors={[theme.palette[theme.palette.theme].primary.main, theme.palette[theme.palette.theme].primary.light, theme.palette[selectedTheme.value].primary.dark]}
+            // textColor={theme.palette[theme.palette.theme].primary.contrastText}
             onClick={() => getNextQuestion(commonUserCount)}
         >
             <span>{buttonText}</span>
@@ -204,9 +205,9 @@ function QuestionPanel() {
         //     }>{buttonText}</StartNext_Button>
     }
 
-    const defaultColors = [theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark];
-    const correctColors = [theme.palette.success.main];
-    const incorrectColors = [theme.palette.error.main];
+    // const defaultColors = [theme.palette.primary.main, theme.palette.primary.light, theme.palette.primary.dark];
+    // const correctColors = [theme.palette.success.main];
+    // const incorrectColors = [theme.palette.error.main];
     const letters = ['A', 'B', 'C', 'D'];
     const setQuestionsAndAnswers_Div = function (currentQuestion) {
         if (currentQuestion === undefined) {
@@ -218,14 +219,14 @@ function QuestionPanel() {
                 will have when clicked, green if correct, red if incorrect, and
                 will show the correct answer if the guess was incorrect
                 */
-                const getAnswerColor = function () {
-                    if (clicked.length > 0) {
-                        if (a.isCorrect) return correctColors;
-                        else if (clicked[index] === true && a.isCorrect === false) return incorrectColors;
-                        else return defaultColors;
-                    }
-                    else return defaultColors;
-                }
+                // const getAnswerColor = function () {
+                //     if (clicked.length > 0) {
+                //         if (a.isCorrect) return correctColors;
+                //         else if (clicked[index] === true && a.isCorrect === false) return incorrectColors;
+                //         else return defaultColors;
+                //     }
+                //     else return defaultColors;
+                // }
 
                 return <Answer
                     text={a.answer}
@@ -233,7 +234,7 @@ function QuestionPanel() {
                     letter={letters[index]}
                     index={index}
                     // colors={getAnswerColor()}
-                    selectedTheme={selectedTheme}
+                    // selectedTheme={selectedTheme}
                     clicked={clicked[index]}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more

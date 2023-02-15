@@ -1,8 +1,11 @@
 import { createTheme } from "@mui/material/styles";
+import { useContext } from "react";
+import { AnimeTriviaGameContext } from "../contexts/AnimeTriviaGameContext";
 
 const theme = createTheme({
     palette: {
         mode: 'dark',
+        theme: 'dark',
         dark: {
             primary: {
                 main: '#482E73',

@@ -57,12 +57,12 @@ function Answer(props) {
 
     const getColor = function () {
         if (disableAnswering) {
-            if (isCorrect) return [theme.palette[selectedTheme.value].success.main];
-            if (clicked) return [theme.palette[selectedTheme.value].error.main];
-            else return [theme.palette[selectedTheme.value].primary.dark];
+            if (isCorrect) return [theme.palette[theme.palette.theme].success.main];
+            if (clicked) return [theme.palette[theme.palette.theme].error.main];
+            else return [theme.palette[theme.palette.theme].primary.dark];
         }
         else {
-            return [theme.palette[selectedTheme.value].primary.main, theme.palette[selectedTheme.value].primary.light, theme.palette[selectedTheme.value].primary.dark]
+            return [theme.palette[theme.palette.theme].primary.main, theme.palette[theme.palette.theme].primary.light, theme.palette[theme.palette.theme].primary.dark]
         }
     }
     return (

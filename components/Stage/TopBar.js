@@ -74,20 +74,20 @@ const SiteName = styled('h2')(({ theme }) => ({
 
 }));
 
-const MainColorText = styled('span')(({ colors }) => ({
+const MainColorText = styled('span')(({ theme }) => ({
     fontSize: '2em',
-    color: colors[0],
-    WebkitTextStroke: `1px ${colors[1]}`
+    color: theme.palette[theme.palette.theme].primary.main,
+    WebkitTextStroke: `1px ${theme.palette[theme.palette.theme].primary.contrastText}`
 }));
 
-const LightColorText = styled('span')(({ colors }) => ({
+const LightColorText = styled('span')(({ theme }) => ({
     fontSize: '2em',
-    color: colors[0],
-    WebkitTextStroke: `1px ${colors[1]}`
+    color: theme.palette[theme.palette.theme].primary.light,
+    WebkitTextStroke: `1px ${theme.palette[theme.palette.theme].primary.contrastText}`
 }));
 
 const TopBar = function () {
-    const { toggleRightBar, showRightBar, questionHistory, selectedTheme } = useContext(AnimeTriviaGameContext);
+    const { toggleRightBar, showRightBar, questionHistory } = useContext(AnimeTriviaGameContext);
 
     const score = questionHistory.score();
 
@@ -157,15 +157,15 @@ const TopBar = function () {
                     {getLightColorSpan('Ga')}
                     {getMainColorSpan('me')} */}
 
-                    {/* <MainColorText colors={siteNameColors}>A</MainColorText>
+                    <MainColorText>A</MainColorText>
                     <LightColorText>ni</LightColorText>
-                    <MainColorText colors={siteNameColors}>me </MainColorText>
+                    <MainColorText>me </MainColorText>
                     <LightColorText>T</LightColorText>
-                    <MainColorText colors={siteNameColors}>ri</MainColorText>
+                    <MainColorText>ri</MainColorText>
                     <LightColorText>vi</LightColorText>
-                    <MainColorText colors={siteNameColors}>a </MainColorText>
+                    <MainColorText>a </MainColorText>
                     <LightColorText>Ga</LightColorText>
-                    <MainColorText colors={siteNameColors}>me</MainColorText> */}
+                    <MainColorText>me</MainColorText>
                 </SiteName>
             </LeftSide>
 
@@ -177,22 +177,22 @@ const TopBar = function () {
                 <Button
                     variant='outlined'
                     sx={{
-                        borderColor: theme.palette[selectedTheme.value].primary.contrastText,
+                        borderColor: theme.palette[theme.palette.theme].primary.contrastText,
                         marginX: '5px',
                         height: '50%',
                         aspectRatio: '1/1',
                         minWidth: 'unset',
                         padding: '25px',
                         ':hover': {
-                            borderColor: theme.palette[selectedTheme.value].primary.contrastText,
+                            borderColor: theme.palette[theme.palette.theme].primary.contrastText,
                             backgroundColor: 'rgba(255, 255, 255, 0.25)'
                         }
                     }}
                     onClick={() => { toggleRightBar() }}
                 >
                     {showRightBar ?
-                        <CloseDrawerIcon textColor={theme.palette[selectedTheme.value].primary.contrastText} />
-                        : <OpenDrawerIcon textColor={theme.palette[selectedTheme.value].primary.contrastText} />
+                        <CloseDrawerIcon textColor={theme.palette[theme.palette.theme].primary.contrastText} />
+                        : <OpenDrawerIcon textColor={theme.palette[theme.palette.theme].primary.contrastText} />
                     }
                 </Button>
                 <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
