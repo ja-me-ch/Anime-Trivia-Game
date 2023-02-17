@@ -48,9 +48,9 @@ const theme = createTheme({
         },
         jade: {
             primary: {
-                main: '#399976',
-                light: '#379472',
-                dark: '#375248',
+                main: '#218576',
+                light: '#289E8C',
+                dark: '#11423B',
                 contrastText: '#ffffff',
             },
             error: {

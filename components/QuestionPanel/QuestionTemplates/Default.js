@@ -28,7 +28,7 @@ const QuestionContainer = styled('div')((props) => ({
 
 const QuestionTextBox = styled('div')((props) => ({
     width: '50%',
-    height: '100%',
+    // height: '100%',
     // border: '1px solid red',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',

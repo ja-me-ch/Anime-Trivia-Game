@@ -12,6 +12,7 @@ const RootStyle = styled('div')((props) => ({
     gridTemplateRows: 'auto 1fr auto',
     position: 'relative',
     overflow: 'hidden',
+    minHeight: '700px',
     height: '100%',
     // maxHeight: '100%',
     // border: '1px solid'

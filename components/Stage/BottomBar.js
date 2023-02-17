@@ -72,7 +72,7 @@ const ButtonGroupStyle = styled(ButtonGroup)(({ theme }) => ({
     }
 }))
 
-const BottomBar = function ({ }) {
+const BottomBar = function () {
     const [isToggled, setIsToggled] = useState(true);
     const { dialog } = useContext(AnimeTriviaGameContext);
     const theme = useTheme();
