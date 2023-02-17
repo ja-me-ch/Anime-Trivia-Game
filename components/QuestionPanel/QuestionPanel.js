@@ -15,6 +15,7 @@ const RootStyle = styled('div')((props) => ({
     height: '100%',
     // maxHeight: '100%',
     // border: '1px solid'
+    zIndex: '0'
 }));
 
 const CommonUserCount_Select = styled(Select)((props) => ({
@@ -76,7 +77,7 @@ const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
     height: '100%',
     width: '100%',
     background: 'rgba(0, 0, 0, 0.4)',
-    zIndex: '10',
+    zIndex: '2',
 }));
 
 const QuestionHeaderBar = styled('div')((props) => ({

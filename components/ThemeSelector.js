@@ -6,7 +6,6 @@ const ThemeSelector = function () {
     const {selectedTheme} = useContext(AnimeTriviaGameContext)
 
     return <FormControl sx={{
-        paddingLeft: '10px'
     }}>
         <InputLabel variant="standard" htmlFor='themeSelect'>
             Theme

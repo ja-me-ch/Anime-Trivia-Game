@@ -15,26 +15,31 @@ const RootStyle = styled('div')(({ theme, isToggled }) => ({
     // right: '0',
     // minHeight: '60px',
     paddingLeft: '10px',
-    width: '100vw',
     // minWidth: '100%',
     // width: isToggled ? '100%' : 'auto',
+    // width: '100vw',
+    maxWidth: '100vw',
     // border: '1px solid blue',
-    // backgroundColor: theme.palette[theme.palette.theme].primary.light,
+    backgroundColor: theme.palette[theme.palette.theme].primary.light,
     // boxShadow: '5px -5px 25px 5px rgba(0, 0, 0, 0.5)',
     // alignItems: 'center',
-    // justifyContent: 'space-between',
-    // zIndex: '11',
+    justifyContent: 'space-between',
+    zIndex: '10',
     // transition: 'all 1s ease'
 }));
 
 const ThemeSelectorContainer = styled('div')(({ theme, isToggled }) => ({
-    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+
+    // width: '100%',
     // position: 'absolute',
     // bottom: '0',
     // right: '0',
     height: '60px',
     // padding: '5px 0px 5px 5px',
-    // padding: '10px 0',
+    padding: '0 0 0 10px',
     backgroundColor: theme.palette[theme.palette.theme].primary.light,
     // display: isToggled ? 'auto' : 'none'
 }));
@@ -73,10 +78,11 @@ const BottomBar = function ({ isToggled, setIsToggled }) {
     }
 
     return (
-        <RootStyle isToggled={isToggled}>
+        <RootStyle isToggled={showRightBar}>
             <Collapse in={showRightBar} orientation='horizontal'>
                 <div style={{
                     width: '100vw',
+                    // paddingLeft: '100%'
                     // border: '1px solid yellow'
                 }}>
                     <ThemeSelectorContainer isToggled={showRightBar}>

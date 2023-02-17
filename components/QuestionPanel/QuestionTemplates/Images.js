@@ -18,8 +18,7 @@ const QuestionContainer = styled('div')((props) => ({
     // transition: 'all 20s ease',
     '&:hover': {
         // backgroundSize: '175%'
-    }
-
+    },
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
