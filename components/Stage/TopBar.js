@@ -39,7 +39,8 @@ const RightSide = styled('div')(() => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'black',
-    height: '80%'
+    height: '80%',
+    zIndex: '1'
 }));
 
 const LeftSide = styled('div')(() => ({
@@ -60,7 +61,8 @@ const CenterSide = styled('div')(() => ({
     alignItems: 'center',
     fontSize: '2.5em',
     letterSpacing: '0.3em',
-    transform: 'translateX(-50%)'
+    transform: 'translateX(-50%)',
+    zIndex: '0',
 }));
 
 const TotalCorrect = styled('span')(() => ({

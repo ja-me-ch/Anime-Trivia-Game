@@ -131,13 +131,6 @@ function QuestionPanel() {
             value={commonUserCount}
             onChange={(e) => {
                 setCommonUserCount(e.target.value);
-
-                if (theme.palette.theme === 'dark') {
-                    selectedTheme.update('light');
-                }
-                else {
-                    selectedTheme.update('dark');
-                }
             }}>
             {menuItems}
         </CommonUserCount_Select>

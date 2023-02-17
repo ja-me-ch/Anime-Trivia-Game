@@ -8,7 +8,8 @@ import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { TextField } from '@mui/material';
 
 const RootStyle = styled('div')((props) => ({
-    margin: '5px 5px'
+    margin: '5px 5px',
+    backgroundColor: 'black'
 }));
 
 function AddProfile(props) {
@@ -44,17 +45,22 @@ function AddProfile(props) {
 
     return (
         <RootStyle>
-            <TextField sx={{
-                border: '1px solid white',
-                borderRadius: '6px',
-                minWidth: '200px',
-                width: '200px'
-            }}
-                // inputProps={{
-                //     sx: {
-                //         // color: 'white'
-                //     }
-                // }}
+            <TextField
+                // variant='filled'
+                sx={{
+                    height: '100%',
+                    border: '1px solid white',
+                    borderRadius: '6px',
+                    minWidth: '200px',
+                    width: '200px'
+                }}
+                inputProps={{
+                    sx: {
+                        height: '100%',
+                        // marginBottom: '-5px'
+                        // color: 'white'
+                    }
+                }}
                 placeholder={'Enter AniList Name'}
                 onKeyDown={OnKeyDown}
                 value={nameField}

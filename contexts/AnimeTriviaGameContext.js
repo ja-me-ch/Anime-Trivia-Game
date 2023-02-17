@@ -17,11 +17,15 @@ export function AnimeTriviaGameProvider(props) {
     const [showRightBar, setShowRightBar] = useState(true);
     const [showLeftBar, setShowLeftBar] = useState(false);
 
-    //ThemeContext
+    //Theme state
     const [selectedTheme, setSelectedTheme] = useState('purple');
 
     const theme = useTheme();
     theme.palette.theme = selectedTheme;
+
+    //Dialog states
+    const [showAbout, setShowAbout] = useState(false);
+    const [showGettingStarted, setShowGettingStarted] = useState(false);
 
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
@@ -182,6 +186,16 @@ export function AnimeTriviaGameProvider(props) {
                 selectedTheme: {
                     // value: selectedTheme,
                     update: setSelectedTheme
+                },
+                dialog: {
+                    about: {
+                        value: showAbout,
+                        update: setShowAbout
+                    },
+                    gettingStarted: {
+                        value: showGettingStarted,
+                        update: setShowGettingStarted
+                    }
                 },
                 GenerateNewQuestion,
                 toggleRightBar,

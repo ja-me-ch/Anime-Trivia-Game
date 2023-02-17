@@ -26,7 +26,7 @@ const QuestionTextBox = styled('div')((props) => ({
     gridTemplateRows: 'auto auto 1fr',
     maxWidth: '90%',
     minWidth: '60%',
-    maxHeight: '750px',
+    // maxHeight: '750px',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',
     // paddingBottom: '10px',
