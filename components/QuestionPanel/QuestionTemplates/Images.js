@@ -12,10 +12,7 @@ const QuestionContainer = styled('div')((props) => ({
     justifyContent: 'center',
     backgroundImage: props.bannerImage ? `linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.3) 100%),
     url(${props.bannerImage})` : null,
-    // backgroundImage: `url(${props.bannerImage})`,
-    // backgroundImage: `linear-gradient(180deg, rgba(255, 255, 255, 0) 0 %, rgba(0, 0, 0, 0.3) 100 %)`,
     backgroundSize: 'cover',
-    // position: 'relative',
     backgroundPosition: props.bannerImage ? '50% 50%' : null,
     backgroundRepeat: 'no-repeat',
     // transition: 'all 20s ease',
@@ -26,22 +23,21 @@ const QuestionContainer = styled('div')((props) => ({
 }));
 
 const QuestionTextBox = styled('div')((props) => ({
+    display: 'grid',
+    gridTemplateRows: 'auto auto 1fr',
     maxWidth: '90%',
-    // minHeight: '250px',
-    // height: '100%',
-    // border: '1px solid red',
+    minWidth: '60%',
+    maxHeight: '750px',
     background: 'rgba(0,0,0,0.55)',
     borderRadius: '10px',
-    // margin: '1%',
+    // paddingBottom: '10px',
     justifyContent: 'center',
-    // flexGrow: '1'
 }));
 
 const NativeTitle = styled('h2')(({ disableAnswering }) => ({
-    padding: '5px',
-    // marginTop: '-5px',
+    // padding: '5px',
     marginBottom: '-5px',
-    fontSize: '1em',
+    fontSize: '1.5em',
     textAlign: 'center',
     pointerEvents: disableAnswering ? '' : 'none'
 }));
@@ -61,17 +57,12 @@ const QuestionText = styled('div')((props) => ({
 
 const CenterImageContainer = styled('div')(({ imagesCount }) => ({
     display: 'flex',
-    // flexShrink: '1',
     justifyContent: 'center',
     borderSizing: 'unset',
-    // marginRight: '25px',
     paddingLeft: '15px',
     paddingBottom: '15px',
     height: 'auto',
     minWidth: imagesCount === 1 ? '50%' : '25%',
-    // minWidth: '175px',
-    // border: '1px solid red',
-    // flexBasis: '50%'
 }));
 
 const CenterImageImg = styled('img')((props) => ({
@@ -79,33 +70,23 @@ const CenterImageImg = styled('img')((props) => ({
     height: 'auto',
     objectFit: 'cover',
     objectPosition: '50% 50%',
-    // minWidth: '20%',
     maxWidth: '100%',
-    // maxHeight: '100%',
 }));
 
 const AnswerImages = styled('div')(({ imagesCount, theme }) => ({
     padding: '5px',
-    // display: 'flex',
-    // justifyContent: 'space-evenly',
     display: 'grid',
     gridTemplateColumns: `repeat(${imagesCount}, 1fr)`,
     [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: imagesCount === 1 ? `repeat(${imagesCount}, 1fr)` : `repeat(${2}, auto)`,
         gridTemplateRows: `repeat(${2}, auto)`
     }
-    // '@media(max-width: 500px)': {
-    //     gridTemplateColumns: imagesCount === 1 ? `repeat(${imagesCount}, 1fr)` : `repeat(${2}, auto)`,
-    //     gridTemplateRows: `repeat(${2}, auto)`,
-    // }
 }));
 
 const AnswerImageContainer = styled('div')((props) => ({
     display: 'flex',
-    // flexDirection: 'column',
     padding: '0.3em',
     justifyContent: 'space-evenly',
-    // border: '1px solid yellow',
     position: 'relative',
     width: 'auto',
     '&:hover': {
@@ -119,9 +100,6 @@ const AnswerImageContainer = styled('div')((props) => ({
 }));
 
 const AnswerImage = styled('img')((props) => ({
-    // position: 'relative',
-    // top: '0',
-    // left: '0',
     borderRadius: '10px',
     padding: '5px',
     height: '100%',
@@ -138,7 +116,6 @@ const AnswerImageLetter = styled('h2')(({ theme }) => ({
     bottom: '-100px',
     fontSize: '5em',
     color: '#ECECEC',
-    // zIndex: '10',
     WebkitTextStroke: '2.5px black',
     transition: 'all 0.7s ease',
     [theme.breakpoints.down('sm')]: {
@@ -148,13 +125,14 @@ const AnswerImageLetter = styled('h2')(({ theme }) => ({
 
 const QuestionContent = styled('div')(({ theme }) => ({
     display: 'flex',
+    justifyContent: 'space-between',
     [theme.breakpoints.down('sm')]: {
         flexDirection: 'column'
     }
 }));
 
 const Images = function ({ props }) {
-    const { bannerImage, template, question, title, siteUrl, customChildren, disableAnswering } = props;
+    const { bannerImage, template, question, title, siteUrl, disableAnswering } = props;
     const { images, imagesCount, showMain } = template;
     const letters = ['A', 'B', 'C', 'D'];
 
@@ -175,15 +153,40 @@ const Images = function ({ props }) {
     const CenterImage = showMain ? <CenterImageImg src={images[0].image} /> : null;
     if (disableAnswering) { CenterImage = <a href={images[0].siteUrl} style={{ display: 'contents' }} target='_blank'>{CenterImage}</a> }
 
+    const getTitle = function () {
+        const { native, romaji, english } = title;
+        if (native === english || native === romaji) {
+            return (<NativeTitle 
+            disableAnswering={disableAnswering}
+            sx={{
+                mb: 2
+            }}
+            >
+                <a href={siteUrl} target='_blank'>{title.native}</a>
+            </NativeTitle>)
+        }
+        else {
+            return (<>
+                <NativeTitle disableAnswering={disableAnswering}>
+                    <a href={siteUrl} target='_blank'>{title.native}</a>
+                </NativeTitle>
+                <Title disableAnswering={disableAnswering}>
+                    <a href={siteUrl} target='_blank'>{title.english === null ? title.romaji : title.english}</a>
+                </Title>
+            </>)
+        }
+    }
+
     return (
         <QuestionContainer bannerImage={bannerImage}>
             <QuestionTextBox>
-                <NativeTitle disableAnswering={disableAnswering}>
+                {/* <NativeTitle disableAnswering={disableAnswering}>
                     <a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a>
                 </NativeTitle>
                 <Title disableAnswering={disableAnswering}>
                     <a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a>
-                </Title>
+                </Title> */}
+                {getTitle()}
                 <QuestionContent>
                     {showMain && <CenterImageContainer imagesCount={imagesCount}>
                         {CenterImage}
@@ -201,7 +204,7 @@ const Images = function ({ props }) {
                     </div>
                 </QuestionContent>
             </QuestionTextBox>
-            {customChildren !== undefined ? customChildren : null}
+            {/* {customChildren !== undefined ? customChildren : null} */}
         </QuestionContainer>
     )
 }

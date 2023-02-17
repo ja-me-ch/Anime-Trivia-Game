@@ -50,11 +50,11 @@ function AddProfile(props) {
                 minWidth: '200px',
                 width: '200px'
             }}
-                inputProps={{
-                    sx: {
-                        color: 'white'
-                    }
-                }}
+                // inputProps={{
+                //     sx: {
+                //         // color: 'white'
+                //     }
+                // }}
                 placeholder={'Enter AniList Name'}
                 onKeyDown={OnKeyDown}
                 value={nameField}

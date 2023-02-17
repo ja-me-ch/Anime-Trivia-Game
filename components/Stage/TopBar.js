@@ -17,7 +17,7 @@ const RootStyle = styled('div')(() => ({
     // display: 'grid',
     // gridTemplateColumns: '1fr 1fr 1fr',
     margin: '0 5px 0 5px',
-    maxHeight: '100px',
+    // maxHeight: '100px',
 }));
 
 const OpenDrawerIcon = styled(GroupAddIcon)(({ textColor }) => ({
@@ -38,7 +38,8 @@ const RightSide = styled('div')(() => ({
     // border: '1px solid red',
     justifyContent: 'flex-end',
     alignItems: 'center',
-
+    backgroundColor: 'black',
+    height: '80%'
 }));
 
 const LeftSide = styled('div')(() => ({
@@ -71,17 +72,20 @@ const TotalQuestions = styled('span')(() => ({
 }));
 
 const SiteName = styled('h2')(({ theme }) => ({
-
+    display: 'auto',
+    [theme.breakpoints.down('md')]: {
+        display: 'none'
+    }
 }));
 
 const MainColorText = styled('span')(({ theme }) => ({
-    fontSize: '2em',
+    fontSize: '1.7em',
     color: theme.palette[theme.palette.theme].primary.main,
     WebkitTextStroke: `1px ${theme.palette[theme.palette.theme].primary.contrastText}`
 }));
 
 const LightColorText = styled('span')(({ theme }) => ({
-    fontSize: '2em',
+    fontSize: '1.7em',
     color: theme.palette[theme.palette.theme].primary.light,
     WebkitTextStroke: `1px ${theme.palette[theme.palette.theme].primary.contrastText}`
 }));
@@ -183,6 +187,7 @@ const TopBar = function () {
                         aspectRatio: '1/1',
                         minWidth: 'unset',
                         padding: '25px',
+                        backgroundColor: 'black',
                         ':hover': {
                             borderColor: theme.palette[theme.palette.theme].primary.contrastText,
                             backgroundColor: 'rgba(255, 255, 255, 0.25)'

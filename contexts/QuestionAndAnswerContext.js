@@ -22,42 +22,47 @@ export function QuestionAndAnswerProvider(props) {
         if (list.length === 0) return null;
 
         const MakeCall = async function () {
-            return await getRandomQuestion(list);
+            for (let i = 0; i <= 20; i++) {
+                const pendingQuestion = await getRandomQuestion(list);
+                console.log(pendingQuestion);
+                if (pendingQuestion !== undefined) return pendingQuestion;
+            }
+            // return await getRandomQuestion(list);
         }
 
         MakeCall()
-        .then((res) => {
-            // console.log('res');
-            // console.log(res);
-            // const pendingNewQuestion = getRandomQuestion(list);
-            if (res === undefined) {
-                setDisableAnswering(true);
-                return null;
-            }
-            else {
+            .then((res) => {
+                // console.log('res');
                 // console.log(res);
+                // const pendingNewQuestion = getRandomQuestion(list);
+                if (res === undefined) {
+                    setDisableAnswering(true);
+                    return null;
+                }
+                else {
+                    // console.log(res);
 
-                // const newQuestionHistory = questionHistory.map((e) => e);
-                // newQuestionHistory.push(res);
-                // setQuestionHistory(newQuestionHistory);
-                // setQuestionHistory((h) => {
-                //     const newHistory = h.map((h) => (h));
-                //     newHistory.push(res);
-                //     return newHistory;
-                // })
+                    // const newQuestionHistory = questionHistory.map((e) => e);
+                    // newQuestionHistory.push(res);
+                    // setQuestionHistory(newQuestionHistory);
+                    // setQuestionHistory((h) => {
+                    //     const newHistory = h.map((h) => (h));
+                    //     newHistory.push(res);
+                    //     return newHistory;
+                    // })
 
-                questionHistory.update(res);
+                    questionHistory.update(res);
 
-                // setQuestionNumber((s) => {
-                //     s = s + 1;
-                //     return s;
-                // });
+                    // setQuestionNumber((s) => {
+                    //     s = s + 1;
+                    //     return s;
+                    // });
 
-                const newQuestionNumber = questionNumber + 1;
-                setQuestionNumber(newQuestionNumber);
+                    const newQuestionNumber = questionNumber + 1;
+                    setQuestionNumber(newQuestionNumber);
 
-                setClicked([]);
-                setDisableAnswering(false);
+                    setClicked([]);
+                    setDisableAnswering(false);
                 }
             }).finally(() => {
                 setButtonStatus(false);

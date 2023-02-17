@@ -18,7 +18,7 @@ export function AnimeTriviaGameProvider(props) {
     const [showLeftBar, setShowLeftBar] = useState(false);
 
     //ThemeContext
-    const [selectedTheme, setSelectedTheme] = useState('dark');
+    const [selectedTheme, setSelectedTheme] = useState('purple');
 
     const theme = useTheme();
     theme.palette.theme = selectedTheme;

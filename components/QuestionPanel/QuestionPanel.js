@@ -1,8 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
 import styled from '@emotion/styled';
-import { Select, MenuItem, FormControl, InputLabel, Button, CircularProgress, useTheme } from '@mui/material';
+import { Select, MenuItem, FormControl, InputLabel, Button, CircularProgress, useTheme, FormLabel, Tooltip } from '@mui/material';
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import { QuestionAndAnswerContext } from '../../contexts/QuestionAndAnswerContext';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Question from './Question';
 import Answer from './Answer';
 
@@ -18,6 +19,10 @@ const RootStyle = styled('div')((props) => ({
 
 const CommonUserCount_Select = styled(Select)((props) => ({
     color: 'white',
+    marginRight: '10px'
+    // borderColor: 'white',
+    // height: '90%',
+
     // border: '1px solid white'
 }));
 
@@ -68,14 +73,10 @@ const Answers_Container = styled('div')((props) => ({
 const LoadingOverlay = styled('div')(({ buttonStatus }) => ({
     position: 'absolute',
     left: '0',
-    // height: '100vh',
-    // width: '100vw',
     height: '100%',
     width: '100%',
     background: 'rgba(0, 0, 0, 0.4)',
-    // zIndex: buttonStatus ? '100' : '-1',
-    // opacity: buttonStatus ? '100' : '0',
-    zIndex: '50',
+    zIndex: '10',
 }));
 
 const QuestionHeaderBar = styled('div')((props) => ({
@@ -89,9 +90,11 @@ const QuestionHeaderBar = styled('div')((props) => ({
 }));
 
 const CommonUserContainer = styled('div')((props) => ({
-    width: '100%',
+    display: 'flex',
+    alignItems: 'center'
+    // width: '100%',
     // border: '1px solid blue',
-    alignSelf: 'flex-start',
+    // alignSelf: 'flex-start',
 }));
 
 const NextButtonContainer = styled('div')((props) => ({
@@ -113,28 +116,8 @@ function QuestionPanel() {
 
     // console.log(theme);
     useEffect(() => {
-
-        /*
-            DONE:
-            change questionpanel to rerender when question is added to history
-            have a number selecter to increment to next questionHistory entry
-            display latest question in questionpanel
-            disable next button until question is answered
-            have a user input for number of users in common
-            have a button to 'start' that starts to generate the questions
-            store questions and history in an array in context
-            keep track of length of array in a state variable to rerender
-            and display current question (array.length-1)
-            start button will change to 'next' button to display next randomly generated question
-            it will push to the question history and update the length of the array (state) and render new question
-
-            TODO:
-            extra: keep track of whether the question was answered correctly
-        */
-        //    console.log(questionHistory[questionNumber]);
         setCurrentQuestion(questionHistory.value[questionNumber]);
-        
-    }, [questionNumber, disableAnswering])
+    }, [questionNumber, disableAnswering]);
 
     const setCommonUserCount_Select = function () {
         const menuItems = [];
@@ -143,29 +126,20 @@ function QuestionPanel() {
         for (let i = 1; i <= length; i++) {
             menuItems.push(<MenuItem value={i} key={`menuItem-${i}`}>{i}</MenuItem>)
         }
-        return <FormControl>
-            <CommonUserCount_Select
-                value={commonUserCount}
-                onChange={(e) => {
-                    setCommonUserCount(e.target.value);
-                    
-                    if (theme.palette.theme === 'dark') {
-                        selectedTheme.update('light');
-                    }
-                    else {
-                        selectedTheme.update('dark');
-                    }
-                }}
-                sx={
-                    {
-                        '.MuiSelect-icon': {
-                            color: 'white'
-                        }
-                    }
-                }>
-                {menuItems}
-            </CommonUserCount_Select>
-        </FormControl>
+        return <CommonUserCount_Select
+            value={commonUserCount}
+            onChange={(e) => {
+                setCommonUserCount(e.target.value);
+
+                if (theme.palette.theme === 'dark') {
+                    selectedTheme.update('light');
+                }
+                else {
+                    selectedTheme.update('dark');
+                }
+            }}>
+            {menuItems}
+        </CommonUserCount_Select>
     }
 
     const setStartNext_Button = function (currentQuestion) {
@@ -215,26 +189,11 @@ function QuestionPanel() {
         }
         else {
             const answerComponents = currentQuestion.answers.map((a, index) => {
-                /*This function determines what color background the answer component
-                will have when clicked, green if correct, red if incorrect, and
-                will show the correct answer if the guess was incorrect
-                */
-                // const getAnswerColor = function () {
-                //     if (clicked.length > 0) {
-                //         if (a.isCorrect) return correctColors;
-                //         else if (clicked[index] === true && a.isCorrect === false) return incorrectColors;
-                //         else return defaultColors;
-                //     }
-                //     else return defaultColors;
-                // }
-
                 return <Answer
                     text={a.answer}
                     isCorrect={a.isCorrect}
                     letter={letters[index]}
                     index={index}
-                    // colors={getAnswerColor()}
-                    // selectedTheme={selectedTheme}
                     clicked={clicked[index]}
                     disableAnswering={disableAnswering} //Whether the button should be disabled
                     toggleClicked={toggleClicked} //Toggles the disabled state and more
@@ -242,7 +201,6 @@ function QuestionPanel() {
                     key={`${letters[index]}-${index}-${a.answer}`}
                 />;
             });
-            // console.log(currentQuestion);
             return <div style={{
                 display: 'grid',
                 gridTemplateRows: '1fr auto',
@@ -274,8 +232,20 @@ function QuestionPanel() {
             </LoadingOverlay>}
             <QuestionHeaderBar>
                 <CommonUserContainer>
-                    <span></span>
+                    <span style={{
+                        padding: '0 10px'
+                    }}>Common Users:
+                    </span>
                     {setCommonUserCount_Select()}
+                    <Tooltip title={<div style={{
+                        fontSize: '1rem',
+                        letterSpacing: '1px'
+                    }}>
+                        The minimum amount of common users required for the anime to be considered for a question.
+                        eg. If there are 3 users added and common users is set to 2, at minimum the anime must be in atleast 2 of the users' lists.
+                    </div>}>
+                        <HelpOutlineIcon />
+                    </Tooltip>
                 </CommonUserContainer>
                 {setStartNext_Button(currentQuestion)}
             </QuestionHeaderBar>

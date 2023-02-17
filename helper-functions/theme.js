@@ -5,8 +5,8 @@ import { AnimeTriviaGameContext } from "../contexts/AnimeTriviaGameContext";
 const theme = createTheme({
     palette: {
         mode: 'dark',
-        theme: 'dark',
-        dark: {
+        theme: 'purple',
+        purple: {
             primary: {
                 main: '#482E73',
                 light: '#7047B3',
@@ -26,7 +26,7 @@ const theme = createTheme({
                 contrastText: '#ffffff',
             }
         },
-        light: {
+        blue: {
             primary: {
                 main: '#3C5375',
                 light: '#5C80B5',
@@ -45,7 +45,27 @@ const theme = createTheme({
                 // dark: '',
                 contrastText: '#ffffff',
             }
-        }
+        },
+        jade: {
+            primary: {
+                main: '#399976',
+                light: '#379472',
+                dark: '#375248',
+                contrastText: '#ffffff',
+            },
+            error: {
+                main: '#794F4F',
+                // light: '',
+                // dark: '',
+                contrastText: '#ffffff',
+            },
+            success: {
+                main: '#5A895D',
+                // light: '',
+                // dark: '',
+                contrastText: '#ffffff',
+            }
+        },
     },
 });
 
