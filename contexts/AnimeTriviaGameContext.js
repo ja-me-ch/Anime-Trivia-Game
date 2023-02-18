@@ -24,6 +24,8 @@ export function AnimeTriviaGameProvider(props) {
     theme.palette.theme = selectedTheme;
 
     //Dialog states
+    const [showDialog, setShowDialog] = useState(true);
+    const [dialogType, setDialogType] = useState('gettingStarted');
     const [showAbout, setShowAbout] = useState(false);
     const [showGettingStarted, setShowGettingStarted] = useState(false);
 
@@ -122,7 +124,7 @@ export function AnimeTriviaGameProvider(props) {
                 setQuestionHistory(newQuestionHistory);
             })
 
-        
+
     }
 
     const toggleRightBar = function () {
@@ -164,6 +166,11 @@ export function AnimeTriviaGameProvider(props) {
         })
     }
 
+    const updateDialog = function (dialogType) {
+        setShowDialog(true);
+        setDialogType(dialogType);
+    }
+
     return (
         <AnimeTriviaGameContext.Provider
             //TODO: reorganize values
@@ -188,14 +195,10 @@ export function AnimeTriviaGameProvider(props) {
                     update: setSelectedTheme
                 },
                 dialog: {
-                    about: {
-                        value: showAbout,
-                        update: setShowAbout
-                    },
-                    gettingStarted: {
-                        value: showGettingStarted,
-                        update: setShowGettingStarted
-                    }
+                    value: showDialog,
+                    update: setShowDialog,
+                    dialogType: dialogType,
+                    toggle: updateDialog,
                 },
                 GenerateNewQuestion,
                 toggleRightBar,

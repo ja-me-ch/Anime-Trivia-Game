@@ -1,36 +1,40 @@
 import { React, useState, useContext } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
+import GetDialogContent from './GetDialogContent';
 
-const GettingStarted = function () {
+const Default = function () {
     const { dialog } = useContext(AnimeTriviaGameContext);
 
+    const title = GetDialogContent(dialog.dialogType).title
+    const content = GetDialogContent(dialog.dialogType).content
+
     const handleClose = function () {
-        dialog.gettingStarted.update(false);
+        dialog.update(false);
     }
 
     return (
         <Dialog
-            open={dialog.gettingStarted.value}
+            open={dialog.value}
             onClose={handleClose}
         >
             <DialogTitle>
-                Getting Started
+                {title}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    getting started
+                    {content}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button
                     onClick={handleClose}
                 >
-                    Got it!
+                    Close
                 </Button>
             </DialogActions>
         </Dialog>
     )
 }
 
-export default GettingStarted;
+export default Default;

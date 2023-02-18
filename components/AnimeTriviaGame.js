@@ -9,8 +9,7 @@ import CenterBar from './Stage/CenterBar';
 import BottomBar from './Stage/BottomBar';
 import { AnimeTriviaGameContext } from '../contexts/AnimeTriviaGameContext';
 import { display } from '@mui/system';
-import About from './Dialog/About';
-import GettingStarted from './Dialog/GettingStarted';
+import Default from './Dialog/Default';
 
 const RootStyle = styled('div')(() => ({
     display: 'grid',
@@ -35,7 +34,7 @@ const CenterContainer = styled('div')(() => ({
 
 function AnimeTriviaGame() {
     const [isToggled, setIsToggled] = useState(true);
-    const { showRightBar } = useContext(AnimeTriviaGameContext)
+    const { dialog } = useContext(AnimeTriviaGameContext)
     return (
         <QuestionAndAnswerProvider>
             <RootStyle>
@@ -53,11 +52,10 @@ function AnimeTriviaGame() {
                     position: 'fixed',
                     bottom: '0',
                     right: '0'
-                    }}>
+                }}>
                     <BottomBar />
                 </div>
-                <About/>
-                <GettingStarted />
+                <Default />
             </RootStyle>
         </QuestionAndAnswerProvider>
 

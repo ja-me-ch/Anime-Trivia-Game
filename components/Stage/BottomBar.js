@@ -88,6 +88,10 @@ const BottomBar = function () {
         })
     }
 
+    const onButtonClick = function (e) {
+        dialog.toggle(e.target.id);
+    }
+
     return (
         <RootStyle isToggled={isToggled}>
             <Collapse in={isToggled} orientation='horizontal'>
@@ -120,12 +124,8 @@ const BottomBar = function () {
                         // border: '1px solid red',
                     }}>
                         <ButtonGroupStyle variant='text' disableElevation>
-                            <ButtonStyle onClick={() => {
-                                dialog.about.update(true);
-                            }}>About</ButtonStyle>
-                            <ButtonStyle onClick={() => {
-                                dialog.gettingStarted.update(true);
-                            }}>Getting Started</ButtonStyle>
+                            <ButtonStyle id='gettingStarted' onClick={onButtonClick}>Getting Started</ButtonStyle>
+                            <ButtonStyle id='about' onClick={onButtonClick}>About</ButtonStyle>
                         </ButtonGroupStyle>
                     </div>
                 </div>
