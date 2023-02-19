@@ -53,7 +53,7 @@ function AnimeTriviaGame() {
                 }}>
                     <BottomBar />
                 </div>
-                {/* <Default /> */}
+                <Default />
             </RootStyle>
         </QuestionAndAnswerProvider>
 

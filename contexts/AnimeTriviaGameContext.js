@@ -25,7 +25,7 @@ export function AnimeTriviaGameProvider(props) {
 
     //Dialog states
     const [showDialog, setShowDialog] = useState(true);
-    const [dialogType, setDialogType] = useState('about');
+    const [dialogType, setDialogType] = useState('gettingStarted');
 
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);

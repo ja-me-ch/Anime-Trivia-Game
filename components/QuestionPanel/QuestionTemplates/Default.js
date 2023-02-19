@@ -64,8 +64,8 @@ const Default = function (props) {
     return (
         <QuestionContainer bannerImage={bannerImage}>
             <QuestionTextBox>
-                <NativeTitle disableAnswering={disableAnswering}><a href={siteUrl} target='_blank'>{title.native === title.english ? null : title.native}</a></NativeTitle>
-                <Title disableAnswering={disableAnswering}><a href={siteUrl} target='_blank'>{title.english === null ? title.native : title.romaji}</a></Title>
+                <NativeTitle disableAnswering={disableAnswering}><a href={siteUrl} target='_blank' rel='noreferrer'>{title.native === title.english ? null : title.native}</a></NativeTitle>
+                <Title disableAnswering={disableAnswering}><a href={siteUrl} target='_blank' rel='noreferrer'>{title.english === null ? title.native : title.romaji}</a></Title>
                 <QuestionText>{question}</QuestionText>
                 {customChildren !== undefined ? customChildren : null}
             </QuestionTextBox>

@@ -118,6 +118,7 @@ function QuestionPanel() {
 
     // console.log(theme);
     useEffect(() => {
+        // eslint-disable-next-line
         setCurrentQuestion(questionHistory.value[questionNumber]);
     }, [questionNumber, disableAnswering]);
 
@@ -237,7 +238,7 @@ function QuestionPanel() {
                         letterSpacing: '1px'
                     }}>
                         The minimum amount of common users required for the anime to be considered for a question.
-                        eg. If there are 3 users added and common users is set to 2, at minimum the anime must be in atleast 2 of the users' lists.
+                        eg. If there are 3 users added and common users is set to 2, at minimum the anime must be in atleast 2 of the users&apos; lists.
                     </div>}>
                         <HelpOutlineIcon />
                     </Tooltip>
