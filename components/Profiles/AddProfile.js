@@ -37,15 +37,25 @@ function AddProfile(props) {
     }
 
     const OnKeyDown = function (e) {
+        e.preventDefault();
         if (nameField === '') return null;
         if (e.code === 'Enter') {
             CallApi(nameField)
         }
     }
 
+    const onSubmit = function (e) {
+        e.preventDefault();
+        console.log(e);
+        if (nameField === '') return null;
+        if (e.type === 'submit') {
+            CallApi(nameField)
+        }
+    }
+
     return (
         <RootStyle>
-            <form onKeyDown={OnKeyDown}>
+            <form onSubmit={onSubmit}>
                 <TextField
                     // variant='filled'
                     sx={{
@@ -63,7 +73,8 @@ function AddProfile(props) {
                         }
                     }}
                     placeholder={'Enter AniList Name'}
-                    onKeyDown={OnKeyDown}
+                    // onKeyDown={OnKeyDown}
+                    // onSubmit={onSubmit}
                     value={nameField}
                     onChange={(e) => setNameField(e.target.value)}
                 />
