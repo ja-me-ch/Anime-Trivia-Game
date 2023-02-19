@@ -1,13 +1,19 @@
 import { React, useState, useContext } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled } from "@mui/material";
 import { AnimeTriviaGameContext } from '../../contexts/AnimeTriviaGameContext';
 import GetDialogContent from './GetDialogContent';
+
+const ButtonStyle = styled(Button)(({ theme }) => ({
+    // backgroundColor: theme.palette[theme.palette.theme].primary.light,
+    color: theme.palette[theme.palette.theme].primary.contrastText
+}))
+
 
 const Default = function () {
     const { dialog } = useContext(AnimeTriviaGameContext);
 
-    const title = GetDialogContent(dialog.dialogType).title
-    const content = GetDialogContent(dialog.dialogType).content
+    // const title = GetDialogContent(dialog.dialogType).title
+    // const content = GetDialogContent(dialog.dialogType).content
 
     const handleClose = function () {
         dialog.update(false);
@@ -19,19 +25,19 @@ const Default = function () {
             onClose={handleClose}
         >
             <DialogTitle>
-                {title}
+                {GetDialogContent(dialog.dialogType).title}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    {content}
+                    {GetDialogContent(dialog.dialogType).content}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button
+                <ButtonStyle
                     onClick={handleClose}
                 >
                     Close
-                </Button>
+                </ButtonStyle>
             </DialogActions>
         </Dialog>
     )

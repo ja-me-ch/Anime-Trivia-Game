@@ -33,8 +33,6 @@ const CenterContainer = styled('div')(() => ({
 }));
 
 function AnimeTriviaGame() {
-    const [isToggled, setIsToggled] = useState(true);
-    const { dialog } = useContext(AnimeTriviaGameContext)
     return (
         <QuestionAndAnswerProvider>
             <RootStyle>
@@ -55,7 +53,7 @@ function AnimeTriviaGame() {
                 }}>
                     <BottomBar />
                 </div>
-                <Default />
+                {/* <Default /> */}
             </RootStyle>
         </QuestionAndAnswerProvider>
 

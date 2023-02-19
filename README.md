@@ -1,31 +1,33 @@
 # Anime-Trivia-Game
-This is unofficial and not affiliated with AniList in any way.
-This will be a browser game that takes 2 or more urls of users on AniList, find the common entries in their lists and generate random trivia.
+## About
+This is unofficial and not affiliated with [AniList](http://anilist.co/home) in any way.
 
-# Below are Notes from Brainstorming, etc.
+A single page application game that uses the [AniList API](https://github.com/AniList/ApiV2-GraphQL-Docs) to generate random trivia questions.
 
-# Todos
-- track score
+## Technologies
+- [Node.js](https://nodejs.org/)
+- [React.js](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [GraphQL](https://graphql.org/) for consuming the [AniList API](https://github.com/AniList/ApiV2-GraphQL-Docs)
+- [Material UI](https://mui.com/)
 
+## Usage and Details
+- Upon loading the page, you can add a user's profile to the game with the UI in the top right. You can add multiple users. 
+    - If a user with the username provided exists, it will be loaded into the panel.
+- After successfully added a user the user's lists will be available to be checked.
+    - Checking a list will add all of the entries into a pool of potential entries to generate trivia from.
+- Adjusting common users will cause the game to only generate trivia for entries that are shared by that many common users.
+    - Example 1: If there are three profiles added and common users is set to two. The game will only choose from entries that are shared by atleast two profiles.
+    - Example 2: If there are four profiles in total, if the anime Naruto is in the lists of three profiles and common users is set to three. Then it is possible for the game to pick Naruto and generate trivia from it. If common users is set to four but only three profiles have Naruto in their lists, Naruto will not be in the pool media to generate trivia from.
+- Once the pool is populated with entries you may start the game. The game is dynamic and allows for adjustment of common users, adding additional profiles, and uncheck/checking lists.
+- Sometimes due to circumstances the game will not be able to generate a question for the selected media, if this happens it will attempt to generate another question up to a maximum of 20 attempts. After 20 attempts it is recommended to check more lists.
+    - Usually occurs if the pool of available media is too small. Or amount of common users is too strict.
+- You can change the theme, access 'Getting Started', and the 'About' dialog located on the bottom bar. The bottom bar can also be collapsed.
 
-# Notes/Extras
-- if no banner is found find a banner from previous/related anime (prequel, parent, manga)
-- question and answer selection is not yet weighted
-- maybe display type of anime (special, ova, movie, sequel, parent)
-- remove year if its in the title (eg. Hunter x Hunter (2011))
-- consider moving commonUser count selector to Profiles
-- redo layout of Images template
+## Potential Future Updates
+- If no banner is found find a banner from previous/related anime (prequel, parent, manga)
+- Weighted Questions
+- Display type of anime (special, ova, movie, sequel, parent)
+- Remove year if its in the title (eg. Hunter x Hunter (2011))
+- Improve layout
 
-
-# Sample Questions
-Which anime does this character appear in?
-
-(Musician) performed a musical theme for which anime?
-
-Using Images template, which of these characters (4 images) is (name of character)
-Using Images template (1) what is the name of this character?
-
-<!-- When did this (anime/manga) being airing/start publishing? -->
-
-<!-- Choose a voice actor from a character in an anime, display 5 random characters that they voice
-Question: This voice actor voices these characters, who do they voice in this anime -->

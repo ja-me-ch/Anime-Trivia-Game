@@ -25,9 +25,7 @@ export function AnimeTriviaGameProvider(props) {
 
     //Dialog states
     const [showDialog, setShowDialog] = useState(true);
-    const [dialogType, setDialogType] = useState('gettingStarted');
-    const [showAbout, setShowAbout] = useState(false);
-    const [showGettingStarted, setShowGettingStarted] = useState(false);
+    const [dialogType, setDialogType] = useState('about');
 
     const AddProfile = function (data) { //New Add Profile
         const doesProfileExist = profiles.some((e) => (e.id) === data.profile.id);
@@ -191,7 +189,6 @@ export function AnimeTriviaGameProvider(props) {
                     score: getQuestionHistory
                 },
                 selectedTheme: {
-                    // value: selectedTheme,
                     update: setSelectedTheme
                 },
                 dialog: {

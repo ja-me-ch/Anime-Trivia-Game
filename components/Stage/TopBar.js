@@ -20,15 +20,14 @@ const RootStyle = styled('div')(() => ({
     // maxHeight: '100px',
 }));
 
-const OpenDrawerIcon = styled(GroupAddIcon)(({ textColor }) => ({
-    color: textColor,
-    borderColor: textColor,
+const OpenDrawerIcon = styled(GroupAddIcon)(({ theme }) => ({
+    color: theme.palette[theme.palette.theme].primary.contrastText,
     fontSize: '2rem',
     margin: '0.4rem'
 }));
 
-const CloseDrawerIcon = styled(StartIcon)(({ textColor }) => ({
-    color: textColor,
+const CloseDrawerIcon = styled(StartIcon)(({ theme }) => ({
+    color: theme.palette[theme.palette.theme].primary.contrastText,
     fontSize: '2rem',
     margin: '0.4rem'
 }));
@@ -198,8 +197,8 @@ const TopBar = function () {
                     onClick={() => { toggleRightBar() }}
                 >
                     {showRightBar ?
-                        <CloseDrawerIcon textColor={theme.palette[theme.palette.theme].primary.contrastText} />
-                        : <OpenDrawerIcon textColor={theme.palette[theme.palette.theme].primary.contrastText} />
+                        <CloseDrawerIcon />
+                        : <OpenDrawerIcon />
                     }
                 </Button>
                 <Collapse in={showRightBar} collapsedSize={0} orientation={'horizontal'}>
