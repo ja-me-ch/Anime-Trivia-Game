@@ -5,8 +5,7 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const GettingStarted = {
     title: 'Getting Started',
-    content: <div>
-        <ol>
+    content: <>
             <li>
                 <span>
                     Click the <GroupAddIcon /> located in the top right corner.
@@ -34,8 +33,7 @@ const GettingStarted = {
                     Click Start to begin!
                 </span>
             </li>
-        </ol>
-    </div>
+    </>
 }
 
 export default GettingStarted;

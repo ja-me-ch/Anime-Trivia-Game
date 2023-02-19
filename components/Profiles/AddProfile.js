@@ -45,27 +45,32 @@ function AddProfile(props) {
 
     return (
         <RootStyle>
-            <TextField
-                // variant='filled'
-                sx={{
-                    height: '100%',
-                    border: '1px solid white',
-                    borderRadius: '6px',
-                    minWidth: '200px',
-                    width: '200px'
-                }}
-                inputProps={{
-                    sx: {
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                OnKeyDown(e)
+            }}>
+                <TextField
+                    // variant='filled'
+                    sx={{
                         height: '100%',
-                        // marginBottom: '-5px'
-                        // color: 'white'
-                    }
-                }}
-                placeholder={'Enter AniList Name'}
-                onKeyDown={OnKeyDown}
-                value={nameField}
-                onChange={(e) => setNameField(e.target.value)}
-            />
+                        border: '1px solid white',
+                        borderRadius: '6px',
+                        minWidth: '200px',
+                        width: '200px'
+                    }}
+                    inputProps={{
+                        sx: {
+                            height: '100%',
+                            // marginBottom: '-5px'
+                            // color: 'white'
+                        }
+                    }}
+                    placeholder={'Enter AniList Name'}
+                    onKeyDown={OnKeyDown}
+                    value={nameField}
+                    onChange={(e) => setNameField(e.target.value)}
+                />
+            </form>
         </RootStyle>
     )
 }

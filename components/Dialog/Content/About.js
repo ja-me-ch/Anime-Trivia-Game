@@ -10,8 +10,8 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
 
 const About = {
     title: 'About',
-    content: <div>
-        <div>
+    content: <>
+        <p>
             <ButtonStyle variant='contained'>
                 <Link href='https://github.com/ja-me-ch/Anime-Trivia-Game' underline='none' rel='noreferrer' target='_blank'
                 sx={{
@@ -21,14 +21,14 @@ const About = {
                     GitHub Page
                 </Link>
             </ButtonStyle>
-        </div>
-        <div>
+        </p>
+        <p>
             An application that generates random trivia based on a list on&nbsp;
             <Link href='https://anilist.co/home' underline='hover' rel='noreferrer' target='_blank'>
                 AniList
             </Link>.
-        </div>
-    </div>
+        </p>
+    </>
 }
 
 export default About;
