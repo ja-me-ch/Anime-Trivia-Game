@@ -45,10 +45,7 @@ function AddProfile(props) {
 
     return (
         <RootStyle>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                OnKeyDown(e)
-            }}>
+            <form onKeyDown={OnKeyDown}>
                 <TextField
                     // variant='filled'
                     sx={{
