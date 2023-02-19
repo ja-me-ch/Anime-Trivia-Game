@@ -13,7 +13,7 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 function AddProfile(props) {
-    const [nameField, setNameField] = useState('melody');
+    const [nameField, setNameField] = useState('');
     const { profiles } = useContext(AnimeTriviaGameContext);
 
     const CallApi = async function (name) {
