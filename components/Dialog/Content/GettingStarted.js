@@ -10,7 +10,7 @@ const GettingStarted = {
             <li>
                 <span>
                     Click the <GroupAddIcon /> located in the top right corner.
-                    Enter an AniList username (you can enter 'Josh' if you don't know any), press Enter.
+                    Enter an AniList username (you can enter "Josh" if you don't know any), press Enter.
                     You can enter as many usernames as you want.
                 </span>
             </li>

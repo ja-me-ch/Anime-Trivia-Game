@@ -143,14 +143,14 @@ const Images = function ({ props }) {
             </AnswerImageContainer>
 
             if (disableAnswering) {
-                answerImageContainer = <a href={i.siteUrl} style={{ display: 'contents' }} target='_blank' key={`link-${i}-${letters[index - 1]}`}>{answerImageContainer}</a>;
+                answerImageContainer = <a href={i.siteUrl} style={{ display: 'contents' }} target='_blank' rel='noreferrer' key={`link-${i}-${letters[index - 1]}`}>{answerImageContainer}</a>;
             }
             return answerImageContainer;
         }
     });
 
     const CenterImage = showMain ? <CenterImageImg src={images[0].image} /> : null;
-    if (disableAnswering) { CenterImage = <a href={images[0].siteUrl} style={{ display: 'contents' }} target='_blank'>{CenterImage}</a> }
+    if (disableAnswering) { CenterImage = <a href={images[0].siteUrl} style={{ display: 'contents' }} target='_blank' rel='noreferrer'>{CenterImage}</a> }
 
     const getTitle = function () {
         const { native, romaji, english } = title;
@@ -161,16 +161,16 @@ const Images = function ({ props }) {
                 mb: 2
             }}
             >
-                <a href={siteUrl} target='_blank'>{title.native}</a>
+                <a href={siteUrl} target='_blank' rel='noreferrer'>{title.native}</a>
             </NativeTitle>)
         }
         else {
             return (<>
                 <NativeTitle disableAnswering={disableAnswering}>
-                    <a href={siteUrl} target='_blank'>{title.native}</a>
+                    <a href={siteUrl} target='_blank' rel='noreferrer'>{title.native}</a>
                 </NativeTitle>
                 <Title disableAnswering={disableAnswering}>
-                    <a href={siteUrl} target='_blank'>{title.english === null ? title.romaji : title.english}</a>
+                    <a href={siteUrl} target='_blank' rel='noreferrer'>{title.english === null ? title.romaji : title.english}</a>
                 </Title>
             </>)
         }
