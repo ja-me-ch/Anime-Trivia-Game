@@ -20,8 +20,7 @@ const RootStyle = styled('div')((props) => ({
 }));
 
 const CommonUserCount_Select = styled(Select)((props) => ({
-    color: 'white',
-    marginRight: '10px'
+    color: 'white'
     // borderColor: 'white',
     // height: '90%',
 
@@ -114,11 +113,8 @@ function QuestionPanel() {
 
     const [commonUserCount, setCommonUserCount] = useState(1);
 
-    const theme = useTheme();
-
-    // console.log(theme);
     useEffect(() => {
-        // eslint-disable-next-line
+
         setCurrentQuestion(questionHistory.value[questionNumber]);
     }, [questionNumber, disableAnswering]);
 
@@ -233,13 +229,16 @@ function QuestionPanel() {
                     }}>Common Users:
                     </span>
                     {setCommonUserCount_Select()}
-                    <Tooltip title={<div style={{
-                        fontSize: '1rem',
-                        letterSpacing: '1px'
-                    }}>
-                        The minimum amount of common users required for the anime to be considered for a question.
-                        eg. If there are 3 users added and common users is set to 2, at minimum the anime must be in atleast 2 of the users&apos; lists.
-                    </div>}>
+                    <Tooltip sx={{
+                        margin: '0px 10px'
+                    }}
+                        title={<div style={{
+                            fontSize: '1rem',
+                            letterSpacing: '1px'
+                        }}>
+                            The minimum amount of common users required for the anime to be considered for a question.
+                            eg. If there are 3 users added and common users is set to 2, at minimum the anime must be in atleast 2 of the users&apos; lists.
+                        </div>}>
                         <HelpOutlineIcon />
                     </Tooltip>
                 </CommonUserContainer>

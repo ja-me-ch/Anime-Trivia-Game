@@ -14,8 +14,9 @@ A single page application game that uses the [AniList API](https://github.com/An
 ## Usage and Details
 - Upon loading the page, you can add a user's profile to the game with the UI in the top right. You can add multiple users. 
     - If a user with the username provided exists, it will be loaded into the panel.
-- After successfully added a user the user's lists will be available to be checked.
+- After successfully adding a user, the user's lists will be available to be checked.
     - Checking a list will add all of the entries into a pool of potential entries to generate trivia from.
+    - A user/profile can be removed with the 'X' on the top right of their profile card. Removing them will automatically remove media entries from the pool.
 - Adjusting common users will cause the game to only generate trivia for entries that are shared by that many common users.
     - Example 1: If there are three profiles added and common users is set to two. The game will only choose from entries that are shared by atleast two profiles.
     - Example 2: If there are four profiles in total, if the anime Naruto is in the lists of three profiles and common users is set to three. Then it is possible for the game to pick Naruto and generate trivia from it. If common users is set to four but only three profiles have Naruto in their lists, Naruto will not be in the pool media to generate trivia from.
