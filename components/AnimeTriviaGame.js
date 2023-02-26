@@ -36,19 +36,6 @@ const CenterContainer = styled("div")(() => ({
 function AnimeTriviaGame() {
     return (
         <QuestionAndAnswerProvider>
-            <Head>
-                <title>Anime Trivia Game</title>
-                <meta property="og:type" content="website" />
-                <meta
-                    property="og:url"
-                    content="https://ja-me-ch.github.io/Anime-Trivia-Game/"
-                />
-                <meta property="og:title" content="Anime Trivia Game" />
-                <meta
-                    property="og:description"
-                    content="An Anime Trivia Game that generates trivia from your profile on AniList.co"
-                />
-            </Head>
             <RootStyle>
                 <TopBar />
 
