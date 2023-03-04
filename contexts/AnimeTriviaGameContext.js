@@ -103,27 +103,25 @@ export function AnimeTriviaGameProvider(props) {
         setProfiles(profiles.filter((e) => e.id !== profileId));
     }
 
-    const GenerateNewQuestion = function (commonUserCount) {
-        //create a question data state that will hold questions and weights
-        //pick a random entry from commonList
-        //check for preliminary things: eg. if the anime has more than 4 characters
-        //if currently airing anime, eliminate N/a questions like end date/episode count
-        // console.log('generating new question');
+    // const GenerateNewQuestion = function (commonUserCount) {
+    //     //create a question data state that will hold questions and weights
+    //     //pick a random entry from commonList
+    //     //check for preliminary things: eg. if the anime has more than 4 characters
+    //     //if currently airing anime, eliminate N/a questions like end date/episode count
+    //     // console.log('generating new question');
 
-        const list = commonList.filter((e) => e.users.length >= 0);
+    //     const list = commonList.filter((e) => e.users.length >= 0);
 
-        const MakeCall = async function () {
-            return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
-        }
-        MakeCall()
-            .then((res) => {
-                const newQuestionHistory = questionHistory.map((e) => e)
-                newQuestionHistory.push(res);
-                setQuestionHistory(newQuestionHistory);
-            })
-
-
-    }
+    //     const MakeCall = async function () {
+    //         return await AnimeSeasonAirDate(getRandomCommonMediaId(list));
+    //     }
+    //     MakeCall()
+    //         .then((res) => {
+    //             const newQuestionHistory = questionHistory.map((e) => e)
+    //             newQuestionHistory.push(res);
+    //             setQuestionHistory(newQuestionHistory);
+    //         })
+    // }
 
     const toggleRightBar = function () {
         setShowRightBar((s) => (!s))
@@ -197,7 +195,6 @@ export function AnimeTriviaGameProvider(props) {
                     dialogType: dialogType,
                     toggle: updateDialog,
                 },
-                GenerateNewQuestion,
                 toggleRightBar,
                 toggleLeftBar,
                 showRightBar,
