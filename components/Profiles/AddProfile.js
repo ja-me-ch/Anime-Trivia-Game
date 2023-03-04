@@ -46,7 +46,7 @@ function AddProfile(props) {
 
     const onSubmit = function (e) {
         e.preventDefault();
-        console.log(e);
+        // console.log(e);
         if (nameField === '') return null;
         if (e.type === 'submit') {
             CallApi(nameField)

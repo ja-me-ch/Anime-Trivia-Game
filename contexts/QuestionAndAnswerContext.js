@@ -24,7 +24,7 @@ export function QuestionAndAnswerProvider(props) {
         const MakeCall = async function () {
             for (let i = 0; i <= 20; i++) {
                 const pendingQuestion = await getRandomQuestion(list);
-                console.log(pendingQuestion);
+                // console.log(pendingQuestion);
                 if (pendingQuestion !== undefined) return pendingQuestion;
             }
             // return await getRandomQuestion(list);
