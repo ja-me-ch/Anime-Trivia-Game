@@ -1,6 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { useContext } from "react";
-import { AnimeTriviaGameContext } from "../contexts/AnimeTriviaGameContext";
 
 const theme = createTheme({
     palette: {
